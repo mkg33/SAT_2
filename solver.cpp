@@ -4,15 +4,13 @@
 #include <utility>
 #include <iostream>
 #include <sstream>
-
 #include "solver.hpp"
 
 using uint = unsigned int;
 
-//TODO: will add exception handling later.
-
 /**
  * Initializes clauses from input file.
+ * Throws std::invalid_argument() exception if unsuccessful.
  */
 Solver::Solver(const std::string &dimacs)
 {
@@ -25,10 +23,17 @@ Solver::Solver(const std::string &dimacs)
     buf >> std::skipws;
     for (int i = 0; i < 4; i++)
     {
-        buf >> c;
+        if(!(buf >> c))
+            throw std::invalid_argument("Cannot read string.");
     }
-    buf >> this->numberVariables;
-    buf >> this->numberClauses;
+    if (!(buf >> this->numberVariables))
+        throw std::invalid_argument("Cannot read the number of variables.");
+    if (!(buf >> this->numberClauses))
+        throw std::invalid_argument("Cannot read the number of clauses.");
+    if (this->numberVariables < 0)
+        throw std::invalid_argument("The number of variables cannot be negative.");
+    if (this->numberClauses < 0)
+        throw std::invalid_argument("The number of clauses cannot be negative.");
 
     for (int i = 0; i < this->numberClauses; i++)
     {
@@ -40,12 +45,28 @@ Solver::Solver(const std::string &dimacs)
                 variables.clear();
                 break;
             }
+            else if (n > this->numberVariables)
+            {
+                throw std::invalid_argument("Invalid number of variables.");
+            }
             else
             {
                 variables.insert(n);
             }
         }
     }
+    if ((int)clauses.size() != this->numberClauses)
+        throw std::invalid_argument("Cannot read clauses.");
+}
+
+/**
+ * getNumberClauses()
+ * Returns the number of clauses.
+ */
+int
+Solver::getNumberClauses()
+{
+    return this->numberClauses;
 }
 
 /**
@@ -54,15 +75,16 @@ Solver::Solver(const std::string &dimacs)
  */
 std::ostream& operator<<(std::ostream& out, const Solver& solver)
 {
-    out << "number of clauses: " << solver.numberClauses << std::endl;
+    out << "\nnumber of clauses: " << solver.numberClauses << std::endl;
     out << "number of variables: " << solver.numberVariables << std::endl;
 
-    for (std::set<int> const &variables : solver.clauses) {
-        for(const int i : variables) {
+    for (std::set<int> const &variables : solver.clauses)
+    {
+        for(const int i : variables)
+        {
             std::cout << i << ' ';
         }
         std::cout << '\n';
     }
-
     return out;
 }

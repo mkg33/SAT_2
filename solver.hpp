@@ -20,15 +20,21 @@ public:
 
     /**
      * Initializes clauses from input file.
+     * Throws std::invalid_argument() exception if unsuccessful.
      */
     Solver(const std::string &dimacs);
+
+    /**
+     * getNumberClauses()
+     * Returns the number of clauses.
+     */
+    int getNumberClauses();
 
     /**
      * operator<<(out, solver)
      * Print the processed DIMACS file.
      */
     friend std::ostream& operator<<(std::ostream&, const Solver&);
-
 };
 
 #endif
