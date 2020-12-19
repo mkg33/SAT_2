@@ -38,6 +38,7 @@ int main(int argc, char **argv)
         }
         else
         {
+            solver->solve();
             std::cout << *solver << std::endl; //print processed input file
         }
     }

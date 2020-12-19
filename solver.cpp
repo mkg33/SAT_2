@@ -9,6 +9,7 @@
 using uint = unsigned int;
 
 /**
+ * Solver(str):
  * Initializes clauses from input file.
  * Throws std::invalid_argument() exception if unsuccessful.
  */
@@ -60,7 +61,7 @@ Solver::Solver(const std::string &dimacs)
 }
 
 /**
- * getNumberClauses()
+ * getNumberClauses():
  * Returns the number of clauses.
  */
 int
@@ -70,21 +71,62 @@ Solver::getNumberClauses()
 }
 
 /**
- * operator<<(out, solver)
- * Print the processed DIMACS file.
+ * unitClauses():
+ * Identifies unit clauses
+ * and assigns 'true' to the respective variable(s).
+ */
+void
+Solver::unitClauses()
+{
+    for (std::set<int> const &clause : this->clauses)
+    {
+        if (clause.size() == 1)
+        {
+            for (const int i : clause)
+            {
+                std::pair<int, int> variable = std::make_pair(i, true);
+                this->assignments.push_back(variable);
+            }
+        }
+    }
+}
+
+/**
+ * solve():
+ * Solve the SAT problem.
+ * Returns true if satisfiable, false otherwise.
+ */
+bool
+Solver::solve()
+{
+    unitClauses();
+    return false; //temporary ret
+}
+
+/**
+ * operator<<(out, solver):
+ * Print the output.
+ * For now: print the processed DIMACS file.
  */
 std::ostream& operator<<(std::ostream& out, const Solver& solver)
 {
     out << "\nnumber of clauses: " << solver.numberClauses << std::endl;
     out << "number of variables: " << solver.numberVariables << std::endl;
 
-    for (std::set<int> const &variables : solver.clauses)
+    for (std::set<int> const &clause : solver.clauses)
     {
-        for(const int i : variables)
+        for(const int i : clause)
         {
-            std::cout << i << ' ';
+            out << i << ' ';
         }
-        std::cout << '\n';
+        out << '\n';
+    }
+    out << "\nResult: " << std::endl; //SAT or UNSAT
+    out << "\nAssignment: " << std::endl; //variable assignment
+
+    for (const auto &assignment : solver.assignments)
+    {
+        out << assignment.first << ": " << assignment.second << std::endl;
     }
     return out;
 }

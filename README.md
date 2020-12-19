@@ -12,7 +12,11 @@ Deadline: 21.01.2021
 - read DIMACS input :white_check_mark:
 - store clauses as `<vector<set>>` :white_check_mark:
 - check input validity :white_check_mark:
+<<<<<<< Updated upstream
 - identify unit clauses 
+=======
+- identify unit clauses :white_check_mark:
+>>>>>>> Stashed changes
 - prepare a basic strategy [this part will be split into finer categories]
 - eliminate pure literals
 - format output
