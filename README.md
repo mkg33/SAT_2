@@ -15,4 +15,4 @@ Deadline: 21.01.2021
 - identify unit clauses :white_check_mark:
 - prepare a basic strategy [this part will be split into finer categories]
 - eliminate pure literals
-- format output
+- format output :white_check_mark:
