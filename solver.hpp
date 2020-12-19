@@ -15,7 +15,7 @@ private:
     int numberClauses;
     int numberVariables;
     std::vector<std::set<int> > clauses; //the inner sets are single clauses
-    std::vector<std::pair<int, bool> > assignments; //first element is a variable number, second element is the assignment
+    std::vector<std::pair<int, int> > assignments; //first element is a variable number, second element is the assignment
 
 public:
 

@@ -15,7 +15,7 @@ using uint = unsigned int;
  */
 Solver::Solver(const std::string &dimacs)
 {
-    std::set<int> variables;
+    std::set<int> clause;
     char c;
     int n;
     std::stringstream buf(dimacs);
@@ -42,8 +42,8 @@ Solver::Solver(const std::string &dimacs)
         {
             if (n == 0)
             {
-                this->clauses.push_back(variables);
-                variables.clear();
+                this->clauses.push_back(clause);
+                clause.clear();
                 break;
             }
             else if (n > this->numberVariables)
@@ -52,7 +52,7 @@ Solver::Solver(const std::string &dimacs)
             }
             else
             {
-                variables.insert(n);
+                clause.insert(n);
             }
         }
     }
@@ -84,11 +84,22 @@ Solver::unitClauses()
         {
             for (const int i : clause)
             {
-                std::pair<int, int> variable = std::make_pair(i, true);
+                std::pair<int, int> variable = std::make_pair(i, 1);
                 this->assignments.push_back(variable);
             }
         }
     }
+}
+
+/**
+ * sortAssignment(pair1, pair2)
+ * Helper for sorting the assignment vector by the first element.
+ */
+bool
+sortAssignment(const std::pair<int, int> &assignment1,
+    const std::pair<int, int> &assignment2)
+{
+    return (assignment1.first < assignment2.first);
 }
 
 /**
@@ -100,6 +111,7 @@ bool
 Solver::solve()
 {
     unitClauses();
+    std::sort(this->assignments.begin(), this->assignments.end(), sortAssignment);
     return false; //temporary ret
 }
 
