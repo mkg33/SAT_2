@@ -13,6 +13,8 @@ Deadline: 21.01.2021
 - store clauses as `<vector<set>>` :white_check_mark:
 - check input validity :white_check_mark:
 - identify unit clauses :white_check_mark:
+- remove all clauses containing variables from the unit clauses
 - prepare a basic strategy [this part will be split into finer categories]
+- identify pure literals
 - eliminate pure literals
 - format output :white_check_mark:
