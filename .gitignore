@@ -10,6 +10,5 @@
 # Executables
 *.out
 
-# Tents accessories
-*.txt
-*.py
+# CNF files
+*.cnf

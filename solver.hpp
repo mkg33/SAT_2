@@ -1,21 +1,20 @@
 #ifndef __SOLVER_H__
 #define __SOLVER_H__
 
+#include <iostream>
 #include <set>
-#include <vector>
 #include <utility>
-#include <string>
-
-using uint = unsigned int;
+#include <vector>
 
 class Solver {
 
 private:
 
-    int numberClauses;
-    int numberVariables;
-    std::vector<std::set<int> > clauses; //the inner sets are single clauses
-    std::vector<std::pair<int, int> > assignments; //first element is a variable number, second element is the assignment
+    std::vector<std::set<int> >::size_type numberClauses;
+    std::set<int>::size_type numberVariables;
+
+    std::vector<std::set<int> > clauses;
+    std::vector<std::pair<int, bool>> assignments;
 
 public:
 
@@ -24,25 +23,25 @@ public:
      * Initializes clauses from input file.
      * Throws std::invalid_argument() exception if unsuccessful.
      */
-    Solver(const std::string &dimacs);
+    //Solver(const std::string &dimacs);
+    Solver(std::istream &);
 
     /**
      * getNumberClauses():
      * Returns the number of clauses.
      */
-    int getNumberClauses();
+    std::vector<std::set<int> >::size_type getNumberClauses();
 
     /**
      * unitClauses():
      * Identifies unit clauses
      * and assigns 'true' to the respective variable(s).
      */
-    void unitClauses();
+    void satisfyUnitClauses();
 
     /**
      * solve():
-     * Solve the SAT problem.
-     * Returns true if satisfiable, false otherwise.
+     * Solve the SAT problem. Returns true if satisfiable, false otherwise.
      */
     bool solve();
 
@@ -51,7 +50,7 @@ public:
      * Print the output.
      * For now: print the processed DIMACS file.
      */
-    friend std::ostream& operator<<(std::ostream&, const Solver&);
+    friend std::ostream & operator<<(std::ostream &, const Solver &);
 };
 
 #endif
