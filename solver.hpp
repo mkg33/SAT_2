@@ -16,6 +16,13 @@ private:
     std::vector<std::set<int> > clauses;
     std::vector<std::pair<int, bool>> assignments;
 
+    /**
+     * unitClauses():
+     * Identifies unit clauses
+     * and assigns 'true' to the respective variable(s).
+     */
+    void satisfyUnitClauses();
+
 public:
 
     /**
@@ -31,13 +38,6 @@ public:
      * Returns the number of clauses.
      */
     std::vector<std::set<int> >::size_type getNumberClauses();
-
-    /**
-     * unitClauses():
-     * Identifies unit clauses
-     * and assigns 'true' to the respective variable(s).
-     */
-    void satisfyUnitClauses();
 
     /**
      * solve():

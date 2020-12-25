@@ -8,6 +8,19 @@
 #include "solver.hpp"
 
 /**
+ * satisfyUnitClauses():
+ * Set variable of unit clause to true.
+ */
+void
+Solver::satisfyUnitClauses()
+{
+    for (const auto & clause : clauses) {
+        if (clause.size() == 1)
+            assignments.emplace_back(*clause.begin(), true);
+    }
+}
+
+/**
  * Solver(stream):
  * Read DIMACS CNF. Throws std::invalid_argument() if unsuccessful.
  */
@@ -62,19 +75,6 @@ std::vector<std::set<int> >::size_type
 Solver::getNumberClauses()
 {
     return numberClauses;
-}
-
-/**
- * satisfyUnitClauses():
- * Set variable of unit clause to true.
- */
-void
-Solver::satisfyUnitClauses()
-{
-    for (const auto & clause : clauses) {
-        if (clause.size() == 1)
-            assignments.emplace_back(*clause.begin(), true);
-    }
 }
 
 /**
