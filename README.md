@@ -6,6 +6,12 @@ Start: 10.12.2020
 
 Deadline: 21.01.2021
 
+*Update 25.12.2020*:
+In the previous project we used large /* */ comments above class methods.
+On second thought, I think it might be overkill. So I suggest we just use
+a single line (or two lines for complicated methods) of normal // comments
+to describe the method.
+
 **TODO**:
 
 - open DIMACS file :white_check_mark:
