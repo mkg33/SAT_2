@@ -28,9 +28,9 @@ Solver::Solver(std::istream & stream)
 
     // Read number of variables and number of clauses.
     if (!(stream >> numberVariables))
-        throw std::invalid_argument("#VAR: Error reading DIMACS.");
+        throw std::invalid_argument("Error reading DIMACS.");
     if (!(stream >> numberClauses))
-        throw std::invalid_argument("#CLAUSES: Error reading DIMACS.");
+        throw std::invalid_argument("Error reading DIMACS.");
 
     // Reserve space for the clauses.
     clauses.reserve(numberClauses);
@@ -43,7 +43,7 @@ Solver::Solver(std::istream & stream)
     for (i = 0; i < numberClauses; ++i) {
         while (stream >> var) {
             if (stream.fail())
-                throw std::invalid_argument("FAIL: Error reading DIMACS.");
+                throw std::invalid_argument("Error reading DIMACS.");
             if (var == 0) {
                 clauses.push_back(clause);
                 clause.clear();
