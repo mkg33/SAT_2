@@ -1,0 +1,15 @@
+# VSCode workspace
+*.code-workspace
+
+# Compiled Object files
+*.o
+
+# Compiled Static libraries
+*.a
+
+# Executables
+*.out
+
+# Tents accessories
+*.txt
+*.py
