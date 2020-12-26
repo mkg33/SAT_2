@@ -24,42 +24,37 @@ private:
 
     // Clauses and assignments.
     std::vector<std::set<int> > clauses;
-    std::vector<std::pair<int, bool>> assignments;
+    std::vector<bool> assignments;
 
-    /**
-     * unitClauses():
-     * Identifies unit clauses
-     * and assigns 'true' to the respective variable(s).
-     */
-    void satisfyUnitClauses();
+    // Decision trail: Each pair denotes the literal that is set to true and
+    // whether it is a decision literal or not.
+    std::vector<std::pair<int, bool> > trail;
+
+    // Sets the value of a literal.
+    void setLiteral(int, bool, bool);
+
+    // Select a literal. For now we choose the first literal that is not already
+    // in the trail.
+    int selectLiteral() const;
+
+    // Find the last decision literal.
+    std::vector<std::pair<int, bool> >::iterator findLastDecision();
+
+    // Set the literals of unit clauses to true.
+    void eliminateUnitClauses();
 
 public:
 
-    /**
-     * Solver(str):
-     * Initializes clauses from input file.
-     * Throws std::invalid_argument() exception if unsuccessful.
-     */
-    //Solver(const std::string &dimacs);
+    // Read a DIMACS CNF SAT problem. Throws invalid_argument() if unsuccessful.
     Solver(std::istream &);
 
-    /**
-     * getNumberClauses():
-     * Returns the number of clauses.
-     */
-    std::vector<std::set<int> >::size_type getNumberClauses();
+    // Return the number of clauses.
+    std::vector<std::set<int> >::size_type getNumberClauses() const;
 
-    /**
-     * solve():
-     * Solve the SAT problem. Returns true if satisfiable, false otherwise.
-     */
+    // Solve the SAT problem.
     bool solve();
 
-    /**
-     * operator<<(out, solver):
-     * Print the output.
-     * For now: print the processed DIMACS file.
-     */
+    // Print the SAT problem.
     friend std::ostream & operator<<(std::ostream &, const Solver &);
 };
 

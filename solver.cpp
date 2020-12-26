@@ -7,25 +7,46 @@
 
 #include "solver.hpp"
 
-/**
- * satisfyUnitClauses():
- * Set variable of unit clause to true.
- */
-void
-Solver::satisfyUnitClauses()
-{
+// Set the value of a literal.
+void Solver::setLiteral(int literal, bool assignment, bool decision) {
+    assignments[literal - 1] = assignment;
+    trail.emplace_back(literal, decision);
+}
+
+// Set the literals of unit clauses to true.
+void Solver::eliminateUnitClauses() {
     for (const auto & clause : clauses) {
         if (clause.size() == 1)
-            assignments.emplace_back(*clause.begin(), true);
+            setLiteral(*clause.begin(), true, false);
     }
 }
 
-/**
- * Solver(stream):
- * Read DIMACS CNF. Throws std::invalid_argument() if unsuccessful.
- */
-Solver::Solver(std::istream & stream) : state(Solver::State::UNDEF)
-{
+// Select a literal. For now we choose the first literal that is not already
+// in the trail.
+int Solver::selectLiteral() const {
+    for (const auto & clause : clauses) {
+        for (int literal : clause) {
+            if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
+                return lit.first == literal;
+            }) == trail.end())
+                return literal;
+        }
+    }
+    return 0;
+}
+
+// Find the last decision literal and return an iterator to that literal.
+std::vector<std::pair<int, bool> >::iterator Solver::findLastDecision() {
+    std::vector<std::pair<int, bool> >::reverse_iterator it;
+    for (it = trail.rbegin(); it != trail.rend(); ++it) {
+        if (it->second == true)
+            return --it.base();
+    }
+    return trail.end();
+}
+
+// Read a DIMACS CNF SAT problem. Throws invalid_argument() if unsuccessful.
+Solver::Solver(std::istream & stream) : state(Solver::State::UNDEF) {
     // Skip comments and 'p cnf' appearing at the top of the file.
     char c;
     while (stream >> c) {
@@ -47,6 +68,8 @@ Solver::Solver(std::istream & stream) : state(Solver::State::UNDEF)
 
     // Reserve space for the clauses.
     clauses.reserve(numberClauses);
+    // Reserve space for the assignments.
+    assignments.assign(numberVariables, false);
 
     // Read clauses.
     int var;
@@ -67,50 +90,25 @@ Solver::Solver(std::istream & stream) : state(Solver::State::UNDEF)
     }
 }
 
-/**
- * getNumberClauses():
- * Returns the number of clauses.
- */
-std::vector<std::set<int> >::size_type
-Solver::getNumberClauses()
-{
+// Return the number of clauses.
+std::vector<std::set<int> >::size_type Solver::getNumberClauses() const {
     return numberClauses;
 }
 
-/**
- * solve():
- * Solve the SAT problem. Returns true if satisfiable, false otherwise.
- */
-bool
-Solver::solve()
-{
-    satisfyUnitClauses();
-    std::sort(this->assignments.begin(), this->assignments.end(), [](const auto & p1, const auto & p2) {
-        return p1.first < p2.first;
-    });
-
+// Solve the SAT problem.
+bool Solver::solve() {
+    eliminateUnitClauses();
     return state == State::SAT ? true : false;
 }
 
-/**
- * operator<<(out, solver):
- * Print the output.
- * For now: print the processed DIMACS file.
- */
-std::ostream & operator<<(std::ostream & out, const Solver & solver)
-{
+// Print the SAT problem.
+std::ostream & operator<<(std::ostream & out, const Solver & solver) {
     out << "p cnf " << solver.numberVariables << ' ' << solver.numberClauses << '\n';
     for (const auto & clause : solver.clauses) {
         for (auto var : clause)
             out << var << ' ';
         out << '\n';
     }
-
-    out << "Result: " << '\n';     // SAT or UNSAT
-    out << "Assignment: " << '\n'; // Variable assignment
-
-    for (const auto & assignment : solver.assignments)
-        out << assignment.first << ": " << assignment.second << '\n';
 
     return out;
 }
