@@ -24,7 +24,7 @@ Solver::satisfyUnitClauses()
  * Solver(stream):
  * Read DIMACS CNF. Throws std::invalid_argument() if unsuccessful.
  */
-Solver::Solver(std::istream & stream)
+Solver::Solver(std::istream & stream) : state(Solver::State::UNDEF)
 {
     // Skip comments and 'p cnf' appearing at the top of the file.
     char c;
@@ -89,7 +89,7 @@ Solver::solve()
         return p1.first < p2.first;
     });
 
-    return false; // Temporary return
+    return state == State::SAT ? true : false;
 }
 
 /**

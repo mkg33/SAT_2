@@ -10,9 +10,19 @@ class Solver {
 
 private:
 
+    enum class State {
+        UNDEF,
+        SAT,
+        UNSAT
+    };
+
+    State state;
+
+    // Number of clauses and variables.
     std::vector<std::set<int> >::size_type numberClauses;
     std::set<int>::size_type numberVariables;
 
+    // Clauses and assignments.
     std::vector<std::set<int> > clauses;
     std::vector<std::pair<int, bool>> assignments;
 
