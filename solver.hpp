@@ -15,30 +15,28 @@ private:
         SAT,
         UNSAT
     };
-
     State state;
 
-    // Number of clauses and variables.
-    std::vector<std::set<int> >::size_type numberClauses;
-    std::set<int>::size_type numberVariables;
-
-    // Clauses and assignments.
     std::vector<std::set<int> > clauses;
-    std::vector<bool> assignments;
 
     // Decision trail: Each pair denotes the literal that is set to true and
     // whether it is a decision literal or not.
     std::vector<std::pair<int, bool> > trail;
 
     // Sets the value of a literal.
-    void setLiteral(int, bool, bool);
+    void setLiteral(int, bool);
 
-    // Select a literal. For now we choose the first literal that is not already
-    // in the trail.
+    // Select the first literal that is not already in the trail.
     int selectLiteral() const;
 
-    // Find the last decision literal.
+    // Set the value of a decision literal.
+    void decideLiteral();
+
+    // Find the last decision literal and return an iterator to it.
     std::vector<std::pair<int, bool> >::iterator findLastDecision();
+
+    // Flip the value of the last decision literal and remove any following literals.
+    void backtrack();
 
     // Set the literals of unit clauses to true.
     void eliminateUnitClauses();
@@ -49,7 +47,7 @@ public:
     Solver(std::istream &);
 
     // Return the number of clauses.
-    std::vector<std::set<int> >::size_type getNumberClauses() const;
+    std::size_t getNumberClauses() const;
 
     // Solve the SAT problem.
     bool solve();

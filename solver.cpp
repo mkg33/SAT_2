@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cstddef>
 #include <iostream>
 #include <limits>
 #include <set>
@@ -8,26 +9,16 @@
 #include "solver.hpp"
 
 // Set the value of a literal.
-void Solver::setLiteral(int literal, bool assignment, bool decision) {
-    assignments[literal - 1] = assignment;
+void Solver::setLiteral(int literal, bool decision) {
     trail.emplace_back(literal, decision);
 }
 
-// Set the literals of unit clauses to true.
-void Solver::eliminateUnitClauses() {
-    for (const auto & clause : clauses) {
-        if (clause.size() == 1)
-            setLiteral(*clause.begin(), true, false);
-    }
-}
-
-// Select a literal. For now we choose the first literal that is not already
-// in the trail.
+// Select the first literal that is not already in the trail.
 int Solver::selectLiteral() const {
     for (const auto & clause : clauses) {
         for (int literal : clause) {
             if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
-                return lit.first == literal;
+                return lit.first == literal || lit.first == -literal;
             }) == trail.end())
                 return literal;
         }
@@ -35,18 +26,48 @@ int Solver::selectLiteral() const {
     return 0;
 }
 
-// Find the last decision literal and return an iterator to that literal.
+// Set the value of a decision literal.
+void Solver::decideLiteral() {
+    const int literal = selectLiteral();
+    if (literal == 0)
+        return;
+    setLiteral(literal, true);
+}
+
+// Find the last decision literal and return an iterator to it.
 std::vector<std::pair<int, bool> >::iterator Solver::findLastDecision() {
     std::vector<std::pair<int, bool> >::reverse_iterator it;
     for (it = trail.rbegin(); it != trail.rend(); ++it) {
-        if (it->second == true)
+        if (it->second)
             return --it.base();
     }
     return trail.end();
 }
 
+// Flip the value of the last decision literal and remove any following literals.
+void Solver::backtrack() {
+    const auto it = findLastDecision();
+    if (it == trail.end())
+        return;
+
+    const int literal = it->first;
+
+    // Remove the decision literal and all following literals.
+    trail.erase(it, trail.end());
+    // Add the flipped literal as a non-decision literal back to the trail.
+    setLiteral(-literal, false);
+}
+
+// Set the literals of unit clauses to true.
+void Solver::eliminateUnitClauses() {
+    for (const auto & clause : clauses) {
+        if (clause.size() == 1)
+            setLiteral(*clause.begin(), false);
+    }
+}
+
 // Read a DIMACS CNF SAT problem. Throws invalid_argument() if unsuccessful.
-Solver::Solver(std::istream & stream) : state(Solver::State::UNDEF) {
+Solver::Solver(std::istream & stream) {
     // Skip comments and 'p cnf' appearing at the top of the file.
     char c;
     while (stream >> c) {
@@ -61,6 +82,8 @@ Solver::Solver(std::istream & stream) : state(Solver::State::UNDEF) {
     stream >> std::skipws;
 
     // Read number of variables and number of clauses.
+    int numberVariables;
+    std::size_t numberClauses;
     if (!(stream >> numberVariables))
         throw std::invalid_argument("Error reading DIMACS.");
     if (!(stream >> numberClauses))
@@ -68,15 +91,11 @@ Solver::Solver(std::istream & stream) : state(Solver::State::UNDEF) {
 
     // Reserve space for the clauses.
     clauses.reserve(numberClauses);
-    // Reserve space for the assignments.
-    assignments.assign(numberVariables, false);
 
     // Read clauses.
     int var;
     std::set<int> clause;
-    std::vector<std::set<int> >::size_type i;
-
-    for (i = 0; i < numberClauses; ++i) {
+    for (std::size_t i = 0; i < numberClauses; ++i) {
         while (stream >> var) {
             if (stream.fail())
                 throw std::invalid_argument("Error reading DIMACS.");
@@ -91,24 +110,29 @@ Solver::Solver(std::istream & stream) : state(Solver::State::UNDEF) {
 }
 
 // Return the number of clauses.
-std::vector<std::set<int> >::size_type Solver::getNumberClauses() const {
-    return numberClauses;
+std::size_t Solver::getNumberClauses() const {
+    return clauses.size();
 }
 
 // Solve the SAT problem.
 bool Solver::solve() {
-    eliminateUnitClauses();
+    state = Solver::State::UNDEF;
+    //eliminateUnitClauses();
     return state == State::SAT ? true : false;
 }
 
 // Print the SAT problem.
 std::ostream & operator<<(std::ostream & out, const Solver & solver) {
-    out << "p cnf " << solver.numberVariables << ' ' << solver.numberClauses << '\n';
-    for (const auto & clause : solver.clauses) {
-        for (auto var : clause)
-            out << var << ' ';
-        out << '\n';
+    switch (solver.state) {
+    case Solver::State::UNDEF:
+        out << "UNDEF\n";
+        break;
+    case Solver::State::SAT:
+        out << "SAT\n";
+        break;
+    case Solver::State::UNSAT:
+        out << "UNSAT\n";
+        break;
     }
-
     return out;
 }

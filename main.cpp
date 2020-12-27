@@ -13,13 +13,8 @@ int main(int argc, char **argv)
     std::ifstream stream(argv[1]);
     Solver solver(stream);
 
-    const bool sat = solver.solve();
+    solver.solve();
     std::cout << solver;
-
-    if (sat)
-        std::cout << "SAT\n";
-    else
-        std::cout << "UNSAT\n";
 
     if (std::cout.bad()) {
         std::cerr << "Error while printing.\n";
