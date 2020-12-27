@@ -14,6 +14,7 @@ void Solver::setLiteral(int literal, bool decision) {
 }
 
 // Select the first literal that is not already in the trail.
+// TODO: Needs better implementation, see reference in paper.
 int Solver::selectLiteral() const {
     for (const auto & clause : clauses) {
         for (int literal : clause) {
@@ -56,6 +57,26 @@ void Solver::backtrack() {
     trail.erase(it, trail.end());
     // Add the flipped literal as a non-decision literal back to the trail.
     setLiteral(-literal, false);
+}
+
+// Check if the trail falsifies the clauses.
+// TODO: Needs faster implementation, see 4.8 of paper.
+bool Solver::checkContradiction() {
+    for (const auto & clause : clauses) {
+        bool contradiction = true;
+        for (int literal : clause) {
+            // If we find the literal in the trail, then the clause is satisfied.
+            if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
+                return lit.first == literal;
+            }) != trail.end()) {
+                contradiction = false;
+                break;
+            }
+        }
+        if (contradiction)
+            return true;
+    }
+    return false;
 }
 
 // Set the literals of unit clauses to true.
@@ -117,6 +138,15 @@ std::size_t Solver::getNumberClauses() const {
 // Solve the SAT problem.
 bool Solver::solve() {
     state = Solver::State::UNDEF;
+
+    while (state == Solver::State::UNDEF) {
+        if (checkContradiction) {
+
+        } else {
+
+        }
+    }
+
     //eliminateUnitClauses();
     return state == State::SAT ? true : false;
 }

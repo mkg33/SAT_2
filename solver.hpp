@@ -1,6 +1,7 @@
 #ifndef __SOLVER_H__
 #define __SOLVER_H__
 
+#include <cstddef>
 #include <iostream>
 #include <set>
 #include <utility>
@@ -34,6 +35,9 @@ private:
 
     // Find the last decision literal and return an iterator to it.
     std::vector<std::pair<int, bool> >::iterator findLastDecision();
+
+    // Check if the trail falsifies the clauses.
+    bool checkContradiction();
 
     // Flip the value of the last decision literal and remove any following literals.
     void backtrack();
