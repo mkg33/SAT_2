@@ -52,18 +52,18 @@ std::vector<std::pair<int, bool> >::iterator Solver::findLastDecision() {
 
 // Check if the trail satisfies the negated formula.
 // TODO: Needs a better/faster implementation, see chapter 4.8 of the paper.
-bool Solver::checkContradiction() {
+bool Solver::checkConflict() {
     for (const auto & clause : clauses) {
-        bool contradiction = true;
+        bool conflict = true;
         for (int literal : clause) {
             if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
                 return lit.first == -literal;
             }) == trail.end()) {
-                contradiction = false;
+                conflict = false;
                 break;
             }
         }
-        if (contradiction)
+        if (conflict)
             return true;
     }
     return false;
@@ -131,7 +131,7 @@ void Solver::unitPropagate() {
                 }
             }
         }
-    } while (!checkContradiction() && !finished);
+    } while (!checkConflict() && !finished);
 }
 
 // Read a DIMACS CNF SAT problem. Throws invalid_argument() if unsuccessful.
@@ -181,11 +181,15 @@ Solver::Solver(std::istream & stream) : state(Solver::State::UNDEF), numberVaria
 bool Solver::solve() {
     while (state == Solver::State::UNDEF) {
         unitPropagate();
-        if (checkContradiction()) {
+        if (checkConflict()) {
             if (numberDecisions == 0)
                 state = Solver::State::UNSAT;
-            else
+            else {
+                #ifdef DEBUG
+                std::cout << "backtrack()";
+                #endif
                 backtrack();
+            }
         } else {
             if (trail.size() == numberVariables)
                 state = Solver::State::SAT;

@@ -43,7 +43,7 @@ private:
 
     // Check if the trail satisfies the negated formula.
     // TODO: Needs a better/faster implementation, see chapter 4.8 of the paper.
-    bool checkContradiction();
+    bool checkConflict();
 
     // Flip the value of the last decision literal and remove any following literals from the trail.
     void backtrack();
