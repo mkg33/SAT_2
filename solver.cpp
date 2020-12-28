@@ -11,6 +11,9 @@
 // Set the value of a literal.
 void Solver::setLiteral(int literal, bool decision) {
     trail.emplace_back(literal, decision);
+    #ifdef DEBUG
+    std::cout << "setLiteral(l = " << literal << ", d = " << decision << ")\n";
+    #endif
 }
 
 // Select the first literal that is not already in the trail.
@@ -32,6 +35,7 @@ void Solver::decideLiteral() {
     const int literal = selectLiteral();
     if (literal == 0)
         return;
+
     setLiteral(literal, true);
     ++numberDecisions;
 }
@@ -87,7 +91,7 @@ bool Solver::isUnit(int literal, const std::set<int> & clause) {
     // Is the literal an element of the clause?
     if (std::find(clause.begin(), clause.end(), literal) == clause.end())
         return false;
-    
+
     // Does the literal already have an assignment?
     if (std::find_if(trail.begin(), trail.end(), [&](const auto & l) {
         return l.first == literal || l.first == -literal;
@@ -98,7 +102,7 @@ bool Solver::isUnit(int literal, const std::set<int> & clause) {
     for (int lit : clause) {
         if (lit != literal && std::find_if(trail.begin(), trail.end(), [&](const auto & l) {
             return l.first == -lit;
-        }) != trail.end())
+        }) == trail.end())
             return false;
     }
 
@@ -116,6 +120,12 @@ void Solver::unitPropagate() {
         for (const auto & clause : clauses) {
             for (int literal : clause) {
                 if (isUnit(literal, clause)) {
+                    #ifdef DEBUG
+                    std::cout << "isUnit(l = " << literal << ", c = [";
+                    for (int l : clause)
+                        std::cout << l << ", ";
+                    std::cout << "\b\b])\n";
+                    #endif
                     setLiteral(literal, false);
                     finished = false;
                 }
