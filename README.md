@@ -6,6 +6,9 @@ Start: 10.12.2020
 
 Deadline: 21.01.2021
 
+*Update 28.12.2020:*
+Finished Version 2 of the Solver (as described in the paper).
+
 *Update 25.12.2020*:
 In the previous project we used large /* */ comments above class methods.
 On second thought, I think it might be overkill. So I suggest we just use

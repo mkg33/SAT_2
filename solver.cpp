@@ -80,6 +80,50 @@ void Solver::backtrack() {
     --numberDecisions;
 }
 
+// Check whether a literal is a unit literal.
+// TODO: Needs a better/faster implementation, will have to see if there is any in the paper.
+//       If there is no better/faster implementation we will have to come up with something.
+bool Solver::isUnit(int literal, const std::set<int> & clause) {
+    // Is the literal an element of the clause?
+    if (std::find(clause.begin(), clause.end(), literal) == clause.end())
+        return false;
+    
+    // Does the literal already have an assignment?
+    if (std::find_if(trail.begin(), trail.end(), [&](const auto & l) {
+        return l.first == literal || l.first == -literal;
+    }) != trail.end())
+        return false;
+
+    // Is every other literal in the clause already not satisfied?
+    for (int lit : clause) {
+        if (lit != literal && std::find_if(trail.begin(), trail.end(), [&](const auto & l) {
+            return l.first == -lit;
+        }) != trail.end())
+            return false;
+    }
+
+    // It is a unit literal.
+    return true;
+}
+
+// Assert unit literals.
+// TODO: Needs a better/faster implementation, will have to see if there is any in the paper.
+//       If there is no better/faster implementation we will have to come up with something.
+void Solver::unitPropagate() {
+    bool finished;
+    do {
+        finished = true;
+        for (const auto & clause : clauses) {
+            for (int literal : clause) {
+                if (isUnit(literal, clause)) {
+                    setLiteral(literal, false);
+                    finished = false;
+                }
+            }
+        }
+    } while (!checkContradiction() && !finished);
+}
+
 // Read a DIMACS CNF SAT problem. Throws invalid_argument() if unsuccessful.
 Solver::Solver(std::istream & stream) : state(Solver::State::UNDEF), numberVariables(0),
     numberClauses(0), numberDecisions(0) {
@@ -126,6 +170,7 @@ Solver::Solver(std::istream & stream) : state(Solver::State::UNDEF), numberVaria
 // Solve the SAT problem.
 bool Solver::solve() {
     while (state == Solver::State::UNDEF) {
+        unitPropagate();
         if (checkContradiction()) {
             if (numberDecisions == 0)
                 state = Solver::State::UNSAT;

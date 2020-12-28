@@ -48,6 +48,16 @@ private:
     // Flip the value of the last decision literal and remove any following literals from the trail.
     void backtrack();
 
+    // Check whether a literal is a unit literal.
+    // TODO: Needs a better/faster implementation, will have to see if there is any in the paper.
+    //       If there is no better/faster implementation we will have to come up with something.
+    bool isUnit(int, const std::set<int> &);
+
+    // Assert unit literals.
+    // TODO: Needs a better/faster implementation, will have to see if there is any in the paper.
+    //       If there is no better/faster implementation we will have to come up with something.
+    void unitPropagate();
+
 public:
 
     // Read a DIMACS CNF SAT problem. Throws invalid_argument() if unsuccessful.
