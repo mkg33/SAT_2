@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <cstddef>
+#include <cstdlib>
 #include <iostream>
 #include <limits>
 #include <set>
@@ -198,7 +199,15 @@ bool Solver::solve() {
         }
     }
 
-    return state == State::SAT ? true : false;
+    if (state == State::SAT) {
+        std::sort(trail.begin(), trail.end(), [](const auto & l1, const auto & l2) {
+            const int abs1 = std::abs(l1.first);
+            const int abs2 = std::abs(l2.first);
+            return abs1 < abs2;
+        });
+        return true;
+    }
+    return false;
 }
 
 // Print the SAT problem.
@@ -217,7 +226,6 @@ std::ostream & operator<<(std::ostream & out, const Solver & solver) {
 
     #ifdef DEBUG
     if (solver.state == Solver::State::SAT) {
-        out << "Satisfying assignment:\n";
         for (const auto & literal : solver.trail)
             out << literal.first << ' ';
     }
