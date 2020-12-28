@@ -1,144 +1,168 @@
-#include <vector>
-#include <set>
-#include <string>
-#include <utility>
+#include <algorithm>
+#include <cstddef>
 #include <iostream>
-#include <sstream>
+#include <limits>
+#include <set>
+#include <utility>
+#include <vector>
+
 #include "solver.hpp"
 
-using uint = unsigned int;
+// Set the value of a literal.
+void Solver::setLiteral(int literal, bool decision) {
+    trail.emplace_back(literal, decision);
+}
 
-/**
- * Solver(str):
- * Initializes clauses from input file.
- * Throws std::invalid_argument() exception if unsuccessful.
- */
-Solver::Solver(const std::string &dimacs)
-{
-    std::set<int> clause;
-    char c;
-    int n;
-    std::stringstream buf(dimacs);
-
-    // Skip whitespace and 'p cnf'.
-    buf >> std::skipws;
-    for (int i = 0; i < 4; i++)
-    {
-        if(!(buf >> c))
-            throw std::invalid_argument("Cannot read string.");
+// Select the first literal that is not already in the trail.
+// TODO: Needs better implementation, see reference in paper.
+int Solver::selectLiteral() const {
+    for (const auto & clause : clauses) {
+        for (int literal : clause) {
+            if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
+                return lit.first == literal || lit.first == -literal;
+            }) == trail.end())
+                return literal;
+        }
     }
-    if (!(buf >> this->numberVariables))
-        throw std::invalid_argument("Cannot read the number of variables.");
-    if (!(buf >> this->numberClauses))
-        throw std::invalid_argument("Cannot read the number of clauses.");
-    if (this->numberVariables < 0)
-        throw std::invalid_argument("The number of variables cannot be negative.");
-    if (this->numberClauses < 0)
-        throw std::invalid_argument("The number of clauses cannot be negative.");
+    return 0;
+}
 
-    for (int i = 0; i < this->numberClauses; i++)
-    {
-        while (buf >> n)
-        {
-            if (n == 0)
-            {
-                this->clauses.push_back(clause);
-                clause.clear();
+// Select the next decision literal.
+void Solver::decideLiteral() {
+    const int literal = selectLiteral();
+    if (literal == 0)
+        return;
+    setLiteral(literal, true);
+    ++numberDecisions;
+}
+
+// Find the last decision literal and return an iterator to it.
+std::vector<std::pair<int, bool> >::iterator Solver::findLastDecision() {
+    std::vector<std::pair<int, bool> >::reverse_iterator it;
+    for (it = trail.rbegin(); it != trail.rend(); ++it) {
+        if (it->second)
+            return --it.base();
+    }
+    return trail.end();
+}
+
+// Check if the trail satisfies the negated formula.
+// TODO: Needs a better/faster implementation, see chapter 4.8 of the paper.
+bool Solver::checkContradiction() {
+    for (const auto & clause : clauses) {
+        bool contradiction = true;
+        for (int literal : clause) {
+            if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
+                return lit.first == -literal;
+            }) == trail.end()) {
+                contradiction = false;
                 break;
             }
-            else if (n > this->numberVariables)
-            {
-                throw std::invalid_argument("Invalid number of variables.");
-            }
+        }
+        if (contradiction)
+            return true;
+    }
+    return false;
+}
+
+// Flip the value of the last decision literal and remove any following literals from the trail.
+void Solver::backtrack() {
+    const auto it = findLastDecision();
+    if (it == trail.end())
+        return;
+
+    const int literal = it->first;
+
+    // Remove the decision literal and all following literals.
+    trail.erase(it, trail.end());
+    // Add the flipped literal as a non-decision literal back to the trail.
+    setLiteral(-literal, false);
+    --numberDecisions;
+}
+
+// Read a DIMACS CNF SAT problem. Throws invalid_argument() if unsuccessful.
+Solver::Solver(std::istream & stream) : state(Solver::State::UNDEF), numberVariables(0),
+    numberClauses(0), numberDecisions(0) {
+    // Skip comments and 'p cnf' appearing at the top of the file.
+    char c;
+    while (stream >> c) {
+        if (c == 'c')
+            stream.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        else if (c == 'p') {
+            stream.ignore(4, '\0');
+            break;
+        }
+    }
+
+    stream >> std::skipws;
+
+    // Read number of variables and number of clauses.
+    if (!(stream >> numberVariables))
+        throw std::invalid_argument("Error reading DIMACS.");
+    if (!(stream >> numberClauses))
+        throw std::invalid_argument("Error reading DIMACS.");
+
+    // Reserve space for the clauses and the trail.
+    clauses.reserve(numberClauses);
+    trail.reserve(numberVariables);
+
+    // Read clauses.
+    int var;
+    std::set<int> clause;
+    for (std::size_t i = 0; i < numberClauses; ++i) {
+        while (stream >> var) {
+            if (var == 0) {
+                clauses.push_back(clause);
+                clause.clear();
+                break;
+            } else
+                clause.insert(var);
+        }
+        if (stream.fail())
+            throw std::invalid_argument("Error reading DIMACS.");
+    }
+}
+
+// Solve the SAT problem.
+bool Solver::solve() {
+    while (state == Solver::State::UNDEF) {
+        if (checkContradiction()) {
+            if (numberDecisions == 0)
+                state = Solver::State::UNSAT;
             else
-            {
-                clause.insert(n);
-            }
+                backtrack();
+        } else {
+            if (trail.size() == numberVariables)
+                state = Solver::State::SAT;
+            else
+                decideLiteral();
         }
     }
-    if ((int)clauses.size() != this->numberClauses)
-        throw std::invalid_argument("Cannot read clauses.");
+
+    return state == State::SAT ? true : false;
 }
 
-/**
- * getNumberClauses():
- * Returns the number of clauses.
- */
-int
-Solver::getNumberClauses()
-{
-    return this->numberClauses;
-}
-
-/**
- * unitClauses():
- * Identifies unit clauses
- * and assigns 'true' to the respective variable(s).
- */
-void
-Solver::unitClauses()
-{
-    for (std::set<int> const &clause : this->clauses)
-    {
-        if (clause.size() == 1)
-        {
-            for (const int i : clause)
-            {
-                std::pair<int, int> variable = std::make_pair(i, 1);
-                this->assignments.push_back(variable);
-            }
-        }
+// Print the SAT problem.
+std::ostream & operator<<(std::ostream & out, const Solver & solver) {
+    switch (solver.state) {
+    case Solver::State::UNDEF:
+        out << "UNDEF\n";
+        break;
+    case Solver::State::SAT:
+        out << "SAT\n";
+        break;
+    case Solver::State::UNSAT:
+        out << "UNSAT\n";
+        break;
     }
-}
 
-/**
- * sortAssignment(pair1, pair2)
- * Helper for sorting the assignment vector by the first element.
- */
-bool
-sortAssignment(const std::pair<int, int> &assignment1,
-    const std::pair<int, int> &assignment2)
-{
-    return (assignment1.first < assignment2.first);
-}
-
-/**
- * solve():
- * Solve the SAT problem.
- * Returns true if satisfiable, false otherwise.
- */
-bool
-Solver::solve()
-{
-    unitClauses();
-    std::sort(this->assignments.begin(), this->assignments.end(), sortAssignment);
-    return false; //temporary ret
-}
-
-/**
- * operator<<(out, solver):
- * Print the output.
- * For now: print the processed DIMACS file.
- */
-std::ostream& operator<<(std::ostream& out, const Solver& solver)
-{
-    out << "\nnumber of clauses: " << solver.numberClauses << std::endl;
-    out << "number of variables: " << solver.numberVariables << std::endl;
-
-    for (std::set<int> const &clause : solver.clauses)
-    {
-        for(const int i : clause)
-        {
-            out << i << ' ';
-        }
-        out << '\n';
+    #ifdef DEBUG
+    if (solver.state == Solver::State::SAT) {
+        out << "Satisfying assignment:\n";
+        for (const auto & literal : solver.trail)
+            out << literal.first << ' ';
     }
-    out << "\nResult: " << std::endl; //SAT or UNSAT
-    out << "\nAssignment: " << std::endl; //variable assignment
+    #endif
 
-    for (const auto &assignment : solver.assignments)
-    {
-        out << assignment.first << ": " << assignment.second << std::endl;
-    }
     return out;
 }

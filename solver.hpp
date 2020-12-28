@@ -1,57 +1,63 @@
-#ifndef __SOLVER_H__
-#define __SOLVER_H__
+#ifndef __SOLVER_HPP__
+#define __SOLVER_HPP__
 
+#include <cstddef>
+#include <iostream>
 #include <set>
-#include <vector>
 #include <utility>
-#include <string>
-
-using uint = unsigned int;
+#include <vector>
 
 class Solver {
 
 private:
 
-    int numberClauses;
-    int numberVariables;
-    std::vector<std::set<int> > clauses; //the inner sets are single clauses
-    std::vector<std::pair<int, int> > assignments; //first element is a variable number, second element is the assignment
+    enum class State {
+        UNDEF,
+        SAT,
+        UNSAT
+    };
+
+    State state;
+
+    std::size_t numberVariables;
+    std::size_t numberClauses;
+    std::size_t numberDecisions;
+
+    std::vector<std::set<int> > clauses;
+
+    // Decision trail: Each pair denotes the satisfied literal and whether it is a decision literal.
+    std::vector<std::pair<int, bool> > trail;
+
+    // Set the value of a literal.
+    void setLiteral(int, bool);
+
+    // Select the first literal that is not already in the trail.
+    // TODO: Needs a better/faster implementation, see reference in the paper.
+    int selectLiteral() const;
+
+    // Select the next decision literal.
+    void decideLiteral();
+
+    // Find the last decision literal and return an iterator to it.
+    std::vector<std::pair<int, bool> >::iterator findLastDecision();
+
+    // Check if the trail satisfies the negated formula.
+    // TODO: Needs a better/faster implementation, see chapter 4.8 of the paper.
+    bool checkContradiction();
+
+    // Flip the value of the last decision literal and remove any following literals from the trail.
+    void backtrack();
 
 public:
 
-    /**
-     * Solver(str):
-     * Initializes clauses from input file.
-     * Throws std::invalid_argument() exception if unsuccessful.
-     */
-    Solver(const std::string &dimacs);
+    // Read a DIMACS CNF SAT problem. Throws invalid_argument() if unsuccessful.
+    Solver(std::istream &);
 
-    /**
-     * getNumberClauses():
-     * Returns the number of clauses.
-     */
-    int getNumberClauses();
-
-    /**
-     * unitClauses():
-     * Identifies unit clauses
-     * and assigns 'true' to the respective variable(s).
-     */
-    void unitClauses();
-
-    /**
-     * solve():
-     * Solve the SAT problem.
-     * Returns true if satisfiable, false otherwise.
-     */
+    // Solve the SAT problem.
     bool solve();
 
-    /**
-     * operator<<(out, solver):
-     * Print the output.
-     * For now: print the processed DIMACS file.
-     */
-    friend std::ostream& operator<<(std::ostream&, const Solver&);
+    // Print the SAT problem.
+    friend std::ostream & operator<<(std::ostream &, const Solver &);
 };
 
 #endif
