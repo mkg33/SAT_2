@@ -11,6 +11,9 @@
 // Set the value of a literal.
 void Solver::setLiteral(int literal, bool decision) {
     trail.emplace_back(literal, decision);
+    #ifdef DEBUG
+    std::cout << "setLiteral(l = " << literal << ", d = " << decision << ")\n";
+    #endif
 }
 
 // Select the first literal that is not already in the trail.
@@ -32,6 +35,7 @@ void Solver::decideLiteral() {
     const int literal = selectLiteral();
     if (literal == 0)
         return;
+
     setLiteral(literal, true);
     ++numberDecisions;
 }
@@ -48,18 +52,18 @@ std::vector<std::pair<int, bool> >::iterator Solver::findLastDecision() {
 
 // Check if the trail satisfies the negated formula.
 // TODO: Needs a better/faster implementation, see chapter 4.8 of the paper.
-bool Solver::checkContradiction() {
+bool Solver::checkConflict() {
     for (const auto & clause : clauses) {
-        bool contradiction = true;
+        bool conflict = true;
         for (int literal : clause) {
             if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
                 return lit.first == -literal;
             }) == trail.end()) {
-                contradiction = false;
+                conflict = false;
                 break;
             }
         }
-        if (contradiction)
+        if (conflict)
             return true;
     }
     return false;
@@ -78,6 +82,56 @@ void Solver::backtrack() {
     // Add the flipped literal as a non-decision literal back to the trail.
     setLiteral(-literal, false);
     --numberDecisions;
+}
+
+// Check whether a literal is a unit literal.
+// TODO: Needs a better/faster implementation, will have to see if there is any in the paper.
+//       If there is no better/faster implementation we will have to come up with something.
+bool Solver::isUnit(int literal, const std::set<int> & clause) {
+    // Is the literal an element of the clause?
+    if (std::find(clause.begin(), clause.end(), literal) == clause.end())
+        return false;
+
+    // Does the literal already have an assignment?
+    if (std::find_if(trail.begin(), trail.end(), [&](const auto & l) {
+        return l.first == literal || l.first == -literal;
+    }) != trail.end())
+        return false;
+
+    // Is every other literal in the clause already not satisfied?
+    for (int lit : clause) {
+        if (lit != literal && std::find_if(trail.begin(), trail.end(), [&](const auto & l) {
+            return l.first == -lit;
+        }) == trail.end())
+            return false;
+    }
+
+    // It is a unit literal.
+    return true;
+}
+
+// Assert unit literals.
+// TODO: Needs a better/faster implementation, will have to see if there is any in the paper.
+//       If there is no better/faster implementation we will have to come up with something.
+void Solver::unitPropagate() {
+    bool finished;
+    do {
+        finished = true;
+        for (const auto & clause : clauses) {
+            for (int literal : clause) {
+                if (isUnit(literal, clause)) {
+                    #ifdef DEBUG
+                    std::cout << "isUnit(l = " << literal << ", c = [";
+                    for (int l : clause)
+                        std::cout << l << ", ";
+                    std::cout << "\b\b])\n";
+                    #endif
+                    setLiteral(literal, false);
+                    finished = false;
+                }
+            }
+        }
+    } while (!checkConflict() && !finished);
 }
 
 // Read a DIMACS CNF SAT problem. Throws invalid_argument() if unsuccessful.
@@ -126,11 +180,16 @@ Solver::Solver(std::istream & stream) : state(Solver::State::UNDEF), numberVaria
 // Solve the SAT problem.
 bool Solver::solve() {
     while (state == Solver::State::UNDEF) {
-        if (checkContradiction()) {
+        unitPropagate();
+        if (checkConflict()) {
             if (numberDecisions == 0)
                 state = Solver::State::UNSAT;
-            else
+            else {
+                #ifdef DEBUG
+                std::cout << "backtrack()";
+                #endif
                 backtrack();
+            }
         } else {
             if (trail.size() == numberVariables)
                 state = Solver::State::SAT;
