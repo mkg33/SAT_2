@@ -37,7 +37,7 @@ private:
     void setLiteral(int, bool);
 
     // Set reason clause (literal, clause).
-    void setReason(int, std::set<int>);
+    void setReason(int, const std::set<int> &);
 
     // Get reason clause.
     std::set<int> getReasonClause();
@@ -61,7 +61,7 @@ private:
 
     void prefixToLevel(int);
 
-    std::set<int> negatedClause(std::set<int>);
+    std::set<int> negatedClause(const std::set<int> &);
 
     int findLevel(int);
 

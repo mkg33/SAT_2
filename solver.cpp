@@ -18,36 +18,42 @@ void Solver::setLiteral(int literal, bool decision) {
 }
 
 // Set reason clause.
-void Solver::setReason(int literal, std::set<int> clause) {
+// Update: Things like vectors, sets (big objects) should be passed as const reference or
+//         just as reference if we modify it. This avoids copying the whole container each
+//         time the function is called.
+void Solver::setReason(int literal, const std::set<int> & clause) {
     reason.first = literal;
     reason.second = clause;
-    for (auto const & literal : clause) {
+    // Why do we insert all literals into the clause again?
+    // 'reason.second = clause' should already copy the whole clause.
+    for (auto const & literal : clause)
         reason.second.insert(literal);
-    }
 }
 
+// We don't really need these two functions because reason is accessible by
+// all other functions anyways. We can just use reason.first instead of
+// getReasonLiteral() when we need it and it is just as short. An exception would
+// be if these two functions will do more in the future...
 // Get reason literal.
 int Solver::getReasonLiteral() {
     return reason.first;
 }
-
 // Get reason clause.
 std::set<int> Solver::getReasonClause() {
     return reason.second;
 }
 
 void Solver::applyExplainUIP() {
-    while (!isUIP()) {
+    while (!isUIP())
         applyExplain(findLastAssertedLiteral(negatedClause(conflictClause)));
-    }
 }
 
+// Update: We don't modify 'literal' so we can use const.
 bool Solver::isUIP() {
-    int literal = findLastAssertedLiteral(negatedClause(conflictClause));
+    const int literal = findLastAssertedLiteral(negatedClause(conflictClause));
     for (int lit : negatedClause(conflictClause)) {
-        if (lit != literal && (findLevel(lit) == findLevel(literal))) {
+        if (lit != literal && (findLevel(lit) == findLevel(literal)))
             return false;
-        }
     }
     return true;
 }
@@ -62,16 +68,18 @@ void Solver::applyExplainEmpty() {
 
 void Solver::applyExplain(int literal) {
     std::cout << "trail: \n";
-    for (auto const & lit : trail) {
+    for (auto const & lit : trail)
         std::cout << lit.first << " ";
-    }
     std::cout << "\n";
+
     std::set<int> reasonClause = getReasonClause();
     std::set<int>::iterator it;
+
     it = conflictClause.find(-literal);
     if (it != conflictClause.end()) {
         conflictClause.erase(it);
     }
+
     it = reasonClause.find(literal);
     if (it != reasonClause.end()) {
         reasonClause.erase(it);
@@ -82,33 +90,33 @@ void Solver::applyExplain(int literal) {
                    std::inserter(unionClause, unionClause.begin()));
 
     conflictClause = unionClause;
-    for (auto const & lit : unionClause) {
+    for (auto const & lit : unionClause)
         conflictClause.insert(lit);
-    }
 }
 
 void Solver::applyLearn() {
     clauses.push_back(conflictClause);
 }
 
+// Update: Here we can use const again.
 void Solver::applyBackjump() {
     std::set<int> negatedConflictClause = negatedClause(conflictClause);
-    int literal = findLastAssertedLiteral(negatedConflictClause);
-    int level = getBackjumpLevel();
+    const int literal = findLastAssertedLiteral(negatedConflictClause);
+    const int level = getBackjumpLevel();
     prefixToLevel(level);
     setLiteral(-literal, false);
     setReason(-literal, conflictClause);
     --numberDecisions;
 }
 
+// Update: Here we can use const again.
 int Solver::getBackjumpLevel() {
     std::set<int> negatedConflictClause = negatedClause(conflictClause);
-    int literal = findLastAssertedLiteral(negatedConflictClause);
+    const int literal = findLastAssertedLiteral(negatedConflictClause);
     std::set<int>::iterator it;
     it = negatedConflictClause.find(literal);
-    if (it != negatedConflictClause.end()){
+    if (it != negatedConflictClause.end())
         negatedConflictClause.erase(it);
-    }
     if (!negatedConflictClause.empty()) {
         int maxLevel = findLevel(findLastAssertedLiteral(negatedConflictClause));
         return maxLevel;
@@ -117,20 +125,19 @@ int Solver::getBackjumpLevel() {
 }
 
 void Solver::prefixToLevel(int level) {
-    auto index = trail.begin();
+    auto it = trail.begin();
     for (auto & lit : trail) {
-        if (findLevel(lit.first) > level && index != trail.end()) {
-            trail.erase(index);
-        }
-        ++index;
+        if (findLevel(lit.first) > level && it != trail.end())
+            trail.erase(it);
+        ++it;
     }
 }
 
-std::set<int> Solver::negatedClause(std::set<int> clause) {
+// Update: Pass by const reference again.
+std::set<int> Solver::negatedClause(const std::set<int> & clause) {
     std::set<int> negatedClause;
-    for (int lit : clause) {
+    for (int lit : clause)
         negatedClause.insert(-lit);
-    }
     return negatedClause;
 }
 
@@ -138,14 +145,11 @@ int Solver::findLevel(int literal) {
     int decisions = 0; // default
     for (auto & lit : trail) {
         if (lit.first == literal) {
-            if (lit.second == true) {
+            if (lit.second == true)
                 ++decisions;
-            }
             break;
-        }
-        else if (lit.second == true) {
+        } else if (lit.second == true)
             ++decisions;
-        }
     }
     return decisions;
 }
