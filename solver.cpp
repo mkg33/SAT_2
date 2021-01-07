@@ -56,22 +56,17 @@ void Solver::applyExplainEmpty() {
     std::set<int> negatedConflictClause = negatedClause(conflictClause);
     while (!conflictClause.empty()) {
         applyExplain(findLastAssertedLiteral(negatedConflictClause));
-        for (auto const & lit : trail) {
-            std::cout << lit.first;
-        }
-        
+        negatedConflictClause = negatedClause(conflictClause);
     }
 }
 
 void Solver::applyExplain(int literal) {
-    for (auto const & lit : conflictClause) {
-        std::cout << lit << " ";
+    std::cout << "trail: \n";
+    for (auto const & lit : trail) {
+        std::cout << lit.first << " ";
     }
     std::cout << "\n";
     std::set<int> reasonClause = getReasonClause();
-    for (auto const & lit : reasonClause) {
-        std::cout << lit;
-    }
     std::set<int>::iterator it;
     it = conflictClause.find(-literal);
     if (it != conflictClause.end()) {
@@ -89,9 +84,7 @@ void Solver::applyExplain(int literal) {
     conflictClause = unionClause;
     for (auto const & lit : unionClause) {
         conflictClause.insert(lit);
-        std::cout << lit << " ";
     }
-    std::cout << "\n";
 }
 
 void Solver::applyLearn() {
@@ -113,8 +106,9 @@ int Solver::getBackjumpLevel() {
     int literal = findLastAssertedLiteral(negatedConflictClause);
     std::set<int>::iterator it;
     it = negatedConflictClause.find(literal);
-    negatedConflictClause.erase(it);
-
+    if (it != negatedConflictClause.end()){
+        negatedConflictClause.erase(it);
+    }
     if (!negatedConflictClause.empty()) {
         int maxLevel = findLevel(findLastAssertedLiteral(negatedConflictClause));
         return maxLevel;
@@ -125,10 +119,10 @@ int Solver::getBackjumpLevel() {
 void Solver::prefixToLevel(int level) {
     auto index = trail.begin();
     for (auto & lit : trail) {
-        if (findLevel(lit.first) > level) {
+        if (findLevel(lit.first) > level && index != trail.end()) {
             trail.erase(index);
         }
-        index ++;
+        ++index;
     }
 }
 
@@ -141,16 +135,16 @@ std::set<int> Solver::negatedClause(std::set<int> clause) {
 }
 
 int Solver::findLevel(int literal) {
-    int decisions = -1; // default fail scenario
+    int decisions = 0; // default
     for (auto & lit : trail) {
         if (lit.first == literal) {
             if (lit.second == true) {
-                decisions++;
+                ++decisions;
             }
             break;
         }
         else if (lit.second == true) {
-            decisions ++;
+            ++decisions;
         }
     }
     return decisions;
@@ -192,20 +186,18 @@ std::vector<std::pair<int, bool> >::iterator Solver::findLastDecision() {
 
 int Solver::findLastAssertedLiteral(std::set<int> clause) {
     int assertedLiteral = 0; // default fail scenario
-    int lastIndex = trail.size()+1;
+    int lastIndex = 0;
 
     for (const auto & literal : clause) {
-        std::cout << literal << " ";
         auto index = std::distance(trail.begin(), std::find_if(trail.begin(),
                                    trail.end(), [&](const auto & lit) {
-                                       return lit.first == literal;
+                                       return (lit.first == literal);
                                    }));
         if (index >= lastIndex) {
             lastIndex = index;
             assertedLiteral = literal;
         }
     }
-    std::cout << "\n";
     std::cout << "last literal " << assertedLiteral << "\n";
     return assertedLiteral;
 }
@@ -223,12 +215,13 @@ bool Solver::checkConflict() {
                 break;
             }
         }
-        if (conflict)
+        if (conflict) {
             conflictClause = clause;
             for (int literal : clause) {
                 conflictClause.insert(literal);
             }
             return true;
+        }
     }
     return false;
 }
@@ -293,7 +286,6 @@ void Solver::unitPropagate() {
                     #endif
                     setLiteral(literal, false);
                     setReason(literal, clause);
-                    std::cout << "reason set";
                     finished = false;
                 }
             }
@@ -351,7 +343,6 @@ bool Solver::solve() {
         unitPropagate();
         if (checkConflict()) {
             if (numberDecisions == 0) {
-                std::cout << "zerooo\n";
                 applyExplainEmpty();
                 applyLearn();
                 state = Solver::State::UNSAT;
