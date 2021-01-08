@@ -9,149 +9,145 @@
 
 #include "solver.hpp"
 
-// Set the value of a literal.
-void Solver::setLiteral(int literal, bool decision) {
+// Depending on 'decision', assert a decision literal or a non-decision literal.
+void Solver::assertLiteral(int literal, bool decision) {
     trail.emplace_back(literal, decision);
     #ifdef DEBUG
-    std::cout << "setLiteral(l = " << literal << ", d = " << decision << ")\n";
+    std::cout << "assertLiteral(l = " << literal << ", d = " << decision << ")\n";
     #endif
 }
 
-// Set reason clause.
-// Update: Things like vectors, sets (big objects) should be passed as const reference or
-//         just as reference if we modify it. This avoids copying the whole container each
-//         time the function is called.
+// Declare 'clause' to be the reason that forced the propagation of 'literal'.
 void Solver::setReason(int literal, const std::set<int> & clause) {
-    reason.first = literal;
-    reason.second = clause;
-    // Why do we insert all literals into the clause again?
-    // 'reason.second = clause' should already copy the whole clause.
-    for (auto const & literal : clause)
-        reason.second.insert(literal);
+    auto it = std::find_if(reason.begin(), reason.end(), [&](const auto & lit) {
+        return lit.first == literal;
+    });
+    if (it == reason.end())
+        reason.emplace_back(literal, clause);
+    else
+        it->second = clause;
 }
 
-// We don't really need these two functions because reason is accessible by
-// all other functions anyways. We can just use reason.first instead of
-// getReasonLiteral() when we need it and it is just as short. An exception would
-// be if these two functions will do more in the future...
-// Get reason literal.
-int Solver::getReasonLiteral() {
-    return reason.first;
-}
-// Get reason clause.
-std::set<int> Solver::getReasonClause() {
-    return reason.second;
+// Returns the reason 'clause' that forced the propagation of 'literal'.
+std::vector<std::pair<int, std::set<int> > >::iterator Solver::getReason(int literal) {
+    return std::find_if(reason.begin(), reason.end(), [&](const auto & lit) {
+        return lit.first == literal;
+    });
 }
 
-void Solver::applyExplainUIP() {
-    while (!isUIP())
-        applyExplain(findLastAssertedLiteral(negatedClause(conflictClause)));
+// Returns a literal from 'clause' that is in the trail, such that no other
+// literal from 'clause' comes after it in the trail.
+int Solver::lastAssertedLiteral(const std::set<int> & clause) {
+    auto last = std::find_first_of(trail.rbegin(), trail.rend(), clause.begin(), clause.end(),
+        [](const auto & p, const auto & lit) {
+            return p.first == lit;
+        });
+    if (last == trail.rend())
+        return 0;
+    else
+        return last->first;
 }
 
-// Update: We don't modify 'literal' so we can use const.
+// Returns the number of decision literals in the trail that precede the first
+// occurrence of 'literal', including 'literal' if it is a decision literal.
+int Solver::level(int literal) {
+    int decisions = 0;
+    for (const auto & lit : trail) {
+        if (lit.second == true)
+            ++decisions;
+        if (lit.first == literal)
+            break;
+    }
+    return decisions;
+}
+
 bool Solver::isUIP() {
-    const int literal = findLastAssertedLiteral(negatedClause(conflictClause));
-    for (int lit : negatedClause(conflictClause)) {
-        if (lit != literal && (findLevel(lit) == findLevel(literal)))
+    const int literal = lastAssertedLiteral(negConflictClause);
+    for (int lit : negConflictClause) {
+        if (lit != literal && level(lit) == level(literal))
             return false;
     }
     return true;
 }
 
-void Solver::applyExplainEmpty() {
-    std::set<int> negatedConflictClause = negatedClause(conflictClause);
-    while (!conflictClause.empty()) {
-        applyExplain(findLastAssertedLiteral(negatedConflictClause));
-        negatedConflictClause = negatedClause(conflictClause);
+void Solver::applyExplain(int literal) {
+    const auto it = getReason(literal);
+    if (it == reason.end()) {
+        return;
+    }
+
+    posConflictClause.erase(-literal);
+    negConflictClause.erase(literal);
+
+    for (int lit : it->second) {
+        if (lit != literal) {
+            posConflictClause.insert(lit);
+            negConflictClause.insert(-lit);
+        }
     }
 }
 
-void Solver::applyExplain(int literal) {
-    std::cout << "trail: \n";
-    for (auto const & lit : trail)
-        std::cout << lit.first << " ";
-    std::cout << "\n";
+void Solver::applyExplainUIP() {
+    while (!isUIP())
+        applyExplain(lastAssertedLiteral(negConflictClause));
+}
 
-    std::set<int> reasonClause = getReasonClause();
-    std::set<int>::iterator it;
-
-    it = conflictClause.find(-literal);
-    if (it != conflictClause.end()) {
-        conflictClause.erase(it);
-    }
-
-    it = reasonClause.find(literal);
-    if (it != reasonClause.end()) {
-        reasonClause.erase(it);
-    }
-    std::set<int> unionClause;
-    std::set_union(conflictClause.begin(), conflictClause.end(),
-                   reasonClause.begin(), reasonClause.end(),
-                   std::inserter(unionClause, unionClause.begin()));
-
-    conflictClause = unionClause;
-    for (auto const & lit : unionClause)
-        conflictClause.insert(lit);
+void Solver::applyExplainEmpty() {
+    while (!posConflictClause.empty())
+        applyExplain(lastAssertedLiteral(negConflictClause));
 }
 
 void Solver::applyLearn() {
-    clauses.push_back(conflictClause);
+    clauses.push_back(posConflictClause);
 }
 
-// Update: Here we can use const again.
-void Solver::applyBackjump() {
-    std::set<int> negatedConflictClause = negatedClause(conflictClause);
-    const int literal = findLastAssertedLiteral(negatedConflictClause);
-    const int level = getBackjumpLevel();
-    prefixToLevel(level);
-    setLiteral(-literal, false);
-    setReason(-literal, conflictClause);
-    --numberDecisions;
-}
-
-// Update: Here we can use const again.
-int Solver::getBackjumpLevel() {
-    std::set<int> negatedConflictClause = negatedClause(conflictClause);
-    const int literal = findLastAssertedLiteral(negatedConflictClause);
-    std::set<int>::iterator it;
-    it = negatedConflictClause.find(literal);
-    if (it != negatedConflictClause.end())
-        negatedConflictClause.erase(it);
-    if (!negatedConflictClause.empty()) {
-        int maxLevel = findLevel(findLastAssertedLiteral(negatedConflictClause));
-        return maxLevel;
-    }
-    return 0;
-}
-
-void Solver::prefixToLevel(int level) {
-    auto it = trail.begin();
-    for (auto & lit : trail) {
-        if (findLevel(lit.first) > level && it != trail.end())
-            trail.erase(it);
-        ++it;
-    }
-}
-
-// Update: Pass by const reference again.
-std::set<int> Solver::negatedClause(const std::set<int> & clause) {
-    std::set<int> negatedClause;
-    for (int lit : clause)
-        negatedClause.insert(-lit);
-    return negatedClause;
-}
-
-int Solver::findLevel(int literal) {
-    int decisions = 0; // default
-    for (auto & lit : trail) {
-        if (lit.first == literal) {
-            if (lit.second == true)
-                ++decisions;
-            break;
-        } else if (lit.second == true)
+// Returns an iterator to the first literal of the trail whose level is greater than 'level'.
+std::vector<std::pair<int, bool> >::iterator Solver::firstLiteralPast(int level) {
+    int decisions = 0;
+    for (auto it = trail.begin(); it != trail.end(); ++it) {
+        if (it->second)
             ++decisions;
+        if (decisions > level)
+            return it;
     }
-    return decisions;
+    return trail.end();
+}
+
+// Remove any literals in the trail whose level > 'level'.
+void Solver::removePast(int level) {
+    auto first = firstLiteralPast(level);
+
+    // Count decisions after 'first' (inclusive).
+    int decisions = 0;
+    for (auto it = first; it < trail.end(); ++it)
+        decisions += it->second;
+
+    trail.erase(first, trail.end());
+    numberDecisions -= decisions;
+}
+
+int Solver::getBackjumpLevel() {
+    const int literal = lastAssertedLiteral(negConflictClause);
+    if ((literal != 0 && negConflictClause.size() > 1) || (literal == 0 && negConflictClause.size() > 0)) {
+        int maxLvl = 0;
+        for (int lit : negConflictClause) {
+            if (lit != literal) {
+                const int lvl = level(lit);
+                if (lvl > maxLvl)
+                    maxLvl = lvl;
+            }
+        }
+        return maxLvl;
+    } else
+        return 0;
+}
+
+void Solver::applyBackjump() {
+    const int literal = lastAssertedLiteral(negConflictClause);
+    const int level = getBackjumpLevel();
+    removePast(level);
+    assertLiteral(-literal, false);
+    setReason(-literal, posConflictClause);
 }
 
 // Select the first literal that is not already in the trail.
@@ -174,7 +170,7 @@ void Solver::decideLiteral() {
     if (literal == 0)
         return;
 
-    setLiteral(literal, true);
+    assertLiteral(literal, true);
     ++numberDecisions;
 }
 
@@ -186,24 +182,6 @@ std::vector<std::pair<int, bool> >::iterator Solver::findLastDecision() {
             return --it.base();
     }
     return trail.end();
-}
-
-int Solver::findLastAssertedLiteral(std::set<int> clause) {
-    int assertedLiteral = 0; // default fail scenario
-    int lastIndex = 0;
-
-    for (const auto & literal : clause) {
-        auto index = std::distance(trail.begin(), std::find_if(trail.begin(),
-                                   trail.end(), [&](const auto & lit) {
-                                       return (lit.first == literal);
-                                   }));
-        if (index >= lastIndex) {
-            lastIndex = index;
-            assertedLiteral = literal;
-        }
-    }
-    std::cout << "last literal " << assertedLiteral << "\n";
-    return assertedLiteral;
 }
 
 // Check if the trail satisfies the negated formula.
@@ -220,9 +198,11 @@ bool Solver::checkConflict() {
             }
         }
         if (conflict) {
-            conflictClause = clause;
+            posConflictClause.clear();
+            negConflictClause.clear();
             for (int literal : clause) {
-                conflictClause.insert(literal);
+                posConflictClause.insert(literal);
+                negConflictClause.insert(-literal);
             }
             return true;
         }
@@ -230,25 +210,8 @@ bool Solver::checkConflict() {
     return false;
 }
 
-
-// Flip the value of the last decision literal and remove any following literals from the trail.
-void Solver::backtrack() {
-    const auto it = findLastDecision();
-    if (it == trail.end())
-        return;
-
-    const int literal = it->first;
-
-    // Remove the decision literal and all following literals.
-    trail.erase(it, trail.end());
-    // Add the flipped literal as a non-decision literal back to the trail.
-    setLiteral(-literal, false);
-    --numberDecisions;
-}
-
 // Check whether a literal is a unit literal.
-// TODO: Needs a better/faster implementation, will have to see if there is any in the paper.
-//       If there is no better/faster implementation we will have to come up with something.
+// TODO: Check if there is a better/faster implementation.
 bool Solver::isUnit(int literal, const std::set<int> & clause) {
     // Is the literal an element of the clause?
     if (std::find(clause.begin(), clause.end(), literal) == clause.end())
@@ -273,8 +236,7 @@ bool Solver::isUnit(int literal, const std::set<int> & clause) {
 }
 
 // Assert unit literals.
-// TODO: Needs a better/faster implementation, will have to see if there is any in the paper.
-//       If there is no better/faster implementation we will have to come up with something.
+// TODO: Check if there is a better/faster implementation.
 void Solver::unitPropagate() {
     bool finished;
     do {
@@ -288,7 +250,7 @@ void Solver::unitPropagate() {
                         std::cout << l << ", ";
                     std::cout << "\b\b])\n";
                     #endif
-                    setLiteral(literal, false);
+                    assertLiteral(literal, false);
                     setReason(literal, clause);
                     finished = false;
                 }
@@ -350,15 +312,10 @@ bool Solver::solve() {
                 applyExplainEmpty();
                 applyLearn();
                 state = Solver::State::UNSAT;
-            }
-            else {
-                #ifdef DEBUG
-                std::cout << "backtrack()";
-                #endif
+            } else {
                 applyExplainUIP();
                 applyLearn();
                 applyBackjump();
-                //backtrack();
             }
         } else {
             if (trail.size() == numberVariables)
@@ -376,6 +333,7 @@ bool Solver::solve() {
         });
         return true;
     }
+
     return false;
 }
 
