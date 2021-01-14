@@ -154,14 +154,13 @@ void Solver::applyBackjump() {
 }
 
 // Select the first literal that is not already in the trail.
-// TODO: Needs better implementation, see reference in paper.
 int Solver::selectLiteral() const {
     for (const auto & clause : clauses) {
         for (int literal : clause) {
             if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
                 return lit.first == literal || lit.first == -literal;
             }) == trail.end()){
-                std::cout << literal << "\n";
+                //std::cout << literal << "\n";
                 return literal;
             }
         }
@@ -179,8 +178,8 @@ int Solver::selectLiteralBool() const {
             if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
                 return lit.first == literal || lit.first == -literal;
             }) == trail.end()) {
-                if(decision){
-                    std::cout << literal << "\n";
+                if(decision) {
+                    //std::cout << literal << "\n";
                     return literal;
                 }
             }
@@ -189,9 +188,70 @@ int Solver::selectLiteralBool() const {
     return 0;
 }
 
+// Selection heuristics: Dynamic Largest Individual Sum.
+// Picks the literal with the highest number of occurrences in the unsatisfied clauses.
+// Sets value to true if the literal is positive.
+// If the literal is negative, sets the value of its negation to true.
+int Solver::selectLiteralDLIS() {
+    int counter = 0;
+    int maxNumber = 0;
+    int maxLit = 0;
+
+    for (const auto & clause : clauses) {
+        for (int literal : clause) {
+            if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
+                return lit.first == literal || lit.first == -literal;
+            }) == trail.end()) {
+                auto it = std::find_if(variableCount.begin(), variableCount.end(), [&](const auto & lit) {
+                    counter = lit.second;
+                    return lit.first == literal || lit.first == -literal;
+                });
+
+                if (it == variableCount.end()) { // if the literal is not in the variableCount
+                    variableCount.emplace_back(std::make_pair(literal, 1));
+                    if (1 >= maxNumber) {
+                        maxNumber = 1;
+                        maxLit = literal;
+                    }
+                }
+                else {
+                    variableCount.erase(it);
+                    int newValue = ++counter;
+                    variableCount.emplace_back(literal, newValue); // update the counter associated with the literal
+
+                    if (newValue >= maxNumber) {
+                        maxNumber = newValue;
+                        maxLit= literal;
+                    }
+                 }
+              }
+           }
+        }
+    #ifdef DEBUG
+    for (const auto & lit : variableCount) {
+        std::cout << "Literal: " << lit.first;
+        std::cout << " Count: " << lit.second << "\n";
+    }
+    std::cout << "maxLit is: " << maxLit << "\n";
+    #endif
+
+    if (maxLit > 0) {
+        assertLiteral(maxLit, true);
+        variableCount.clear();
+        return 1;
+    }
+    else {
+        assertLiteral(-maxLit, true);
+        variableCount.clear();
+        return 1;
+    }
+    return 0;
+}
+
 // Select the next decision literal.
 void Solver::decideLiteral() {
     int literal = 0;
+    // Choose the selection heuristics based on user input.
     switch(heuristics) {
         case 1:
             literal = selectLiteral();
@@ -199,12 +259,17 @@ void Solver::decideLiteral() {
         case 2:
             literal = selectLiteralBool();
             break;
+        case 3:
+            literal = selectLiteralDLIS();
+            break;
     }
 
     if (literal == 0)
         return;
 
-    assertLiteral(literal, true);
+    if (heuristics != 3)
+        assertLiteral(literal, true);
+
     ++numberDecisions;
 }
 
@@ -293,7 +358,6 @@ void Solver::unitPropagate() {
     } while (!checkConflict() && !finished);
 }
 
-
 // Read a DIMACS CNF SAT problem. Throws invalid_argument() if unsuccessful.
 Solver::Solver(std::istream & stream, std::string & option) : state(Solver::State::UNDEF), numberVariables(0),
     numberClauses(0), numberDecisions(0) {
@@ -339,12 +403,16 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
     // Using boost to ignore case.
     std::string without = "without";
     std::string random = "random";
+    std::string DLIS = "dlis";
 
     if (boost::iequals(option, without)) {
         heuristics = 1;
     }
     else if (boost::iequals(option, random)) {
         heuristics = 2;
+    }
+    else if (boost::iequals(option, DLIS)) {
+        heuristics = 3;
     }
     else {
         throw std::invalid_argument("Error reading heuristics option.");
@@ -353,7 +421,7 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
 
 // Solve the SAT problem.
 bool Solver::solve() {
-    std::clock_t start = std::clock();
+    //std::clock_t start = std::clock();
     //std::cout << start << '\n';
     while (state == Solver::State::UNDEF) {
         unitPropagate();
@@ -374,12 +442,11 @@ bool Solver::solve() {
                 decideLiteral();
         }
     }
-    std::clock_t end = std::clock();
-    //std::cout << end << '\n';
-    double testTime = double(end-start);
-    std::cout << testTime << '\n';
-    double totalCpuTime = double(end-start)/CLOCKS_PER_SEC;
-    std::cout << totalCpuTime << '\n';
+    //std::clock_t end = std::clock();
+    //double testTime = double(end-start);
+    //std::cout << testTime << '\n';
+    //double totalCpuTime = double(end-start)/CLOCKS_PER_SEC;
+    //std::cout << totalCpuTime << '\n';
 
     if (state == State::SAT) {
         std::sort(trail.begin(), trail.end(), [](const auto & l1, const auto & l2) {
@@ -387,6 +454,7 @@ bool Solver::solve() {
             const int abs2 = std::abs(l2.first);
             return abs1 < abs2;
         });
+
         return true;
     }
 

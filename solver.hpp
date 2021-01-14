@@ -32,6 +32,9 @@ private:
     // A decision trail whose pairs denote an asserted literal and whether it is a decision literal.
     std::vector<std::pair<int, bool> > trail;
 
+    // For counting the number of literal occurences in DLIS.
+    std::vector<std::pair<int, int> > variableCount;
+
     // The variable assignment that lead to a conflict. 'negConflictClause' is the negated
     // version of 'posConflictClause'.
     std::set<int> posConflictClause;
@@ -82,6 +85,12 @@ private:
     // Select the first literal that is not already in the trail
     // and use a random yes/no decision during the selection.
     int selectLiteralBool() const;
+
+    // Selection heuristics: Dynamic Largest Individual Sum.
+    // Picks the literal with the highest number of occurrences in the unsatisfied clauses.
+    // Sets value to true if the literal is positive.
+    // If the literal is negative, sets the value of its negation to true.
+    int selectLiteralDLIS();
 
     // Select the next decision literal.
     void decideLiteral();
