@@ -421,8 +421,7 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
 
 // Solve the SAT problem.
 bool Solver::solve() {
-    //std::clock_t start = std::clock();
-    //std::cout << start << '\n';
+    std::clock_t start = std::clock();
     while (state == Solver::State::UNDEF) {
         unitPropagate();
         if (checkConflict()) {
@@ -442,11 +441,11 @@ bool Solver::solve() {
                 decideLiteral();
         }
     }
-    //std::clock_t end = std::clock();
+    std::clock_t end = std::clock();
     //double testTime = double(end-start);
     //std::cout << testTime << '\n';
-    //double totalCpuTime = double(end-start)/CLOCKS_PER_SEC;
-    //std::cout << totalCpuTime << '\n';
+    double totalCpuTime = double(end-start)/CLOCKS_PER_SEC;
+    std::cout << totalCpuTime << '\n';
 
     if (state == State::SAT) {
         std::sort(trail.begin(), trail.end(), [](const auto & l1, const auto & l2) {
