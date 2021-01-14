@@ -6,6 +6,9 @@
 #include <set>
 #include <utility>
 #include <vector>
+#include <ctime>
+#include <random>
+#include <boost/algorithm/string/predicate.hpp>
 
 #include "solver.hpp"
 
@@ -157,8 +160,30 @@ int Solver::selectLiteral() const {
         for (int literal : clause) {
             if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
                 return lit.first == literal || lit.first == -literal;
-            }) == trail.end())
+            }) == trail.end()){
+                std::cout << literal << "\n";
                 return literal;
+            }
+        }
+    }
+    return 0;
+}
+
+// Select the first literal that is not already in the trail
+// and use a random yes/no decision during the selection.
+int Solver::selectLiteralBool() const {
+    auto generateBool = std::bind(std::uniform_int_distribution<>(0,1),std::default_random_engine());
+    for (const auto & clause : clauses) {
+        for (int literal : clause) {
+            bool decision = generateBool();
+            if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
+                return lit.first == literal || lit.first == -literal;
+            }) == trail.end()) {
+                if(decision){
+                    std::cout << literal << "\n";
+                    return literal;
+                }
+            }
         }
     }
     return 0;
@@ -166,7 +191,16 @@ int Solver::selectLiteral() const {
 
 // Select the next decision literal.
 void Solver::decideLiteral() {
-    const int literal = selectLiteral();
+    int literal = 0;
+    switch(heuristics) {
+        case 1:
+            literal = selectLiteral();
+            break;
+        case 2:
+            literal = selectLiteralBool();
+            break;
+    }
+
     if (literal == 0)
         return;
 
@@ -261,7 +295,7 @@ void Solver::unitPropagate() {
 
 
 // Read a DIMACS CNF SAT problem. Throws invalid_argument() if unsuccessful.
-Solver::Solver(std::istream & stream) : state(Solver::State::UNDEF), numberVariables(0),
+Solver::Solver(std::istream & stream, std::string & option) : state(Solver::State::UNDEF), numberVariables(0),
     numberClauses(0), numberDecisions(0) {
     // Skip comments and 'p cnf' appearing at the top of the file.
     char c;
@@ -301,10 +335,26 @@ Solver::Solver(std::istream & stream) : state(Solver::State::UNDEF), numberVaria
         if (stream.fail())
             throw std::invalid_argument("Error reading DIMACS.");
     }
+    // Set selection heuristics.
+    // Using boost to ignore case.
+    std::string without = "without";
+    std::string random = "random";
+
+    if (boost::iequals(option, without)) {
+        heuristics = 1;
+    }
+    else if (boost::iequals(option, random)) {
+        heuristics = 2;
+    }
+    else {
+        throw std::invalid_argument("Error reading heuristics option.");
+    }
 }
 
 // Solve the SAT problem.
 bool Solver::solve() {
+    std::clock_t start = std::clock();
+    //std::cout << start << '\n';
     while (state == Solver::State::UNDEF) {
         unitPropagate();
         if (checkConflict()) {
@@ -324,6 +374,12 @@ bool Solver::solve() {
                 decideLiteral();
         }
     }
+    std::clock_t end = std::clock();
+    //std::cout << end << '\n';
+    double testTime = double(end-start);
+    std::cout << testTime << '\n';
+    double totalCpuTime = double(end-start)/CLOCKS_PER_SEC;
+    std::cout << totalCpuTime << '\n';
 
     if (state == State::SAT) {
         std::sort(trail.begin(), trail.end(), [](const auto & l1, const auto & l2) {

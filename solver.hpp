@@ -25,6 +25,7 @@ private:
     std::size_t numberVariables;
     std::size_t numberClauses;
     std::size_t numberDecisions;
+    int heuristics; // heuristics option
 
     std::vector<std::set<int> > clauses;
 
@@ -78,6 +79,10 @@ private:
     // TODO: Needs a better/faster implementation, see reference in the paper.
     int selectLiteral() const;
 
+    // Select the first literal that is not already in the trail
+    // and use a random yes/no decision during the selection.
+    int selectLiteralBool() const;
+
     // Select the next decision literal.
     void decideLiteral();
 
@@ -99,7 +104,7 @@ private:
 public:
 
     // Read a DIMACS CNF SAT problem. Throws invalid_argument() if unsuccessful.
-    Solver(std::istream &);
+    Solver(std::istream &, std::string &);
 
     // Solve the SAT problem.
     bool solve();
