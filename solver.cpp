@@ -605,6 +605,7 @@ void Solver::unitPropagate() {
 // Elimiate pure literals.
 void Solver::pureLiteral() {
     std::vector<int> trackLiterals; // keep track of literals occurring with unique polarity
+    std::vector<int> erasedLiterals; // keep track of the erased literals
     for (const auto & clause : clauses) {
         for (int literal : clause) {
             auto it = std::find_if(trackLiterals.begin(), trackLiterals.end(), [&](const auto & lit) {
@@ -613,19 +614,17 @@ void Solver::pureLiteral() {
             auto duplicate = std::find_if(trackLiterals.begin(), trackLiterals.end(), [&](const auto & lit) {
                 return lit == literal;
             });
-            if (it == trackLiterals.end() && duplicate == trackLiterals.end()) {
+            auto erased = std::find_if(erasedLiterals.begin(), erasedLiterals.end(), [&](const auto & lit) {
+                return lit == literal || lit == -literal;
+            });
+            if (it == trackLiterals.end() && duplicate == trackLiterals.end() && erased == erasedLiterals.end()) {
                 trackLiterals.push_back(literal);
-            }
-            else if (duplicate != trackLiterals.end()) {
-                #ifdef DEBUG
-                std::cout << "Found duplicate: " << literal << '\n';
-                #endif
-                trackLiterals.erase(duplicate);
             }
             else if (it != trackLiterals.end()) {
                 #ifdef DEBUG
-                std::cout << "Erased: " << literal << '\n';
+                std::cout << "\nErasing: " << literal << '\n';
                 #endif
+                erasedLiterals.push_back(literal);
                 trackLiterals.erase(it);
             }
         }
