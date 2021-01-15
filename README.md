@@ -7,6 +7,17 @@ Start: 10.12.2020
 Deadline: 21.01.2021
 
 *Update 15.01.2021:*
+Now:
+So now we have the two randomized variants of DLIS and DLCS. The currently implemented heuristics are:
+- DLIS
+- RDLIS (randomized)
+- DLCS
+- RDLCS
+- Jeroslow-Wang
+- randomized selection
+- simple yes/no selection, i.e., pick the first encountered literal if the rand bool is true
+
+Earlier:
 I suggest that we create two versions of DLIS for benchmarking purposes. One where we select the most 'recent' literal with the highest frequency, and another where we update the frequency score only if it's higher (but not equal to the current score). I noticed some variation w.r.t. execution time but I'm not sure if it's significant.
 
 We currently have the following heuristics:
