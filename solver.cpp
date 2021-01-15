@@ -188,7 +188,7 @@ int Solver::selectLiteralBool() const {
     return 0;
 }
 
-// Selection heuristics: Dynamic Largest Individual Sum.
+// Selection heuristic: Dynamic Largest Individual Sum.
 // Picks the literal with the highest number of occurrences in the unsatisfied clauses.
 // Sets value to true if the literal is positive.
 // If the literal is negative, sets the value of its negation to true.
@@ -248,10 +248,71 @@ int Solver::selectLiteralDLIS() {
     return 0;
 }
 
+// Selection heuristic: the Jeroslow-Wang method.
+int Solver::selectLiteralJW() {
+
+    double score = 0;
+    double maxScore = -std::numeric_limits<double>::max();
+    int maxLit = 0;
+
+    for (auto const & clause : clauses) {
+        for (int literal : clause) {
+            if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
+                return lit.first == literal || lit.first == -literal;
+            }) == trail.end()) {
+            auto it = std::find_if(JWcount.begin(), JWcount.end(), [&](const auto & lit) {
+                score = lit.second;
+                return lit.first == literal || lit.first == -literal;
+            });
+
+            double clauseSize = clause.size();
+
+            if (it == JWcount.end()) { // if the literal is not in the JWcount
+                double initialScore = pow(2.0, -clauseSize);
+                JWcount.emplace_back(std::make_pair(literal, initialScore));
+                if (initialScore >= maxScore) { // select the literal that maximizes the score
+                    maxScore = initialScore;
+                    maxLit = literal;
+                }
+            }
+            else {
+                JWcount.erase(it);
+                score = score + pow(2.0, -clauseSize);
+                JWcount.emplace_back(literal, score); // update the score associated with the literal
+                if (score >= maxScore) { // select the literal that maximizes the score
+                    maxScore = score;
+                    maxLit = literal;
+                }
+             }
+          }
+       }
+   }
+  if (maxLit != 0) {
+
+      #ifdef DEBUG
+      for (auto const & lit : JWcount) {
+          std::cout << "Literal: " << lit.first << " Score: " << lit.second << "\n";
+      }
+      std::cout << "Selected literal: " << maxLit << "\n";
+      #endif
+
+      JWcount.clear();
+      if (maxLit > 0) {
+          assertLiteral(maxLit, true);
+          return 1;
+      }
+      else {
+          assertLiteral(-maxLit, true);
+          return 1;
+      }
+  }
+  return 0;
+}
+
 // Select the next decision literal.
 void Solver::decideLiteral() {
     int literal = 0;
-    // Choose the selection heuristics based on user input.
+    // Choose the selection heuristic based on user input.
     switch(heuristics) {
         case 1:
             literal = selectLiteral();
@@ -262,12 +323,15 @@ void Solver::decideLiteral() {
         case 3:
             literal = selectLiteralDLIS();
             break;
+        case 4:
+            literal = selectLiteralJW();
+            break;
     }
 
     if (literal == 0)
         return;
 
-    if (heuristics != 3)
+    if (heuristics != 3 && heuristics != 4)
         assertLiteral(literal, true);
 
     ++numberDecisions;
@@ -403,7 +467,8 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
     // Using boost to ignore case.
     std::string without = "without";
     std::string random = "random";
-    std::string DLIS = "dlis";
+    std::string dlis = "dlis";
+    std::string jw = "jw";
 
     if (boost::iequals(option, without)) {
         heuristics = 1;
@@ -411,8 +476,11 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
     else if (boost::iequals(option, random)) {
         heuristics = 2;
     }
-    else if (boost::iequals(option, DLIS)) {
+    else if (boost::iequals(option, dlis)) {
         heuristics = 3;
+    }
+    else if (boost::iequals(option, jw)) {
+        heuristics = 4;
     }
     else {
         throw std::invalid_argument("Error reading heuristics option.");
@@ -442,8 +510,8 @@ bool Solver::solve() {
         }
     }
     std::clock_t end = std::clock();
-    //double testTime = double(end-start);
-    //std::cout << testTime << '\n';
+    double testTime = double(end-start);
+    std::cout << testTime << '\n';
     double totalCpuTime = double(end-start)/CLOCKS_PER_SEC;
     std::cout << totalCpuTime << '\n';
 

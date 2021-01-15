@@ -35,6 +35,9 @@ private:
     // For counting the number of literal occurences in DLIS.
     std::vector<std::pair<int, int> > variableCount;
 
+    // For counting the score (JW heuristic).
+    std::vector<std::pair<int, double> > JWcount;
+
     // The variable assignment that lead to a conflict. 'negConflictClause' is the negated
     // version of 'posConflictClause'.
     std::set<int> posConflictClause;
@@ -86,11 +89,14 @@ private:
     // and use a random yes/no decision during the selection.
     int selectLiteralBool() const;
 
-    // Selection heuristics: Dynamic Largest Individual Sum.
+    // Selection heuristic: Dynamic Largest Individual Sum.
     // Picks the literal with the highest number of occurrences in the unsatisfied clauses.
     // Sets value to true if the literal is positive.
     // If the literal is negative, sets the value of its negation to true.
     int selectLiteralDLIS();
+
+    // Selection heuristic: the Jeroslow-Wang method.
+    int selectLiteralJW();
 
     // Select the next decision literal.
     void decideLiteral();
