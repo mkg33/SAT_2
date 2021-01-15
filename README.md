@@ -9,6 +9,14 @@ Deadline: 21.01.2021
 *Update 15.01.2021:*
 I suggest that we create two versions of DLIS for benchmarking purposes. One where we select the most 'recent' literal with the highest frequency, and another where we update the frequency score only if it's higher (but not equal to the current score). I noticed some variation w.r.t. execution time but I'm not sure if it's significant.
 
+We currently have the following heuristics:
+- DLIS
+- DLCS
+- (sort of) random heuristic
+- the Jeroslow-Wang method
+
+I've tested them all (with the awesome `runTests.py` script) but please take a closer look at those functions.
+
 *Update 28.12.2020:*
 Finished Version 2 of the Solver (as described in the paper).
 

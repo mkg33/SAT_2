@@ -248,6 +248,96 @@ int Solver::selectLiteralDLIS() {
     return 0;
 }
 
+// Selection heuristic: Dynamic Largest Combined Sum.
+// Picks the variable with the highest number of occurrences of its positive and negative literals (combined).
+int Solver::selectLiteralDLCS() {
+    int counterPos = 0;
+    int counterNeg = 0;
+    int maxScore = 0;
+    int maxLit = 0;
+
+    for (const auto & clause : clauses) {
+        for (int literal : clause) {
+            if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
+                return lit.first == literal || lit.first == -literal;
+            }) == trail.end()) {
+                auto itPos = std::find_if(posVariableCount.begin(), posVariableCount.end(), [&](const auto & posLit) {
+                    counterPos = posLit.second;
+                    return posLit.first == literal || posLit.first == -literal;
+                });
+                auto itNeg = std::find_if(negVariableCount.begin(), negVariableCount.end(), [&](const auto & negLit) {
+                    counterNeg = negLit.second;
+                    return negLit.first == literal || negLit.first == -literal;
+                });
+
+                if (literal > 0) {
+                    if (itPos == posVariableCount.end()) {
+                        if (literal > 0) {
+                            posVariableCount.emplace_back(std::make_pair(literal, 1));
+                        }
+                    }
+                    else {
+                        posVariableCount.erase(itPos);
+                        int newPosCounter = ++counterPos;
+                        posVariableCount.emplace_back(literal, newPosCounter);
+                    }
+                }
+                else if (literal < 0) {
+                    if (itNeg == negVariableCount.end()) {
+                        negVariableCount.emplace_back(std::make_pair(literal, 1));
+                    }
+                    else {
+                        negVariableCount.erase(itNeg);
+                        int newNegCounter = ++counterNeg;
+                        negVariableCount.emplace_back(literal, newNegCounter);
+                    }
+                }
+            }
+        }
+    }
+    #ifdef DEBUG
+    for (const auto & lit : posVariableCount) {
+        std::cout << "Literal: " << lit.first;
+        std::cout << " Count: " << lit.second << "\n";
+    }
+    for (const auto & lit : negVariableCount) {
+        std::cout << "Literal: " << lit.first;
+        std::cout << " Count: " << lit.second << "\n";
+    }
+    #endif
+
+    for (auto & lit : posVariableCount) { // match corresponding literals (i.e., x and -x) in the two vectors
+        auto itNeg = std::find_if(negVariableCount.begin(), negVariableCount.end(), [&](const auto & negLit) {
+            counterNeg = negLit.second;
+            return negLit.first == -lit.first;
+        });
+        if (itNeg != negVariableCount.end()) {
+            if ((counterNeg + lit.second) >= maxScore) { // update the combined variable score
+                maxScore = counterNeg + lit.second;
+                maxLit = lit.first;
+                negVariableCount.erase(itNeg);
+            }
+        }
+    }
+    if (maxLit == 0) { // If there are no matching literals, pick the first literal available.
+        if (!posVariableCount.empty()) {
+            maxLit = posVariableCount.front().first;
+        }
+        else if (!negVariableCount.empty()) {
+            maxLit = negVariableCount.front().first;
+            maxLit = -maxLit; // we need to negate the literal because of decideLiteral()
+        }
+    }
+    posVariableCount.clear();
+    negVariableCount.clear();
+
+    #ifdef DEBUG
+    std::cout << "maxLit: " << maxLit << '\n';
+    #endif
+
+    return maxLit;
+}
+
 // Selection heuristic: the Jeroslow-Wang method.
 int Solver::selectLiteralJW() {
 
@@ -324,6 +414,9 @@ void Solver::decideLiteral() {
             literal = selectLiteralDLIS();
             break;
         case 4:
+            literal = selectLiteralDLCS();
+            break;
+        case 5:
             literal = selectLiteralJW();
             break;
     }
@@ -331,7 +424,7 @@ void Solver::decideLiteral() {
     if (literal == 0)
         return;
 
-    if (heuristics != 3 && heuristics != 4)
+    if (heuristics != 3 && heuristics != 5)
         assertLiteral(literal, true);
 
     ++numberDecisions;
@@ -468,6 +561,7 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
     std::string without = "without";
     std::string random = "random";
     std::string dlis = "dlis";
+    std::string dlcs = "dlcs";
     std::string jw = "jw";
 
     if (boost::iequals(option, without)) {
@@ -479,8 +573,11 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
     else if (boost::iequals(option, dlis)) {
         heuristics = 3;
     }
-    else if (boost::iequals(option, jw)) {
+    else if (boost::iequals(option, dlcs)) {
         heuristics = 4;
+    }
+    else if (boost::iequals(option, jw)) {
+        heuristics = 5;
     }
     else {
         throw std::invalid_argument("Error reading heuristics option.");
@@ -489,7 +586,7 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
 
 // Solve the SAT problem.
 bool Solver::solve() {
-    std::clock_t start = std::clock();
+    //std::clock_t start = std::clock();
     while (state == Solver::State::UNDEF) {
         unitPropagate();
         if (checkConflict()) {
@@ -509,11 +606,11 @@ bool Solver::solve() {
                 decideLiteral();
         }
     }
-    std::clock_t end = std::clock();
-    double testTime = double(end-start);
-    std::cout << testTime << '\n';
-    double totalCpuTime = double(end-start)/CLOCKS_PER_SEC;
-    std::cout << totalCpuTime << '\n';
+    //std::clock_t end = std::clock();
+    //double testTime = double(end-start);
+    //std::cout << testTime << '\n';
+    //double totalCpuTime = double(end-start)/CLOCKS_PER_SEC;
+    //std::cout << totalCpuTime << '\n';
 
     if (state == State::SAT) {
         std::sort(trail.begin(), trail.end(), [](const auto & l1, const auto & l2) {

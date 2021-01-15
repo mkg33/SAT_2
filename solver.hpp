@@ -32,8 +32,14 @@ private:
     // A decision trail whose pairs denote an asserted literal and whether it is a decision literal.
     std::vector<std::pair<int, bool> > trail;
 
-    // For counting the number of literal occurences in DLIS.
+    // For counting the number of literal occurrences in DLIS.
     std::vector<std::pair<int, int> > variableCount;
+
+    // For counting the number of pos literal occurrences in DLCS.
+    std::vector<std::pair<int, int> > posVariableCount;
+
+    // For counting the number of neg literal occurrences in DLCS.
+    std::vector<std::pair<int, int> > negVariableCount;
 
     // For counting the score (JW heuristic).
     std::vector<std::pair<int, double> > JWcount;
@@ -94,6 +100,10 @@ private:
     // Sets value to true if the literal is positive.
     // If the literal is negative, sets the value of its negation to true.
     int selectLiteralDLIS();
+
+    // Selection heuristic: Dynamic Largest Combined Sum.
+    // Picks the variable with the highest number of occurrences of its positive and negative literals (combined).
+    int selectLiteralDLCS();
 
     // Selection heuristic: the Jeroslow-Wang method.
     int selectLiteralJW();
