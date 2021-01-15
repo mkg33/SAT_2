@@ -95,6 +95,9 @@ private:
     // and use a random yes/no decision during the selection.
     int selectLiteralBool() const;
 
+    // Selection heuristic: pick random literal.
+    int selectLiteralRand() const;
+
     // Selection heuristic: Dynamic Largest Individual Sum.
     // Picks the literal with the highest number of occurrences in the unsatisfied clauses.
     // Sets value to true if the literal is positive.

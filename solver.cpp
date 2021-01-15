@@ -179,7 +179,6 @@ int Solver::selectLiteralBool() const {
                 return lit.first == literal || lit.first == -literal;
             }) == trail.end()) {
                 if(decision) {
-                    //std::cout << literal << "\n";
                     return literal;
                 }
             }
@@ -188,6 +187,41 @@ int Solver::selectLiteralBool() const {
     return 0;
 }
 
+// Selection heuristic: pick random literal.
+int Solver::selectLiteralRand() const {
+    int maxLit = 0;
+    std::vector<int> randCandidates;
+    for (const auto & clause : clauses) {
+        for (int literal : clause) {
+            if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
+                return lit.first == literal || lit.first == -literal;
+            }) == trail.end()) {
+                randCandidates.push_back(literal);
+            }
+        }
+    }
+    if (!randCandidates.empty()) {
+        #ifdef DEBUG
+        for (auto const & lit : randCandidates) {
+            std::cout << "Candidate: " << lit << '\n';
+        }
+        #endif
+
+        int range = randCandidates.size();
+        int randIndex = std::rand() % range;
+        maxLit = randCandidates.at(randIndex);
+
+        #ifdef DEBUG
+        std::cout << "Chosen maxLit: " << maxLit << '\n';
+        #endif
+    }
+    if (maxLit > 0) {
+        return maxLit;
+    }
+    else {
+        return -maxLit;
+    }
+}
 // Selection heuristic: Dynamic Largest Individual Sum.
 // Picks the literal with the highest number of occurrences in the unsatisfied clauses.
 // Sets value to true if the literal is positive.
@@ -261,16 +295,14 @@ int Solver::selectLiteralDLIS(bool randomized) {
     #endif
 
     if (maxLit > 0) {
-        assertLiteral(maxLit, true);
         variableCount.clear();
+        return maxLit;
         return 1;
     }
     else {
-        assertLiteral(-maxLit, true);
         variableCount.clear();
-        return 1;
+        return -maxLit;
     }
-    return 0;
 }
 
 // Selection heuristic: Dynamic Largest Combined Sum.
@@ -436,12 +468,10 @@ int Solver::selectLiteralJW() {
 
       JWcount.clear();
       if (maxLit > 0) {
-          assertLiteral(maxLit, true);
-          return 1;
+          return maxLit;
       }
       else {
-          assertLiteral(-maxLit, true);
-          return 1;
+          return -maxLit;
       }
   }
   return 0;
@@ -472,14 +502,14 @@ void Solver::decideLiteral() {
             break;
         case 7:
             literal = selectLiteralDLIS(true);
+        case 8:
+            literal = selectLiteralRand();
     }
 
     if (literal == 0)
         return;
 
-    if (heuristics != 3 && heuristics != 5 && heuristics != 7)
-        assertLiteral(literal, true);
-
+    assertLiteral(literal, true);
     ++numberDecisions;
 }
 
@@ -612,6 +642,7 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
     // Set selection heuristics.
     // Using boost to ignore case.
     std::string without = "without";
+    std::string yesNo = "yesno";
     std::string random = "random";
     std::string dlis = "dlis";
     std::string rdlis = "rdlis";
@@ -622,7 +653,7 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
     if (boost::iequals(option, without)) {
         heuristics = 1;
     }
-    else if (boost::iequals(option, random)) {
+    else if (boost::iequals(option, yesNo)) {
         heuristics = 2;
     }
     else if (boost::iequals(option, dlis)) {
@@ -639,6 +670,9 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
     }
     else if (boost::iequals(option, rdlis)) {
         heuristics = 7;
+    }
+    else if (boost::iequals(option, random)) {
+        heuristics = 8;
     }
     else {
         throw std::invalid_argument("Error reading heuristics option.");
