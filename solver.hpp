@@ -131,6 +131,9 @@ private:
     // TODO: Check if there is a better/faster implementation.
     void unitPropagate();
 
+    // Eliminate pure literals.
+    void pureLiteral();
+
 public:
 
     // Read a DIMACS CNF SAT problem. Throws invalid_argument() if unsuccessful.

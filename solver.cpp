@@ -207,8 +207,10 @@ int Solver::selectLiteralRand() const {
         }
         #endif
 
-        int range = randCandidates.size();
-        int randIndex = std::rand() % range;
+        std::random_device randDevice;
+        std::mt19937 rng(randDevice());
+        std::uniform_int_distribution<int> result(0,randCandidates.size()-1);
+        int randIndex = result(rng);
         maxLit = randCandidates.at(randIndex);
 
         #ifdef DEBUG
@@ -598,6 +600,46 @@ void Solver::unitPropagate() {
     } while (!checkConflict() && !finished);
 }
 
+// Elimiate pure literals.
+void Solver::pureLiteral() {
+    std::vector<int> trackLiterals; // keep track of literals occurring with unique polarity
+    for (const auto & clause : clauses) {
+        for (int literal : clause) {
+            auto it = std::find_if(trackLiterals.begin(), trackLiterals.end(), [&](const auto & lit) {
+                return lit == -literal;
+            });
+            auto duplicate = std::find_if(trackLiterals.begin(), trackLiterals.end(), [&](const auto & lit) {
+                return lit == literal;
+            });
+            if (it == trackLiterals.end() && duplicate == trackLiterals.end()) {
+                trackLiterals.push_back(literal);
+            }
+            else if (duplicate != trackLiterals.end()) {
+                #ifdef DEBUG
+                std::cout << "Found duplicate: " << literal << '\n';
+                #endif
+                trackLiterals.erase(duplicate);
+            }
+            else if (it != trackLiterals.end()) {
+                #ifdef DEBUG
+                std::cout << "Erased: " << literal << '\n';
+                #endif
+                trackLiterals.erase(it);
+            }
+        }
+    }
+    if (!trackLiterals.empty()) {
+        for (const auto & lit : trackLiterals) {
+            #ifdef DEBUG
+            std::cout << "Pure literal: " << lit << '\n';
+            #endif
+            assertLiteral(lit, true);
+            ++numberDecisions;
+        }
+        trackLiterals.clear();
+    }
+}
+
 // Read a DIMACS CNF SAT problem. Throws invalid_argument() if unsuccessful.
 Solver::Solver(std::istream & stream, std::string & option) : state(Solver::State::UNDEF), numberVariables(0),
     numberClauses(0), numberDecisions(0) {
@@ -649,6 +691,7 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
     std::string dlcs = "dlcs";
     std::string rdlcs = "rdlcs";
     std::string jw = "jw";
+    std::string lucky = "lucky";
 
     if (boost::iequals(option, without)) {
         heuristics = 1;
@@ -674,6 +717,15 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
     else if (boost::iequals(option, random)) {
         heuristics = 8;
     }
+    else if (boost::iequals(option, lucky)) {
+        std::random_device randDevice;
+        std::mt19937 rng(randDevice());
+        std::uniform_int_distribution<int> result(2,8);
+        heuristics = result(rng);
+        #ifdef DEBUG
+        std::cout << "Picked: " << heuristics << '\n';
+        #endif
+    }
     else {
         throw std::invalid_argument("Error reading heuristics option.");
     }
@@ -682,6 +734,7 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
 // Solve the SAT problem.
 bool Solver::solve() {
     //std::clock_t start = std::clock();
+    pureLiteral();
     while (state == Solver::State::UNDEF) {
         unitPropagate();
         if (checkConflict()) {
