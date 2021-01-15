@@ -99,11 +99,13 @@ private:
     // Picks the literal with the highest number of occurrences in the unsatisfied clauses.
     // Sets value to true if the literal is positive.
     // If the literal is negative, sets the value of its negation to true.
-    int selectLiteralDLIS();
+    // If randomized true, it runs the randomized DLIS variant.
+    int selectLiteralDLIS(bool);
 
     // Selection heuristic: Dynamic Largest Combined Sum.
     // Picks the variable with the highest number of occurrences of its positive and negative literals (combined).
-    int selectLiteralDLCS();
+    // If randomized true, it runs the randomized DLCS variant.
+    int selectLiteralDLCS(bool);
 
     // Selection heuristic: the Jeroslow-Wang method.
     int selectLiteralJW();

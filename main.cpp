@@ -6,7 +6,7 @@
 int main(int argc, char **argv)
 {
     if (argc < 3) {
-        std::cerr << "Usage: " << argv[0] << " <DIMACS file>" << " <selection heuristics: WITHOUT, RANDOM, DLIS, DLCS, JW>\n";
+        std::cerr << "Usage: " << argv[0] << " <DIMACS file>" << " <selection heuristics: WITHOUT, RANDOM, DLIS, RDLIS, DLCS, RDLCS, JW>\n";
         return 1;
     }
 

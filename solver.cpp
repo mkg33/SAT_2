@@ -192,10 +192,12 @@ int Solver::selectLiteralBool() const {
 // Picks the literal with the highest number of occurrences in the unsatisfied clauses.
 // Sets value to true if the literal is positive.
 // If the literal is negative, sets the value of its negation to true.
-int Solver::selectLiteralDLIS() {
+// If randomized true, it runs the randomized DLIS variant.
+int Solver::selectLiteralDLIS(bool randomized) {
     int counter = 0;
     int maxNumber = 0;
     int maxLit = 0;
+    std::vector<int> randCandidates; // used in RDLIS
 
     for (const auto & clause : clauses) {
         for (int literal : clause) {
@@ -209,9 +211,12 @@ int Solver::selectLiteralDLIS() {
 
                 if (it == variableCount.end()) { // if the literal is not in the variableCount
                     variableCount.emplace_back(std::make_pair(literal, 1));
-                    if (1 >= maxNumber) {
+                    if (1 > maxNumber) {
                         maxNumber = 1;
                         maxLit = literal;
+                    }
+                    else if (randomized && 1 == maxNumber) {
+                        randCandidates.push_back(literal);
                     }
                 }
                 else {
@@ -219,14 +224,34 @@ int Solver::selectLiteralDLIS() {
                     int newValue = ++counter;
                     variableCount.emplace_back(literal, newValue); // update the counter associated with the literal
 
-                    if (newValue >= maxNumber) {
+                    if (newValue > maxNumber) {
                         maxNumber = newValue;
                         maxLit= literal;
                     }
-                 }
-              }
-           }
+                    else if (randomized && newValue == maxNumber) {
+                        randCandidates.push_back(literal);
+                    }
+                }
+            }
         }
+    }
+
+    if (randomized && !randCandidates.empty()) {
+        #ifdef DEBUG
+        for (auto const & lit : randCandidates) {
+            std::cout << "Candidate: " << lit << '\n';
+        }
+        #endif
+
+        int range = randCandidates.size();
+        int randIndex = std::rand() % range;
+        maxLit = randCandidates.at(randIndex);
+
+        #ifdef DEBUG
+        std::cout << "Chosen maxLit: " << maxLit << '\n';
+        #endif
+    }
+
     #ifdef DEBUG
     for (const auto & lit : variableCount) {
         std::cout << "Literal: " << lit.first;
@@ -250,13 +275,15 @@ int Solver::selectLiteralDLIS() {
 
 // Selection heuristic: Dynamic Largest Combined Sum.
 // Picks the variable with the highest number of occurrences of its positive and negative literals (combined).
-int Solver::selectLiteralDLCS() {
+// If randomized true, it runs the randomized DLCS variant.
+int Solver::selectLiteralDLCS(bool randomized) {
     int counterPos = 0;
     int counterNeg = 0;
     int maxScore = 0;
     int maxLit = 0;
+    std::vector<int> randCandidates; // used in RDLCS
 
-    for (const auto & clause : clauses) {
+    for (const auto & clause : clauses){
         for (int literal : clause) {
             if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
                 return lit.first == literal || lit.first == -literal;
@@ -312,13 +339,18 @@ int Solver::selectLiteralDLCS() {
             return negLit.first == -lit.first;
         });
         if (itNeg != negVariableCount.end()) {
-            if ((counterNeg + lit.second) >= maxScore) { // update the combined variable score
+            if ((counterNeg + lit.second) > maxScore) { // update the combined variable score
                 maxScore = counterNeg + lit.second;
                 maxLit = lit.first;
                 negVariableCount.erase(itNeg);
             }
+            else if (randomized && (counterNeg + lit.second) == maxScore) {
+                randCandidates.push_back(lit.first);
+                negVariableCount.erase(itNeg);
+            }
         }
     }
+
     if (maxLit == 0) { // If there are no matching literals, pick the first literal available.
         if (!posVariableCount.empty()) {
             maxLit = posVariableCount.front().first;
@@ -330,6 +362,22 @@ int Solver::selectLiteralDLCS() {
     }
     posVariableCount.clear();
     negVariableCount.clear();
+
+    if (randomized && !randCandidates.empty()) {
+        #ifdef DEBUG
+        for (auto const & lit : randCandidates) {
+            std::cout << "Candidate: " << lit << '\n';
+        }
+        #endif
+
+        int range = randCandidates.size();
+        int randIndex = std::rand() % range;
+        maxLit = randCandidates.at(randIndex);
+
+        #ifdef DEBUG
+        std::cout << "Chosen maxLit: " << maxLit << '\n';
+        #endif
+    }
 
     #ifdef DEBUG
     std::cout << "maxLit: " << maxLit << '\n';
@@ -411,20 +459,25 @@ void Solver::decideLiteral() {
             literal = selectLiteralBool();
             break;
         case 3:
-            literal = selectLiteralDLIS();
+            literal = selectLiteralDLIS(false);
             break;
         case 4:
-            literal = selectLiteralDLCS();
+            literal = selectLiteralDLCS(false);
             break;
         case 5:
             literal = selectLiteralJW();
             break;
+        case 6:
+            literal = selectLiteralDLCS(true);
+            break;
+        case 7:
+            literal = selectLiteralDLIS(true);
     }
 
     if (literal == 0)
         return;
 
-    if (heuristics != 3 && heuristics != 5)
+    if (heuristics != 3 && heuristics != 5 && heuristics != 7)
         assertLiteral(literal, true);
 
     ++numberDecisions;
@@ -561,7 +614,9 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
     std::string without = "without";
     std::string random = "random";
     std::string dlis = "dlis";
+    std::string rdlis = "rdlis";
     std::string dlcs = "dlcs";
+    std::string rdlcs = "rdlcs";
     std::string jw = "jw";
 
     if (boost::iequals(option, without)) {
@@ -578,6 +633,12 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
     }
     else if (boost::iequals(option, jw)) {
         heuristics = 5;
+    }
+    else if (boost::iequals(option, rdlcs)) {
+        heuristics = 6;
+    }
+    else if (boost::iequals(option, rdlis)) {
+        heuristics = 7;
     }
     else {
         throw std::invalid_argument("Error reading heuristics option.");
