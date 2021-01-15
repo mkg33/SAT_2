@@ -504,8 +504,10 @@ void Solver::decideLiteral() {
             break;
         case 7:
             literal = selectLiteralDLIS(true);
+            break;
         case 8:
             literal = selectLiteralRand();
+            break;
     }
 
     if (literal == 0)
