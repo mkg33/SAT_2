@@ -898,19 +898,18 @@ std::ostream & operator<<(std::ostream & out, const Solver & solver) {
         out << "UNDEF\n";
         break;
     case Solver::State::SAT:
-        out << "SAT\n";
+        out << "s SATISFIABLE\n";
         break;
     case Solver::State::UNSAT:
-        out << "UNSAT\n";
+        out << "s UNSATISFIABLE\n";
         break;
     }
-
-    #ifdef DEBUG
+    // uncomment for runTests.py
     if (solver.state == Solver::State::SAT) {
+        std::cout << "v ";
         for (const auto & literal : solver.trail)
             out << literal.first << ' ';
     }
-    #endif
 
     return out;
 }
