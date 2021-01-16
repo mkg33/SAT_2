@@ -899,9 +899,13 @@ std::ostream & operator<<(std::ostream & out, const Solver & solver) {
         break;
     case Solver::State::SAT:
         out << "s SATISFIABLE\n";
+        // for runTests.py:
+        //out << "S";
         break;
     case Solver::State::UNSAT:
         out << "s UNSATISFIABLE\n";
+        // for runTests.py:
+        //out << "U";
         break;
     }
     // uncomment for runTests.py
