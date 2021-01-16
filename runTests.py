@@ -10,20 +10,23 @@ class bcolors:
 
 def runForAll(dir, res):
     out = []
+    options = ["without", "yesno", "random", "dlis", "rdlis", "dlcs", "rdlcs", "jw", "rjw", "moms", "rmoms", "lucky"]
     for filename in os.listdir(dir):
-        if filename.endswith(".cnf"):
-            fOut    = []
-            result = subprocess.run(["./solver.out", dir + filename], capture_output=True, text=True)
-            if result.stderr != "" or result.stdout.strip() != res:
-                fOut.append("[" + bcolors.FAIL + "FAIL" + bcolors.ENDC + "]")
-            else:
-                fOut.append("[" + bcolors.OKGREEN + "OK" + bcolors.ENDC + "]")
-            fOut.append(filename + ":")
-            if (result.stderr != ""):
-                fOut.append(result.stderr.strip())
-            else:
-                fOut.append(result.stdout.strip())
-            out.append(fOut)
+        for option in options:
+            if filename.endswith(".cnf"):
+                fOut    = []
+                result = subprocess.run(["./solver.out", dir + filename, option], capture_output=True, text=True)
+                if result.stderr != "" or result.stdout.strip() != res:
+                    fOut.append("[" + bcolors.FAIL + "FAIL" + bcolors.ENDC + "]")
+                else:
+                    fOut.append("[" + bcolors.OKGREEN + "OK" + bcolors.ENDC + "]")
+                    fOut.append(option)
+                    fOut.append(filename + ":")
+                    if (result.stderr != ""):
+                        fOut.append(result.stderr.strip())
+                    else:
+                        fOut.append(result.stdout.strip())
+                        out.append(fOut)
     width = max(len(word) for row in out for word in row) + 2
     for row in out:
         print ("".join(word.ljust(width) for word in row))
