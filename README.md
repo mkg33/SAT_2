@@ -6,6 +6,24 @@ Start: 10.12.2020
 
 Deadline: 21.01.2021
 
+*Update 16.01.2021:*
+Available heuristics:
+- DLIS
+- RDLIS (randomized)
+- DLCS
+- RDLCS
+- Jeroslow-Wang
+- randomized J-W
+- MOMS
+- randomized MOMS
+- randomized selection
+- simple yes/no selection, i.e., pick the first encountered literal if the rand bool is true
+- there's also a 'lucky' option that picks the method randomly
+
+I've tested everything extensively but I don't trust myself on this. It works but I want to make sure that it really does what it's supposed to do.
+
+Once we've agreed on the final version of the solver, I'll measure the performance and create the damned cactus plots.
+
 *Update 15.01.2021:*
 Now:
 So now we have the two randomized variants of DLIS and DLCS. The currently implemented heuristics are:
