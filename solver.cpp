@@ -524,7 +524,7 @@ int Solver::selectLiteralMOMS(bool randomized) {
     int maxLit = 0;
     int counterNeg = 0;
     int maxScore = 0;
-    int parameter = 3; // arbitrarily chosen
+    int parameter = 10; // as suggested in: J. Freeman, “Improvements to propositional satisfiability search algorithms” , PhD thesis, The University of Pennsylvania, 1995.
     int totalClauseLength = 0;
     int cutoffLength = 0; // defines the 'minimum length' of a clause
     std::vector<int> randCandidates; // used in randomized MOMS
