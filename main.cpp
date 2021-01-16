@@ -6,7 +6,7 @@
 int main(int argc, char **argv)
 {
     if (argc < 3) { // 'lucky' picks the heuristic randomly
-        std::cerr << "Usage: " << argv[0] << " <DIMACS file>" << " <selection heuristics: WITHOUT, YESNO, RANDOM, DLIS, RDLIS, DLCS, RDLCS, JW, lucky>\n";
+        std::cerr << "Usage: " << argv[0] << " <DIMACS file>" << " <selection heuristics: WITHOUT, YESNO, RANDOM, DLIS, RDLIS, DLCS, RDLCS, JW, RJW, MOMS, RMOMS, lucky>\n";
         return 1;
     }
 

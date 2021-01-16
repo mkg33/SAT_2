@@ -95,8 +95,13 @@ private:
     // and use a random yes/no decision during the selection.
     int selectLiteralBool() const;
 
+    // Helper for random selection heuristics.
+    // Takes a lower and upper bound and returns a random index within the bounds.
+    // It's mainly used for vectors, therefore the upper bound is decremented.
+    int getRandomIndex(int, int);
+
     // Selection heuristic: pick random literal.
-    int selectLiteralRand() const;
+    int selectLiteralRand();
 
     // Selection heuristic: Dynamic Largest Individual Sum.
     // Picks the literal with the highest number of occurrences in the unsatisfied clauses.
@@ -105,13 +110,24 @@ private:
     // If randomized true, it runs the randomized DLIS variant.
     int selectLiteralDLIS(bool);
 
+    // Helper for computing the combined sum of occurrences (both polarities).
+    // If the first parameter is true, it computes the combined sum for the MOMS heuristic
+    // and uses the int to determine the 'cutoffLength' of a clause.
+    // If false, it computes the usual combined sum for DLCS.
+    void combinedSum(bool, int);
+
     // Selection heuristic: Dynamic Largest Combined Sum.
     // Picks the variable with the highest number of occurrences of its positive and negative literals (combined).
     // If randomized true, it runs the randomized DLCS variant.
     int selectLiteralDLCS(bool);
 
     // Selection heuristic: the Jeroslow-Wang method.
-    int selectLiteralJW();
+    // If randomized true, it runs the randomized J-W variant.
+    int selectLiteralJW(bool);
+
+    // Selection heuristic: Maximum [number of] Occurrences in Minimum [length] Clauses.
+    // If randomized true, it runs the randomized MOMS variant.
+    int selectLiteralMOMS(bool);
 
     // Select the next decision literal.
     void decideLiteral();

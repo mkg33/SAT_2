@@ -187,8 +187,19 @@ int Solver::selectLiteralBool() const {
     return 0;
 }
 
+// Helper for random selection heuristics.
+// Takes a lower and upper bound and returns a random index within the bounds.
+// It's mainly used for vectors, therefore the upper bound is decremented.
+int Solver::getRandomIndex(int lowerBound, int upperBound) {
+    std::random_device randDevice;
+    std::mt19937 rng(randDevice());
+    std::uniform_int_distribution<int> result(lowerBound,upperBound-1);
+    int randIndex = result(rng);
+    return randIndex;
+}
+
 // Selection heuristic: pick random literal.
-int Solver::selectLiteralRand() const {
+int Solver::selectLiteralRand() {
     int maxLit = 0;
     std::vector<int> randCandidates;
     for (const auto & clause : clauses) {
@@ -207,10 +218,7 @@ int Solver::selectLiteralRand() const {
         }
         #endif
 
-        std::random_device randDevice;
-        std::mt19937 rng(randDevice());
-        std::uniform_int_distribution<int> result(0,randCandidates.size()-1);
-        int randIndex = result(rng);
+        int randIndex = getRandomIndex(0, randCandidates.size());
         maxLit = randCandidates.at(randIndex);
 
         #ifdef DEBUG
@@ -279,8 +287,7 @@ int Solver::selectLiteralDLIS(bool randomized) {
         }
         #endif
 
-        int range = randCandidates.size();
-        int randIndex = std::rand() % range;
+        int randIndex = getRandomIndex(0, randCandidates.size());
         maxLit = randCandidates.at(randIndex);
 
         #ifdef DEBUG
@@ -307,18 +314,21 @@ int Solver::selectLiteralDLIS(bool randomized) {
     }
 }
 
-// Selection heuristic: Dynamic Largest Combined Sum.
-// Picks the variable with the highest number of occurrences of its positive and negative literals (combined).
-// If randomized true, it runs the randomized DLCS variant.
-int Solver::selectLiteralDLCS(bool randomized) {
+// Helper for computing the combined sum of occurrences (both polarities).
+// If the first parameter is true, it computes the combined sum for the MOMS heuristic
+// and uses the int to determine the 'cutoffLength' of a clause.
+// If false, it computes the usual combined sum for DLCS.
+void Solver::combinedSum(bool constraint, int cutoffLength) {
     int counterPos = 0;
     int counterNeg = 0;
-    int maxScore = 0;
-    int maxLit = 0;
-    std::vector<int> randCandidates; // used in RDLCS
 
     for (const auto & clause : clauses){
         for (int literal : clause) {
+            if (constraint) {
+                if (int(clause.size()) > cutoffLength) {
+                    break;
+                }
+            }
             if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
                 return lit.first == literal || lit.first == -literal;
             }) == trail.end()) {
@@ -366,6 +376,18 @@ int Solver::selectLiteralDLCS(bool randomized) {
         std::cout << " Count: " << lit.second << "\n";
     }
     #endif
+}
+
+// Selection heuristic: Dynamic Largest Combined Sum.
+// Picks the variable with the highest number of occurrences of its positive and negative literals (combined).
+// If randomized true, it runs the randomized DLCS variant.
+int Solver::selectLiteralDLCS(bool randomized) {
+    int counterNeg = 0;
+    int maxScore = 0;
+    int maxLit = 0;
+    std::vector<int> randCandidates; // used in RDLCS
+
+    combinedSum(false, 0); // compute the combined sum
 
     for (auto & lit : posVariableCount) { // match corresponding literals (i.e., x and -x) in the two vectors
         auto itNeg = std::find_if(negVariableCount.begin(), negVariableCount.end(), [&](const auto & negLit) {
@@ -404,8 +426,7 @@ int Solver::selectLiteralDLCS(bool randomized) {
         }
         #endif
 
-        int range = randCandidates.size();
-        int randIndex = std::rand() % range;
+        int randIndex = getRandomIndex(0, randCandidates.size());
         maxLit = randCandidates.at(randIndex);
 
         #ifdef DEBUG
@@ -421,11 +442,13 @@ int Solver::selectLiteralDLCS(bool randomized) {
 }
 
 // Selection heuristic: the Jeroslow-Wang method.
-int Solver::selectLiteralJW() {
+// If randomized true, it runs the randomized J-W variant.
+int Solver::selectLiteralJW(bool randomized) {
 
     double score = 0;
     double maxScore = -std::numeric_limits<double>::max();
     int maxLit = 0;
+    std::vector<int> randCandidates; // used in randomized J-W
 
     for (auto const & clause : clauses) {
         for (int literal : clause) {
@@ -442,18 +465,24 @@ int Solver::selectLiteralJW() {
             if (it == JWcount.end()) { // if the literal is not in the JWcount
                 double initialScore = pow(2.0, -clauseSize);
                 JWcount.emplace_back(std::make_pair(literal, initialScore));
-                if (initialScore >= maxScore) { // select the literal that maximizes the score
+                if (initialScore > maxScore) { // select the literal that maximizes the score
                     maxScore = initialScore;
                     maxLit = literal;
+                }
+                else if (randomized && initialScore == maxScore) {
+                    randCandidates.push_back(literal);
                 }
             }
             else {
                 JWcount.erase(it);
                 score = score + pow(2.0, -clauseSize);
                 JWcount.emplace_back(literal, score); // update the score associated with the literal
-                if (score >= maxScore) { // select the literal that maximizes the score
+                if (score > maxScore) { // select the literal that maximizes the score
                     maxScore = score;
                     maxLit = literal;
+                }
+                else if (randomized && score == maxScore) {
+                    randCandidates.push_back(literal);
                 }
              }
           }
@@ -469,6 +498,16 @@ int Solver::selectLiteralJW() {
       #endif
 
       JWcount.clear();
+
+      if (randomized && !randCandidates.empty()) {
+          int randIndex = getRandomIndex(0, randCandidates.size());
+          maxLit = randCandidates.at(randIndex);
+
+          #ifdef DEBUG
+          std::cout << "Chosen maxLit: " << maxLit << '\n';
+          #endif
+      }
+
       if (maxLit > 0) {
           return maxLit;
       }
@@ -477,6 +516,66 @@ int Solver::selectLiteralJW() {
       }
   }
   return 0;
+}
+
+// Selection heuristic: Maximum [number of] Occurrences in Minimum [length] Clauses.
+// If randomized true, it runs the randomized MOMS variant.
+int Solver::selectLiteralMOMS(bool randomized) {
+    int maxLit = 0;
+    int counterNeg = 0;
+    int maxScore = 0;
+    int parameter = 3; // arbitrarily chosen
+    int totalClauseLength = 0;
+    int cutoffLength = 0; // defines the 'minimum length' of a clause
+    std::vector<int> randCandidates; // used in randomized MOMS
+
+    for (const auto & clause : clauses) {
+        totalClauseLength += int(clause.size());
+    }
+    cutoffLength = totalClauseLength / int(clauses.size()); // an arbitrary definition of a short clause
+    if (cutoffLength >= 2) {
+        --cutoffLength;
+    }
+
+    #ifdef DEBUG
+    std::cout << "cuffoffLength: " << cutoffLength << '\n';
+    #endif
+
+    combinedSum(true, cutoffLength); // compute the combined sum using the 'cutoffLength' parameter
+
+    for (auto & lit : posVariableCount) { // match corresponding literals (i.e., x and -x) in the two vectors
+        auto itNeg = std::find_if(negVariableCount.begin(), negVariableCount.end(), [&](const auto & negLit) {
+            counterNeg = negLit.second;
+            return negLit.first == -lit.first;
+        });
+        if (itNeg != negVariableCount.end()) {
+            int tempScore = (counterNeg + lit.second) * pow(2, parameter) + (counterNeg * lit.second);
+            if (tempScore > maxScore) { // update the combined variable score
+                maxScore = tempScore;
+                maxLit = lit.first;
+                negVariableCount.erase(itNeg);
+            }
+            else if (randomized && tempScore == maxScore) {
+                randCandidates.push_back(lit.first);
+            }
+        }
+    }
+
+    if (maxLit == 0) { // If there are no matching literals, pick the first literal available.
+        maxLit = selectLiteral();
+    }
+    posVariableCount.clear();
+    negVariableCount.clear();
+
+    if (randomized && !randCandidates.empty()) {
+        int randIndex = getRandomIndex(0, randCandidates.size());
+        maxLit = randCandidates.at(randIndex);
+
+        #ifdef DEBUG
+        std::cout << "Chosen maxLit: " << maxLit << '\n';
+        #endif
+    }
+    return maxLit;
 }
 
 // Select the next decision literal.
@@ -497,7 +596,7 @@ void Solver::decideLiteral() {
             literal = selectLiteralDLCS(false);
             break;
         case 5:
-            literal = selectLiteralJW();
+            literal = selectLiteralJW(false);
             break;
         case 6:
             literal = selectLiteralDLCS(true);
@@ -507,6 +606,15 @@ void Solver::decideLiteral() {
             break;
         case 8:
             literal = selectLiteralRand();
+            break;
+        case 9:
+            literal = selectLiteralMOMS(false);
+            break;
+        case 10:
+            literal = selectLiteralMOMS(true);
+            break;
+        case 11:
+            literal = selectLiteralJW(true);
             break;
     }
 
@@ -692,6 +800,9 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
     std::string dlcs = "dlcs";
     std::string rdlcs = "rdlcs";
     std::string jw = "jw";
+    std::string rjw = "rjw";
+    std::string moms = "moms";
+    std::string rmoms = "rmoms";
     std::string lucky = "lucky";
 
     if (boost::iequals(option, without)) {
@@ -718,11 +829,17 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
     else if (boost::iequals(option, random)) {
         heuristics = 8;
     }
+    else if (boost::iequals(option, moms)) {
+        heuristics = 9;
+    }
+    else if (boost::iequals(option, rmoms)) {
+        heuristics = 10;
+    }
+    else if (boost::iequals(option, rjw)) {
+        heuristics = 11;
+    }
     else if (boost::iequals(option, lucky)) {
-        std::random_device randDevice;
-        std::mt19937 rng(randDevice());
-        std::uniform_int_distribution<int> result(2,8);
-        heuristics = result(rng);
+        heuristics = getRandomIndex(2, 9); // the upper bound is decremented so the max is option 8
         #ifdef DEBUG
         std::cout << "Picked: " << heuristics << '\n';
         #endif
