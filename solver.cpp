@@ -716,24 +716,30 @@ void Solver::pureLiteral() {
     std::vector<int> erasedLiterals; // keep track of the erased literals
     for (const auto & clause : clauses) {
         for (int literal : clause) {
-            auto it = std::find_if(trackLiterals.begin(), trackLiterals.end(), [&](const auto & lit) {
-                return lit == -literal;
-            });
-            auto duplicate = std::find_if(trackLiterals.begin(), trackLiterals.end(), [&](const auto & lit) {
-                return lit == literal;
-            });
-            auto erased = std::find_if(erasedLiterals.begin(), erasedLiterals.end(), [&](const auto & lit) {
-                return lit == literal || lit == -literal;
-            });
-            if (it == trackLiterals.end() && duplicate == trackLiterals.end() && erased == erasedLiterals.end()) {
-                trackLiterals.push_back(literal);
-            }
-            else if (it != trackLiterals.end()) {
-                #ifdef DEBUG
-                std::cout << "\nErasing: " << literal << '\n';
-                #endif
-                erasedLiterals.push_back(literal);
-                trackLiterals.erase(it);
+
+            if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
+                return lit.first == literal || lit.first == -literal;
+            }) == trail.end()) {
+
+                auto it = std::find_if(trackLiterals.begin(), trackLiterals.end(), [&](const auto & lit) {
+                    return lit == -literal;
+                });
+                auto duplicate = std::find_if(trackLiterals.begin(), trackLiterals.end(), [&](const auto & lit) {
+                    return lit == literal;
+                });
+                auto erased = std::find_if(erasedLiterals.begin(), erasedLiterals.end(), [&](const auto & lit) {
+                    return lit == literal || lit == -literal;
+                });
+                if (it == trackLiterals.end() && duplicate == trackLiterals.end() && erased == erasedLiterals.end()) {
+                    trackLiterals.push_back(literal);
+                }
+                else if (it != trackLiterals.end()) {
+                    #ifdef DEBUG
+                    std::cout << "Erasing: " << literal << '\n';
+                    #endif
+                    erasedLiterals.push_back(literal);
+                    trackLiterals.erase(it);
+                }
             }
         }
     }
@@ -743,7 +749,6 @@ void Solver::pureLiteral() {
             std::cout << "Pure literal: " << lit << '\n';
             #endif
             assertLiteral(lit, true);
-            ++numberDecisions;
         }
         trackLiterals.clear();
     }
@@ -852,9 +857,9 @@ Solver::Solver(std::istream & stream, std::string & option) : state(Solver::Stat
 // Solve the SAT problem.
 bool Solver::solve() {
     //std::clock_t start = std::clock();
-    pureLiteral();
     while (state == Solver::State::UNDEF) {
         unitPropagate();
+        pureLiteral();
         if (checkConflict()) {
             if (numberDecisions == 0) {
                 applyExplainEmpty();
