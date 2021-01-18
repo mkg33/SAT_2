@@ -15,21 +15,29 @@ def runForAll(dir, res):
         for option in options:
             if filename.endswith(".cnf"):
                 fOut    = []
+                outcome = True
                 result = subprocess.run(["./solver.out", dir + filename, option], capture_output=True, text=True)
+                #print(result.stdout)
                 if result.stderr != "" or result.stdout.strip() != res:
                     fOut.append("[" + bcolors.FAIL + "FAIL" + bcolors.ENDC + "]")
+                    outcome = False
                 else:
                     fOut.append("[" + bcolors.OKGREEN + "OK" + bcolors.ENDC + "]")
                     fOut.append(option)
                     fOut.append(filename + ":")
-                    if (result.stderr != ""):
-                        fOut.append(result.stderr.strip())
-                    else:
-                        fOut.append(result.stdout.strip())
-                        out.append(fOut)
+                if (result.stderr != ""):
+                    fOut.append(result.stderr.strip())
+                else:
+                    fOut.append(result.stdout.strip())
+                    out.append(fOut)
+
     width = max(len(word) for row in out for word in row) + 2
     for row in out:
         print ("".join(word.ljust(width) for word in row))
+    if outcome:
+        print("\nGREAT SUCCESS!")
+    else:
+        print("\nEPIC FAIL")
 
 def main(argv):
     if len(argv) < 3 or not argv[1].endswith("/"):
