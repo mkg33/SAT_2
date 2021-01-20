@@ -17,16 +17,16 @@ def runForAll(exe, dir, res):
         for filename in files:
             if filename.endswith(".cnf"):
                 fOut    = []
-                result = subprocess.run(["./" + exe, dir + "/" + filename, str(heuristic)], capture_output=True, text=True)
-                if result.stderr != "" or result.stdout.strip() != res:
+                result = subprocess.run(["time", "./" + exe, dir + "/" + filename, str(heuristic)], capture_output=True, text=True)
+                execTime = result.stderr.strip().split()[2]
+                output   = result.stdout.strip().split()[0]
+                if output != res:
                     fOut.append("[" + bcolors.FAIL + "FAIL" + bcolors.ENDC + "]")
                 else:
                     fOut.append("[" + bcolors.OKGREEN + "OK" + bcolors.ENDC + "]")
+                fOut.append(execTime)
                 fOut.append(filename + ":")
-                if (result.stderr != ""):
-                    fOut.append(result.stderr.strip())
-                else:
-                    fOut.append(result.stdout.strip())
+                fOut.append(output)
                 out.append(fOut)
         width = max(len(word) for row in out for word in row) + 2
         for row in out:
