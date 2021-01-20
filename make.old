@@ -1,0 +1,22 @@
+CC = g++
+CFLAGS = -std=c++14 -Wall -Wextra -Werror -O3
+EXEC = old.out
+
+all: clean
+all: $(EXEC)
+
+debug: CFLAGS += -DDEBUG
+debug: clean
+debug: $(EXEC)
+
+$(EXEC): oldMain.o old.o
+	$(CC) $(CFLAGS) -o old.out oldMain.o old.o
+
+oldMain.o: oldMain.cpp old.hpp
+	$(CC) $(CFLAGS) -c oldMain.cpp
+
+old.o: old.cpp old.hpp
+	$(CC) $(CFLAGS) -c old.cpp
+
+clean:
+	rm -f old.out *.o

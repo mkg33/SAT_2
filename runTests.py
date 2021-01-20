@@ -11,6 +11,7 @@ class bcolors:
 def runForAll(exe, dir, res):
     out = []
     heuristics = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    #heuristics = [6]
     files = sorted(os.listdir(dir))
     for heuristic in heuristics:
         print("HEURISTIC: ", heuristic)
@@ -24,13 +25,14 @@ def runForAll(exe, dir, res):
                     fOut.append("[" + bcolors.FAIL + "FAIL" + bcolors.ENDC + "]")
                 else:
                     fOut.append("[" + bcolors.OKGREEN + "OK" + bcolors.ENDC + "]")
+                fOut.append(output)
                 fOut.append(execTime)
                 fOut.append(filename + ":")
-                fOut.append(output)
-                out.append(fOut)
-        width = max(len(word) for row in out for word in row) + 2
-        for row in out:
-            print ("".join(word.ljust(width) for word in row))
+                print(" ".join(fOut))
+
+        #width = max(len(word) for row in out for word in row) + 2
+        #for row in out:
+        #    print ("".join(word.ljust(width) for word in row))
 
 def main(argv):
     if len(argv) < 4:
