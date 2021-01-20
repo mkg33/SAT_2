@@ -61,6 +61,9 @@ private:
     // Maps a literal to the clauses that are watching the literal.
     std::unordered_map<int, std::vector<std::size_t> > watchList;
 
+    // List for pure literal elimination.
+    std::vector<std::pair<bool, bool> > pureLiterals;
+
     void combinedSum(std::vector<std::pair<int, int> > &, std::vector<std::pair<int, int> > &, bool, std::size_t) const;
     int selectFirst() const;
     int selectRandom() const;

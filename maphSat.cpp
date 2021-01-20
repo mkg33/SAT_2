@@ -413,6 +413,9 @@ void MaphSAT::applyExplainUIP() {
 // Add a learned clause to the formula to prevent the same conflict from happening again.
 void MaphSAT::applyLearn() {
     formula.push_back(backjumpClause);
+    // Add the clause to the watch list.
+    watchList[backjumpClause[0]].push_back(formula.size() - 1);
+    watchList[backjumpClause[1]].push_back(formula.size() - 1);
 }
 
 // Return an iterator to the first literal in the trail that has a decision level greater than 'level'.
@@ -575,6 +578,27 @@ MaphSAT::MaphSAT(std::istream & stream, MaphSAT::Heuristic heuristic) :
 
 // Solve the CNF formula.
 bool MaphSAT::solve() {
+    // Check if there are any pure literals.
+    pureLiterals.reserve(numberVariables);
+    for (const auto & clause : formula) {
+        for (int literal : clause) {
+            if (literal > 0)
+                pureLiterals[literal].first = true;
+            else
+                pureLiterals[-literal].second = true;
+        }
+    }
+    // Add the pure literals to the unit queue.
+    for (std::size_t i = 0; i < pureLiterals.size(); ++i) {
+        const auto p = pureLiterals[i];
+        if (p.first && !p.second)
+            unitQueue.push_front(i + 1);
+        else if (!p.first && p.second)
+            unitQueue.push_front(- i - 1);
+    }
+    pureLiterals.clear();
+    pureLiterals.shrink_to_fit();
+
     // Are there any conflicts with the unit literals?
     for (std::size_t i = 0; i < unitQueue.size(); ++i) {
         const int unitLiteral = unitQueue[i];
