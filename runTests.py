@@ -8,32 +8,36 @@ class bcolors:
     BOLD = '\033[1m'
     ENDC = '\033[0m'
 
-def runForAll(dir, res):
+def runForAll(exe, dir, res):
     out = []
-    for filename in os.listdir(dir):
-        if filename.endswith(".cnf"):
-            fOut    = []
-            result = subprocess.run(["./solver.out", dir + filename], capture_output=True, text=True)
-            if result.stderr != "" or result.stdout.strip() != res:
-                fOut.append("[" + bcolors.FAIL + "FAIL" + bcolors.ENDC + "]")
-            else:
-                fOut.append("[" + bcolors.OKGREEN + "OK" + bcolors.ENDC + "]")
-            fOut.append(filename + ":")
-            if (result.stderr != ""):
-                fOut.append(result.stderr.strip())
-            else:
-                fOut.append(result.stdout.strip())
-            out.append(fOut)
-    width = max(len(word) for row in out for word in row) + 2
-    for row in out:
-        print ("".join(word.ljust(width) for word in row))
+    heuristics = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    files = sorted(os.listdir(dir))
+    for heuristic in heuristics:
+        print("HEURISTIC: ", heuristic)
+        for filename in files:
+            if filename.endswith(".cnf"):
+                fOut    = []
+                result = subprocess.run(["time", "./" + exe, dir + "/" + filename, str(heuristic)], capture_output=True, text=True)
+                execTime = result.stderr.strip().split()[2]
+                output   = result.stdout.strip().split()[0]
+                if output != res:
+                    fOut.append("[" + bcolors.FAIL + "FAIL" + bcolors.ENDC + "]")
+                else:
+                    fOut.append("[" + bcolors.OKGREEN + "OK" + bcolors.ENDC + "]")
+                fOut.append(execTime)
+                fOut.append(filename + ":")
+                fOut.append(output)
+                out.append(fOut)
+        width = max(len(word) for row in out for word in row) + 2
+        for row in out:
+            print ("".join(word.ljust(width) for word in row))
 
 def main(argv):
-    if len(argv) < 3 or not argv[1].endswith("/"):
-        print(argv[0], " <directory of cnf files including the ending / (slash)> <expected result>")
+    if len(argv) < 4:
+        print(argv[0], " <executable> <directory of cnf files> <expected result>")
         sys.exit(2)
     else:
-        runForAll(argv[1], argv[2])
+        runForAll(argv[1], argv[2], argv[3])
 
 if __name__ == "__main__":
     main(sys.argv)

@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -std=c++14 -Wall -Wextra -Werror
+CFLAGS = -std=c++14 -Wall -Wextra -Werror -O3
 EXEC = solver.out
 
 all: clean
@@ -9,14 +9,14 @@ debug: CFLAGS += -DDEBUG
 debug: clean
 debug: $(EXEC)
 
-$(EXEC): main.o solver.o
-	$(CC) $(CFLAGS) -o solver.out main.o solver.o
+$(EXEC): maphMain.o maphSat.o
+	$(CC) $(CFLAGS) -o maph.out maphMain.o maphSat.o
 
-main.o: main.cpp solver.hpp
-	$(CC) $(CFLAGS) -c main.cpp
+maphMain.o: maphMain.cpp maphSat.hpp
+	$(CC) $(CFLAGS) -c maphMain.cpp
 
-solver.o: solver.cpp solver.hpp
-	$(CC) $(CFLAGS) -c solver.cpp
+maphSat.o: maphSat.cpp maphSat.hpp
+	$(CC) $(CFLAGS) -c maphSat.cpp
 
 clean:
-	rm -f solver.out *.o
+	rm -f maph.out *.o

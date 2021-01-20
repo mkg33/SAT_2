@@ -1,10 +1,50 @@
 # SAT_2
 
-**Projekt 2**
+**Project 2**
 
 Start: 10.12.2020
 
 Deadline: 21.01.2021
+
+*Update 16.01.2021:*
+Available heuristics:
+- DLIS
+- RDLIS (randomized)
+- DLCS
+- RDLCS
+- Jeroslow-Wang
+- randomized J-W
+- MOMS
+- randomized MOMS
+- randomized selection
+- simple yes/no selection, i.e., pick the first encountered literal if the rand bool is true
+- there's also a 'lucky' option that picks the method randomly
+
+I've tested everything extensively but I don't trust myself on this. It works but I want to make sure that it really does what it's supposed to do.
+
+Once we've agreed on the final version of the solver, I'll measure the performance and create the damned cactus plots.
+
+*Update 15.01.2021:*
+Now:
+So now we have the two randomized variants of DLIS and DLCS. The currently implemented heuristics are:
+- DLIS
+- RDLIS (randomized)
+- DLCS
+- RDLCS
+- Jeroslow-Wang
+- randomized selection
+- simple yes/no selection, i.e., pick the first encountered literal if the rand bool is true
+
+Earlier:
+I suggest that we create two versions of DLIS for benchmarking purposes. One where we select the most 'recent' literal with the highest frequency, and another where we update the frequency score only if it's higher (but not equal to the current score). I noticed some variation w.r.t. execution time but I'm not sure if it's significant.
+
+We currently have the following heuristics:
+- DLIS
+- DLCS
+- (sort of) random heuristic
+- the Jeroslow-Wang method
+
+I've tested them all (with the awesome `runTests.py` script) but please take a closer look at those functions.
 
 *Update 28.12.2020:*
 Finished Version 2 of the Solver (as described in the paper).
