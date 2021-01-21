@@ -1,0 +1,1751 @@
+Given 1 minute CPU time (measured in seconds; third column from the left) for each problem, the MaPhSolver solved the following instances:
+
+HEURISTIC: select the first available literal
+SOLVED: 118(SAT) + 39 (UNSAT) = 157
+[OK] SAT 0.00 aim-100-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-4.cnf
+[OK] SAT 0.00 aim-200-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-200-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-200-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-200-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-200-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-200-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-200-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-200-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-200-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-200-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-200-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-200-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-200-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-200-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-200-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-200-6_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-4.cnf
+[TIMEOUT] ii16a1.cnf
+[TIMEOUT] ii16a2.cnf
+[TIMEOUT] ii16b1.cnf
+[TIMEOUT] ii16b2.cnf
+[TIMEOUT] ii16c1.cnf
+[TIMEOUT] ii16c2.cnf
+[TIMEOUT] ii16d1.cnf
+[TIMEOUT] ii16d2.cnf
+[OK] SAT 4.59 ii16e1.cnf
+[OK] SAT 0.28 ii16e2.cnf
+[OK] SAT 2.51 ii32a1.cnf
+[OK] SAT 0.02 ii32b1.cnf
+[OK] SAT 1.84 ii32b2.cnf
+[OK] SAT 2.28 ii32b3.cnf
+[OK] SAT 2.15 ii32b4.cnf
+[OK] SAT 0.00 ii32c1.cnf
+[OK] SAT 0.02 ii32c2.cnf
+[OK] SAT 0.57 ii32c3.cnf
+[TIMEOUT] ii32c4.cnf
+[TIMEOUT] ii32d1.cnf
+[TIMEOUT] ii32d2.cnf
+[TIMEOUT] ii32d3.cnf
+[OK] SAT 0.00 ii32e1.cnf
+[OK] SAT 0.03 ii32e2.cnf
+[OK] SAT 1.07 ii32e3.cnf
+[OK] SAT 0.86 ii32e4.cnf
+[OK] SAT 0.56 ii32e5.cnf
+[OK] SAT 0.00 ii8a1.cnf
+[OK] SAT 0.00 ii8a2.cnf
+[OK] SAT 0.01 ii8a3.cnf
+[OK] SAT 0.02 ii8a4.cnf
+[OK] SAT 0.02 ii8b1.cnf
+[OK] SAT 0.11 ii8b2.cnf
+[OK] SAT 0.34 ii8b3.cnf
+[OK] SAT 0.79 ii8b4.cnf
+[OK] SAT 0.08 ii8c1.cnf
+[OK] SAT 0.56 ii8c2.cnf
+[OK] SAT 0.06 ii8d1.cnf
+[OK] SAT 0.61 ii8d2.cnf
+[OK] SAT 0.09 ii8e1.cnf
+[OK] SAT 0.52 ii8e2.cnf
+[OK] SAT 1.36 par16-1-c.cnf
+[OK] SAT 12.27 par16-1.cnf
+[OK] SAT 7.75 par16-2-c.cnf
+[OK] SAT 1.14 par16-2.cnf
+[OK] SAT 8.19 par16-3-c.cnf
+[OK] SAT 2.06 par16-3.cnf
+[OK] SAT 2.14 par16-4-c.cnf
+[OK] SAT 8.63 par16-4.cnf
+[TIMEOUT] par16-5-c.cnf
+[TIMEOUT] par16-5.cnf
+[OK] SAT 0.00 par8-1-c.cnf
+[OK] SAT 0.00 par8-1.cnf
+[OK] SAT 0.00 par8-2-c.cnf
+[OK] SAT 0.00 par8-2.cnf
+[OK] SAT 0.00 par8-3-c.cnf
+[OK] SAT 0.00 par8-3.cnf
+[OK] SAT 0.00 par8-4-c.cnf
+[OK] SAT 0.00 par8-4.cnf
+[OK] SAT 0.00 par8-5-c.cnf
+[OK] SAT 0.00 par8-5.cnf
+[OK] SAT 0.23 ssa7552-038.cnf
+[OK] SAT 0.21 ssa7552-158.cnf
+[OK] SAT 0.28 ssa7552-159.cnf
+[OK] SAT 0.28 ssa7552-160.cnf
+[OK] SAT 0.00 uf50-01.cnf
+[OK] SAT 0.00 uf50-010.cnf
+[OK] SAT 0.00 uf50-011.cnf
+[OK] SAT 0.00 uf50-012.cnf
+[OK] SAT 0.00 uf50-013.cnf
+[OK] SAT 0.00 uf50-014.cnf
+[OK] SAT 0.00 uf50-015.cnf
+[OK] SAT 0.00 uf50-016.cnf
+[OK] SAT 0.00 uf50-017.cnf
+[OK] SAT 0.00 uf50-018.cnf
+[OK] SAT 0.00 uf50-019.cnf
+[OK] SAT 0.00 uf50-02.cnf
+[OK] SAT 0.00 uf50-03.cnf
+[OK] SAT 0.00 uf50-04.cnf
+[OK] SAT 0.00 uf50-05.cnf
+[OK] SAT 0.00 uf50-06.cnf
+[OK] SAT 0.00 uf50-07.cnf
+[OK] SAT 0.00 uf50-08.cnf
+[OK] SAT 0.00 uf50-09.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-4.cnf
+[OK] UNSAT 0.00 aim-200-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-200-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-200-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-200-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-200-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-200-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-200-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-200-2_0-no-4.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-4.cnf
+[OK] UNSAT 0.00 hole6.cnf
+[OK] UNSAT 0.10 hole7.cnf
+[OK] UNSAT 3.11 hole8.cnf
+[TIMEOUT] hole9.cnf
+[OK] UNSAT 0.03 pret150_25.cnf
+[OK] UNSAT 0.04 pret150_40.cnf
+[OK] UNSAT 0.03 pret150_60.cnf
+[OK] UNSAT 0.03 pret150_75.cnf
+[OK] UNSAT 0.00 pret60_25.cnf
+[OK] UNSAT 0.00 pret60_40.cnf
+[OK] UNSAT 0.00 pret60_60.cnf
+[OK] UNSAT 0.00 pret60_75.cnf
+[OK] UNSAT 0.02 ssa0432-003.cnf
+[OK] UNSAT 0.31 ssa2670-130.cnf
+[OK] UNSAT 0.41 ssa2670-141.cnf
+[OK] UNSAT 0.04 ssa6288-047.cnf
+
+HEURISTIC: select a random literal
+SOLVED: 105(SAT) + 33(UNSAT) = 138
+[OK] SAT 0.00 aim-100-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-4.cnf
+[OK] SAT 0.01 aim-200-1_6-yes1-1.cnf
+[OK] SAT 0.04 aim-200-1_6-yes1-2.cnf
+[OK] SAT 0.02 aim-200-1_6-yes1-3.cnf
+[OK] SAT 0.04 aim-200-1_6-yes1-4.cnf
+[OK] SAT 0.06 aim-200-2_0-yes1-1.cnf
+[OK] SAT 0.04 aim-200-2_0-yes1-2.cnf
+[OK] SAT 0.02 aim-200-2_0-yes1-3.cnf
+[OK] SAT 0.05 aim-200-2_0-yes1-4.cnf
+[OK] SAT 0.04 aim-200-3_4-yes1-1.cnf
+[OK] SAT 0.11 aim-200-3_4-yes1-2.cnf
+[OK] SAT 0.02 aim-200-3_4-yes1-3.cnf
+[OK] SAT 0.04 aim-200-3_4-yes1-4.cnf
+[OK] SAT 0.03 aim-200-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-200-6_0-yes1-2.cnf
+[OK] SAT 0.04 aim-200-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-200-6_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-4.cnf
+[TIMEOUT] ii16a1.cnf
+[TIMEOUT] ii16a2.cnf
+[TIMEOUT] ii16b1.cnf
+[TIMEOUT] ii16b2.cnf
+[TIMEOUT] ii16c1.cnf
+[OK] SAT 10.08 ii16c2.cnf
+[TIMEOUT] ii16d1.cnf
+[OK] SAT 4.70 ii16d2.cnf
+[TIMEOUT] ii16e1.cnf
+[TIMEOUT] ii16e2.cnf
+[OK] SAT 0.22 ii32a1.cnf
+[OK] SAT 0.02 ii32b1.cnf
+[TIMEOUT] ii32b2.cnf
+[TIMEOUT] ii32b3.cnf
+[TIMEOUT] ii32b4.cnf
+[OK] SAT 0.04 ii32c1.cnf
+[OK] SAT 0.03 ii32c2.cnf
+[OK] SAT 0.44 ii32c3.cnf
+[TIMEOUT] ii32c4.cnf
+[TIMEOUT] ii32d1.cnf
+[OK] SAT 2.06 ii32d2.cnf
+[TIMEOUT] ii32d3.cnf
+[OK] SAT 0.01 ii32e1.cnf
+[OK] SAT 2.67 ii32e2.cnf
+[TIMEOUT] ii32e3.cnf
+[TIMEOUT] ii32e4.cnf
+[TIMEOUT] ii32e5.cnf
+[OK] SAT 0.00 ii8a1.cnf
+[OK] SAT 0.00 ii8a2.cnf
+[OK] SAT 0.03 ii8a3.cnf
+[OK] SAT 0.13 ii8a4.cnf
+[OK] SAT 0.10 ii8b1.cnf
+[OK] SAT 0.48 ii8b2.cnf
+[OK] SAT 1.36 ii8b3.cnf
+[OK] SAT 3.11 ii8b4.cnf
+[OK] SAT 0.28 ii8c1.cnf
+[OK] SAT 2.27 ii8c2.cnf
+[OK] SAT 0.29 ii8d1.cnf
+[OK] SAT 2.37 ii8d2.cnf
+[OK] SAT 0.29 ii8e1.cnf
+[OK] SAT 1.35 ii8e2.cnf
+[TIMEOUT] par16-1-c.cnf
+[TIMEOUT] par16-1.cnf
+[TIMEOUT] par16-2-c.cnf
+[TIMEOUT] par16-2.cnf
+[TIMEOUT] par16-3-c.cnf
+[TIMEOUT] par16-3.cnf
+[TIMEOUT] par16-4-c.cnf
+[TIMEOUT] par16-4.cnf
+[TIMEOUT] par16-5-c.cnf
+[TIMEOUT] par16-5.cnf
+[OK] SAT 0.00 par8-1-c.cnf
+[OK] SAT 0.02 par8-1.cnf
+[OK] SAT 0.00 par8-2-c.cnf
+[OK] SAT 0.01 par8-2.cnf
+[OK] SAT 0.00 par8-3-c.cnf
+[OK] SAT 0.02 par8-3.cnf
+[OK] SAT 0.00 par8-4-c.cnf
+[OK] SAT 0.00 par8-4.cnf
+[OK] SAT 0.00 par8-5-c.cnf
+[OK] SAT 0.00 par8-5.cnf
+[OK] SAT 1.12 ssa7552-038.cnf
+[OK] SAT 0.53 ssa7552-158.cnf
+[OK] SAT 0.48 ssa7552-159.cnf
+[OK] SAT 1.39 ssa7552-160.cnf
+[OK] SAT 0.00 uf50-01.cnf
+[OK] SAT 0.00 uf50-010.cnf
+[OK] SAT 0.00 uf50-011.cnf
+[OK] SAT 0.00 uf50-012.cnf
+[OK] SAT 0.00 uf50-013.cnf
+[OK] SAT 0.00 uf50-014.cnf
+[OK] SAT 0.00 uf50-015.cnf
+[OK] SAT 0.00 uf50-016.cnf
+[OK] SAT 0.00 uf50-017.cnf
+[OK] SAT 0.00 uf50-018.cnf
+[OK] SAT 0.00 uf50-019.cnf
+[OK] SAT 0.00 uf50-02.cnf
+[OK] SAT 0.00 uf50-03.cnf
+[OK] SAT 0.00 uf50-04.cnf
+[OK] SAT 0.00 uf50-05.cnf
+[OK] SAT 0.00 uf50-06.cnf
+[OK] SAT 0.00 uf50-07.cnf
+[OK] SAT 0.00 uf50-08.cnf
+[OK] SAT 0.00 uf50-09.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-4.cnf
+[OK] UNSAT 0.02 aim-200-1_6-no-1.cnf
+[OK] UNSAT 0.03 aim-200-1_6-no-2.cnf
+[OK] UNSAT 0.02 aim-200-1_6-no-3.cnf
+[OK] UNSAT 0.01 aim-200-1_6-no-4.cnf
+[OK] UNSAT 0.04 aim-200-2_0-no-1.cnf
+[OK] UNSAT 0.02 aim-200-2_0-no-2.cnf
+[OK] UNSAT 0.01 aim-200-2_0-no-3.cnf
+[OK] UNSAT 0.02 aim-200-2_0-no-4.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-4.cnf
+[OK] UNSAT 0.27 hole6.cnf
+[TIMEOUT] hole7.cnf
+[TIMEOUT] hole8.cnf
+[TIMEOUT] hole9.cnf
+[TIMEOUT] pret150_25.cnf
+[TIMEOUT] pret150_40.cnf
+[OK] UNSAT 2.54 pret150_60.cnf
+[TIMEOUT] pret150_75.cnf
+[OK] UNSAT 0.30 pret60_25.cnf
+[OK] UNSAT 0.58 pret60_40.cnf
+[OK] UNSAT 0.10 pret60_60.cnf
+[OK] UNSAT 0.10 pret60_75.cnf
+[OK] UNSAT 0.26 ssa0432-003.cnf
+[OK] UNSAT 9.67 ssa2670-130.cnf
+[TIMEOUT] ssa2670-141.cnf
+[OK] UNSAT 0.04 ssa6288-047.cnf
+
+HEURISTIC: Dynamic Largest Individual Sum
+SOLVED: 95(SAT) + 39(UNSAT) = 134
+[OK] SAT 0.00 aim-100-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-4.cnf
+[OK] SAT 0.02 aim-100-2_0-yes1-1.cnf
+[OK] SAT 0.01 aim-100-2_0-yes1-2.cnf
+[OK] SAT 0.01 aim-100-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-3.cnf
+[OK] SAT 0.01 aim-100-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-4.cnf
+[OK] SAT 0.03 aim-200-1_6-yes1-1.cnf
+[OK] SAT 0.09 aim-200-1_6-yes1-2.cnf
+[OK] SAT 0.03 aim-200-1_6-yes1-3.cnf
+[OK] SAT 0.04 aim-200-1_6-yes1-4.cnf
+[OK] SAT 0.11 aim-200-2_0-yes1-1.cnf
+[OK] SAT 0.09 aim-200-2_0-yes1-2.cnf
+[OK] SAT 0.09 aim-200-2_0-yes1-3.cnf
+[OK] SAT 0.15 aim-200-2_0-yes1-4.cnf
+[OK] SAT 0.11 aim-200-3_4-yes1-1.cnf
+[OK] SAT 0.09 aim-200-3_4-yes1-2.cnf
+[OK] SAT 0.18 aim-200-3_4-yes1-3.cnf
+[OK] SAT 1.65 aim-200-3_4-yes1-4.cnf
+[OK] SAT 0.09 aim-200-6_0-yes1-1.cnf
+[OK] SAT 0.02 aim-200-6_0-yes1-2.cnf
+[OK] SAT 0.03 aim-200-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-200-6_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-4.cnf
+[TIMEOUT] ii16a1.cnf
+[TIMEOUT] ii16a2.cnf
+[TIMEOUT] ii16b1.cnf
+[TIMEOUT] ii16b2.cnf
+[TIMEOUT] ii16c1.cnf
+[TIMEOUT] ii16c2.cnf
+[TIMEOUT] ii16d1.cnf
+[TIMEOUT] ii16d2.cnf
+[TIMEOUT] ii16e1.cnf
+[TIMEOUT] ii16e2.cnf
+[TIMEOUT] ii32a1.cnf
+[OK] SAT 0.20 ii32b1.cnf
+[TIMEOUT] ii32b2.cnf
+[TIMEOUT] ii32b3.cnf
+[TIMEOUT] ii32b4.cnf
+[OK] SAT 0.01 ii32c1.cnf
+[OK] SAT 0.07 ii32c2.cnf
+[TIMEOUT] ii32c3.cnf
+[TIMEOUT] ii32c4.cnf
+[TIMEOUT] ii32d1.cnf
+[TIMEOUT] ii32d2.cnf
+[TIMEOUT] ii32d3.cnf
+[OK] SAT 0.01 ii32e1.cnf
+[TIMEOUT] ii32e2.cnf
+[TIMEOUT] ii32e3.cnf
+[TIMEOUT] ii32e4.cnf
+[TIMEOUT] ii32e5.cnf
+[OK] SAT 0.00 ii8a1.cnf
+[OK] SAT 0.06 ii8a2.cnf
+[OK] SAT 0.24 ii8a3.cnf
+[OK] SAT 0.16 ii8a4.cnf
+[OK] SAT 0.20 ii8b1.cnf
+[OK] SAT 0.46 ii8b2.cnf
+[OK] SAT 1.53 ii8b3.cnf
+[TIMEOUT] ii8b4.cnf
+[OK] SAT 0.33 ii8c1.cnf
+[TIMEOUT] ii8c2.cnf
+[TIMEOUT] ii8d1.cnf
+[TIMEOUT] ii8d2.cnf
+[OK] SAT 0.30 ii8e1.cnf
+[OK] SAT 1.68 ii8e2.cnf
+[TIMEOUT] par16-1-c.cnf
+[TIMEOUT] par16-1.cnf
+[TIMEOUT] par16-2-c.cnf
+[TIMEOUT] par16-2.cnf
+[TIMEOUT] par16-3-c.cnf
+[TIMEOUT] par16-3.cnf
+[TIMEOUT] par16-4-c.cnf
+[TIMEOUT] par16-4.cnf
+[TIMEOUT] par16-5-c.cnf
+[TIMEOUT] par16-5.cnf
+[OK] SAT 0.00 par8-1-c.cnf
+[OK] SAT 0.01 par8-1.cnf
+[OK] SAT 0.00 par8-2-c.cnf
+[OK] SAT 0.02 par8-2.cnf
+[OK] SAT 0.00 par8-3-c.cnf
+[OK] SAT 0.02 par8-3.cnf
+[OK] SAT 0.00 par8-4-c.cnf
+[OK] SAT 0.01 par8-4.cnf
+[OK] SAT 0.00 par8-5-c.cnf
+[OK] SAT 0.01 par8-5.cnf
+[OK] SAT 1.63 ssa7552-038.cnf
+[OK] SAT 0.88 ssa7552-158.cnf
+[OK] SAT 0.99 ssa7552-159.cnf
+[OK] SAT 1.28 ssa7552-160.cnf
+[OK] SAT 0.00 uf50-01.cnf
+[OK] SAT 0.00 uf50-010.cnf
+[OK] SAT 0.00 uf50-011.cnf
+[OK] SAT 0.00 uf50-012.cnf
+[OK] SAT 0.00 uf50-013.cnf
+[OK] SAT 0.00 uf50-014.cnf
+[OK] SAT 0.00 uf50-015.cnf
+[OK] SAT 0.00 uf50-016.cnf
+[OK] SAT 0.00 uf50-017.cnf
+[OK] SAT 0.00 uf50-018.cnf
+[OK] SAT 0.00 uf50-019.cnf
+[OK] SAT 0.00 uf50-02.cnf
+[OK] SAT 0.00 uf50-03.cnf
+[OK] SAT 0.00 uf50-04.cnf
+[OK] SAT 0.00 uf50-05.cnf
+[OK] SAT 0.00 uf50-06.cnf
+[OK] SAT 0.00 uf50-07.cnf
+[OK] SAT 0.00 uf50-08.cnf
+[OK] SAT 0.00 uf50-09.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-4.cnf
+[OK] UNSAT 0.03 aim-200-1_6-no-1.cnf
+[OK] UNSAT 0.03 aim-200-1_6-no-2.cnf
+[OK] UNSAT 0.03 aim-200-1_6-no-3.cnf
+[OK] UNSAT 0.03 aim-200-1_6-no-4.cnf
+[OK] UNSAT 0.02 aim-200-2_0-no-1.cnf
+[OK] UNSAT 0.04 aim-200-2_0-no-2.cnf
+[OK] UNSAT 0.02 aim-200-2_0-no-3.cnf
+[OK] UNSAT 0.04 aim-200-2_0-no-4.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-4.cnf
+[OK] UNSAT 0.02 hole6.cnf
+[OK] UNSAT 0.27 hole7.cnf
+[OK] UNSAT 3.13 hole8.cnf
+[TIMEOUT] hole9.cnf
+[OK] UNSAT 2.30 pret150_25.cnf
+[OK] UNSAT 2.50 pret150_40.cnf
+[OK] UNSAT 2.76 pret150_60.cnf
+[OK] UNSAT 2.71 pret150_75.cnf
+[OK] UNSAT 0.15 pret60_25.cnf
+[OK] UNSAT 0.12 pret60_40.cnf
+[OK] UNSAT 0.12 pret60_60.cnf
+[OK] UNSAT 0.12 pret60_75.cnf
+[OK] UNSAT 0.06 ssa0432-003.cnf
+[OK] UNSAT 2.62 ssa2670-130.cnf
+[OK] UNSAT 5.57 ssa2670-141.cnf
+[OK] UNSAT 0.04 ssa6288-047.cnf
+
+HEURISTIC: randomized Dynamic Largest Individual Sum
+SOLVED: 91(SAT) + 31(UNSAT) = 122
+[OK] SAT 0.00 aim-100-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-4.cnf
+[OK] SAT 0.01 aim-100-2_0-yes1-1.cnf
+[OK] SAT 0.01 aim-100-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-3.cnf
+[OK] SAT 0.01 aim-100-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-4.cnf
+[OK] SAT 0.01 aim-100-6_0-yes1-1.cnf
+[OK] SAT 0.01 aim-100-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-3.cnf
+[OK] SAT 0.01 aim-100-6_0-yes1-4.cnf
+[OK] SAT 0.01 aim-200-1_6-yes1-1.cnf
+[OK] SAT 0.03 aim-200-1_6-yes1-2.cnf
+[OK] SAT 0.05 aim-200-1_6-yes1-3.cnf
+[OK] SAT 0.08 aim-200-1_6-yes1-4.cnf
+[OK] SAT 0.11 aim-200-2_0-yes1-1.cnf
+[OK] SAT 0.15 aim-200-2_0-yes1-2.cnf
+[OK] SAT 0.08 aim-200-2_0-yes1-3.cnf
+[OK] SAT 0.12 aim-200-2_0-yes1-4.cnf
+[OK] SAT 0.16 aim-200-3_4-yes1-1.cnf
+[OK] SAT 0.07 aim-200-3_4-yes1-2.cnf
+[OK] SAT 0.07 aim-200-3_4-yes1-3.cnf
+[OK] SAT 0.07 aim-200-3_4-yes1-4.cnf
+[OK] SAT 0.16 aim-200-6_0-yes1-1.cnf
+[OK] SAT 0.04 aim-200-6_0-yes1-2.cnf
+[OK] SAT 0.11 aim-200-6_0-yes1-3.cnf
+[OK] SAT 0.06 aim-200-6_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-4.cnf
+[TIMEOUT] ii16a1.cnf
+[TIMEOUT] ii16a2.cnf
+[TIMEOUT] ii16b1.cnf
+[TIMEOUT] ii16b2.cnf
+[TIMEOUT] ii16c1.cnf
+[TIMEOUT] ii16c2.cnf
+[TIMEOUT] ii16d1.cnf
+[TIMEOUT] ii16d2.cnf
+[TIMEOUT] ii16e1.cnf
+[TIMEOUT] ii16e2.cnf
+[TIMEOUT] ii32a1.cnf
+[OK] SAT 0.04 ii32b1.cnf
+[TIMEOUT] ii32b2.cnf
+[TIMEOUT] ii32b3.cnf
+[TIMEOUT] ii32b4.cnf
+[OK] SAT 0.05 ii32c1.cnf
+[TIMEOUT] ii32c2.cnf
+[TIMEOUT] ii32c3.cnf
+[TIMEOUT] ii32c4.cnf
+[TIMEOUT] ii32d1.cnf
+[TIMEOUT] ii32d2.cnf
+[TIMEOUT] ii32d3.cnf
+[OK] SAT 0.03 ii32e1.cnf
+[TIMEOUT] ii32e2.cnf
+[TIMEOUT] ii32e3.cnf
+[TIMEOUT] ii32e4.cnf
+[TIMEOUT] ii32e5.cnf
+[OK] SAT 0.00 ii8a1.cnf
+[OK] SAT 0.03 ii8a2.cnf
+[OK] SAT 0.89 ii8a3.cnf
+[TIMEOUT] ii8a4.cnf
+[OK] SAT 0.11 ii8b1.cnf
+[OK] SAT 1.24 ii8b2.cnf
+[TIMEOUT] ii8b3.cnf
+[TIMEOUT] ii8b4.cnf
+[TIMEOUT] ii8c1.cnf
+[TIMEOUT] ii8c2.cnf
+[OK] SAT 0.30 ii8d1.cnf
+[TIMEOUT] ii8d2.cnf
+[OK] SAT 0.57 ii8e1.cnf
+[TIMEOUT] ii8e2.cnf
+[TIMEOUT] par16-1-c.cnf
+[TIMEOUT] par16-1.cnf
+[TIMEOUT] par16-2-c.cnf
+[TIMEOUT] par16-2.cnf
+[TIMEOUT] par16-3-c.cnf
+[TIMEOUT] par16-3.cnf
+[TIMEOUT] par16-4-c.cnf
+[TIMEOUT] par16-4.cnf
+[TIMEOUT] par16-5-c.cnf
+[TIMEOUT] par16-5.cnf
+[OK] SAT 0.00 par8-1-c.cnf
+[OK] SAT 0.01 par8-1.cnf
+[OK] SAT 0.00 par8-2-c.cnf
+[OK] SAT 0.01 par8-2.cnf
+[OK] SAT 0.00 par8-3-c.cnf
+[OK] SAT 0.01 par8-3.cnf
+[OK] SAT 0.00 par8-4-c.cnf
+[OK] SAT 0.00 par8-4.cnf
+[OK] SAT 0.00 par8-5-c.cnf
+[OK] SAT 0.00 par8-5.cnf
+[OK] SAT 0.75 ssa7552-038.cnf
+[OK] SAT 0.62 ssa7552-158.cnf
+[OK] SAT 0.55 ssa7552-159.cnf
+[OK] SAT 0.53 ssa7552-160.cnf
+[OK] SAT 0.00 uf50-01.cnf
+[OK] SAT 0.00 uf50-010.cnf
+[OK] SAT 0.00 uf50-011.cnf
+[OK] SAT 0.00 uf50-012.cnf
+[OK] SAT 0.00 uf50-013.cnf
+[OK] SAT 0.00 uf50-014.cnf
+[OK] SAT 0.00 uf50-015.cnf
+[OK] SAT 0.00 uf50-016.cnf
+[OK] SAT 0.00 uf50-017.cnf
+[OK] SAT 0.00 uf50-018.cnf
+[OK] SAT 0.00 uf50-019.cnf
+[OK] SAT 0.00 uf50-02.cnf
+[OK] SAT 0.00 uf50-03.cnf
+[OK] SAT 0.00 uf50-04.cnf
+[OK] SAT 0.00 uf50-05.cnf
+[OK] SAT 0.00 uf50-06.cnf
+[OK] SAT 0.00 uf50-07.cnf
+[OK] SAT 0.00 uf50-08.cnf
+[OK] SAT 0.00 uf50-09.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-2.cnf
+[OK] UNSAT 0.01 aim-100-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-1.cnf
+[OK] UNSAT 0.01 aim-100-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-3.cnf
+[OK] UNSAT 0.01 aim-100-2_0-no-4.cnf
+[OK] UNSAT 0.06 aim-200-1_6-no-1.cnf
+[OK] UNSAT 0.05 aim-200-1_6-no-2.cnf
+[OK] UNSAT 0.11 aim-200-1_6-no-3.cnf
+[OK] UNSAT 0.06 aim-200-1_6-no-4.cnf
+[OK] UNSAT 0.04 aim-200-2_0-no-1.cnf
+[OK] UNSAT 0.03 aim-200-2_0-no-2.cnf
+[OK] UNSAT 0.05 aim-200-2_0-no-3.cnf
+[OK] UNSAT 0.04 aim-200-2_0-no-4.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-4.cnf
+[OK] UNSAT 0.43 hole6.cnf
+[TIMEOUT] hole7.cnf
+[TIMEOUT] hole8.cnf
+[TIMEOUT] hole9.cnf
+[TIMEOUT] pret150_25.cnf
+[TIMEOUT] pret150_40.cnf
+[TIMEOUT] pret150_60.cnf
+[TIMEOUT] pret150_75.cnf
+[OK] UNSAT 0.44 pret60_25.cnf
+[OK] UNSAT 0.17 pret60_40.cnf
+[OK] UNSAT 0.10 pret60_60.cnf
+[OK] UNSAT 0.76 pret60_75.cnf
+[OK] UNSAT 0.18 ssa0432-003.cnf
+[TIMEOUT] ssa2670-130.cnf
+[TIMEOUT] ssa2670-141.cnf
+[OK] UNSAT 0.04 ssa6288-047.cnf
+
+HEURISTIC: Dynamic Largest Combined Sum
+SOLVED: 92(SAT) + 39(UNSAT) = 131
+[OK] SAT 0.00 aim-100-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-4.cnf
+[OK] SAT 0.01 aim-100-3_4-yes1-1.cnf
+[OK] SAT 0.01 aim-100-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-4.cnf
+[OK] SAT 0.01 aim-200-1_6-yes1-1.cnf
+[OK] SAT 0.09 aim-200-1_6-yes1-2.cnf
+[OK] SAT 0.01 aim-200-1_6-yes1-3.cnf
+[OK] SAT 0.03 aim-200-1_6-yes1-4.cnf
+[OK] SAT 0.04 aim-200-2_0-yes1-1.cnf
+[OK] SAT 0.03 aim-200-2_0-yes1-2.cnf
+[OK] SAT 0.03 aim-200-2_0-yes1-3.cnf
+[OK] SAT 0.03 aim-200-2_0-yes1-4.cnf
+[OK] SAT 1.35 aim-200-3_4-yes1-1.cnf
+[OK] SAT 0.10 aim-200-3_4-yes1-2.cnf
+[OK] SAT 0.14 aim-200-3_4-yes1-3.cnf
+[OK] SAT 0.21 aim-200-3_4-yes1-4.cnf
+[OK] SAT 0.08 aim-200-6_0-yes1-1.cnf
+[OK] SAT 0.04 aim-200-6_0-yes1-2.cnf
+[OK] SAT 0.18 aim-200-6_0-yes1-3.cnf
+[OK] SAT 0.01 aim-200-6_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-4.cnf
+[TIMEOUT] ii16a1.cnf
+[TIMEOUT] ii16a2.cnf
+[TIMEOUT] ii16b1.cnf
+[TIMEOUT] ii16b2.cnf
+[TIMEOUT] ii16c1.cnf
+[TIMEOUT] ii16c2.cnf
+[TIMEOUT] ii16d1.cnf
+[TIMEOUT] ii16d2.cnf
+[TIMEOUT] ii16e1.cnf
+[TIMEOUT] ii16e2.cnf
+[TIMEOUT] ii32a1.cnf
+[OK] SAT 0.26 ii32b1.cnf
+[TIMEOUT] ii32b2.cnf
+[TIMEOUT] ii32b3.cnf
+[TIMEOUT] ii32b4.cnf
+[OK] SAT 0.02 ii32c1.cnf
+[TIMEOUT] ii32c2.cnf
+[TIMEOUT] ii32c3.cnf
+[TIMEOUT] ii32c4.cnf
+[OK] SAT 0.92 ii32d1.cnf
+[TIMEOUT] ii32d2.cnf
+[TIMEOUT] ii32d3.cnf
+[OK] SAT 0.02 ii32e1.cnf
+[TIMEOUT] ii32e2.cnf
+[TIMEOUT] ii32e3.cnf
+[TIMEOUT] ii32e4.cnf
+[TIMEOUT] ii32e5.cnf
+[OK] SAT 0.00 ii8a1.cnf
+[OK] SAT 0.09 ii8a2.cnf
+[OK] SAT 0.29 ii8a3.cnf
+[OK] SAT 0.67 ii8a4.cnf
+[OK] SAT 0.21 ii8b1.cnf
+[OK] SAT 0.81 ii8b2.cnf
+[TIMEOUT] ii8b3.cnf
+[TIMEOUT] ii8b4.cnf
+[OK] SAT 1.26 ii8c1.cnf
+[TIMEOUT] ii8c2.cnf
+[TIMEOUT] ii8d1.cnf
+[TIMEOUT] ii8d2.cnf
+[TIMEOUT] ii8e1.cnf
+[TIMEOUT] ii8e2.cnf
+[TIMEOUT] par16-1-c.cnf
+[TIMEOUT] par16-1.cnf
+[TIMEOUT] par16-2-c.cnf
+[TIMEOUT] par16-2.cnf
+[TIMEOUT] par16-3-c.cnf
+[TIMEOUT] par16-3.cnf
+[TIMEOUT] par16-4-c.cnf
+[TIMEOUT] par16-4.cnf
+[TIMEOUT] par16-5-c.cnf
+[TIMEOUT] par16-5.cnf
+[OK] SAT 0.00 par8-1-c.cnf
+[OK] SAT 0.00 par8-1.cnf
+[OK] SAT 0.00 par8-2-c.cnf
+[OK] SAT 0.00 par8-2.cnf
+[OK] SAT 0.00 par8-3-c.cnf
+[OK] SAT 0.00 par8-3.cnf
+[OK] SAT 0.00 par8-4-c.cnf
+[OK] SAT 0.00 par8-4.cnf
+[OK] SAT 0.00 par8-5-c.cnf
+[OK] SAT 0.00 par8-5.cnf
+[OK] SAT 1.09 ssa7552-038.cnf
+[OK] SAT 0.29 ssa7552-158.cnf
+[OK] SAT 0.32 ssa7552-159.cnf
+[OK] SAT 0.37 ssa7552-160.cnf
+[OK] SAT 0.00 uf50-01.cnf
+[OK] SAT 0.00 uf50-010.cnf
+[OK] SAT 0.00 uf50-011.cnf
+[OK] SAT 0.00 uf50-012.cnf
+[OK] SAT 0.00 uf50-013.cnf
+[OK] SAT 0.00 uf50-014.cnf
+[OK] SAT 0.00 uf50-015.cnf
+[OK] SAT 0.00 uf50-016.cnf
+[OK] SAT 0.00 uf50-017.cnf
+[OK] SAT 0.00 uf50-018.cnf
+[OK] SAT 0.00 uf50-019.cnf
+[OK] SAT 0.00 uf50-02.cnf
+[OK] SAT 0.00 uf50-03.cnf
+[OK] SAT 0.00 uf50-04.cnf
+[OK] SAT 0.00 uf50-05.cnf
+[OK] SAT 0.00 uf50-06.cnf
+[OK] SAT 0.00 uf50-07.cnf
+[OK] SAT 0.00 uf50-08.cnf
+[OK] SAT 0.00 uf50-09.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-4.cnf
+[OK] UNSAT 0.02 aim-200-1_6-no-1.cnf
+[OK] UNSAT 0.03 aim-200-1_6-no-2.cnf
+[OK] UNSAT 0.05 aim-200-1_6-no-3.cnf
+[OK] UNSAT 0.01 aim-200-1_6-no-4.cnf
+[OK] UNSAT 0.01 aim-200-2_0-no-1.cnf
+[OK] UNSAT 0.01 aim-200-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-200-2_0-no-3.cnf
+[OK] UNSAT 0.01 aim-200-2_0-no-4.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-4.cnf
+[OK] UNSAT 0.03 hole6.cnf
+[OK] UNSAT 0.27 hole7.cnf
+[OK] UNSAT 2.57 hole8.cnf
+[TIMEOUT] hole9.cnf
+[OK] UNSAT 0.77 pret150_25.cnf
+[OK] UNSAT 0.79 pret150_40.cnf
+[OK] UNSAT 0.75 pret150_60.cnf
+[OK] UNSAT 0.74 pret150_75.cnf
+[OK] UNSAT 0.04 pret60_25.cnf
+[OK] UNSAT 0.03 pret60_40.cnf
+[OK] UNSAT 0.03 pret60_60.cnf
+[OK] UNSAT 0.04 pret60_75.cnf
+[OK] UNSAT 0.05 ssa0432-003.cnf
+[OK] UNSAT 2.44 ssa2670-130.cnf
+[OK] UNSAT 3.14 ssa2670-141.cnf
+[OK] UNSAT 0.04 ssa6288-047.cnf
+
+HEURISTIC: randomized Dynamic Largest Combined Sum
+SOLVED: 94(SAT) + 34(UNSAT) = 128
+[OK] SAT 0.00 aim-100-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-4.cnf
+[OK] SAT 0.01 aim-100-2_0-yes1-1.cnf
+[OK] SAT 0.01 aim-100-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-1.cnf
+[OK] SAT 0.01 aim-100-3_4-yes1-2.cnf
+[OK] SAT 0.01 aim-100-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-4.cnf
+[OK] SAT 0.01 aim-100-6_0-yes1-1.cnf
+[OK] SAT 0.01 aim-100-6_0-yes1-2.cnf
+[OK] SAT 0.01 aim-100-6_0-yes1-3.cnf
+[OK] SAT 0.01 aim-100-6_0-yes1-4.cnf
+[OK] SAT 0.00 aim-200-1_6-yes1-1.cnf
+[OK] SAT 0.04 aim-200-1_6-yes1-2.cnf
+[OK] SAT 0.02 aim-200-1_6-yes1-3.cnf
+[OK] SAT 0.03 aim-200-1_6-yes1-4.cnf
+[OK] SAT 0.08 aim-200-2_0-yes1-1.cnf
+[OK] SAT 0.08 aim-200-2_0-yes1-2.cnf
+[OK] SAT 0.06 aim-200-2_0-yes1-3.cnf
+[OK] SAT 0.06 aim-200-2_0-yes1-4.cnf
+[OK] SAT 0.21 aim-200-3_4-yes1-1.cnf
+[OK] SAT 0.15 aim-200-3_4-yes1-2.cnf
+[OK] SAT 0.23 aim-200-3_4-yes1-3.cnf
+[OK] SAT 0.55 aim-200-3_4-yes1-4.cnf
+[OK] SAT 0.34 aim-200-6_0-yes1-1.cnf
+[OK] SAT 0.24 aim-200-6_0-yes1-2.cnf
+[OK] SAT 0.13 aim-200-6_0-yes1-3.cnf
+[OK] SAT 0.05 aim-200-6_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-4.cnf
+[TIMEOUT] ii16a1.cnf
+[TIMEOUT] ii16a2.cnf
+[TIMEOUT] ii16b1.cnf
+[TIMEOUT] ii16b2.cnf
+[TIMEOUT] ii16c1.cnf
+[TIMEOUT] ii16c2.cnf
+[TIMEOUT] ii16d1.cnf
+[TIMEOUT] ii16d2.cnf
+[TIMEOUT] ii16e1.cnf
+[TIMEOUT] ii16e2.cnf
+[TIMEOUT] ii32a1.cnf
+[OK] SAT 0.02 ii32b1.cnf
+[TIMEOUT] ii32b2.cnf
+[TIMEOUT] ii32b3.cnf
+[TIMEOUT] ii32b4.cnf
+[OK] SAT 0.02 ii32c1.cnf
+[TIMEOUT] ii32c2.cnf
+[TIMEOUT] ii32c3.cnf
+[TIMEOUT] ii32c4.cnf
+[OK] SAT 0.47 ii32d1.cnf
+[TIMEOUT] ii32d2.cnf
+[TIMEOUT] ii32d3.cnf
+[OK] SAT 0.03 ii32e1.cnf
+[TIMEOUT] ii32e2.cnf
+[TIMEOUT] ii32e3.cnf
+[TIMEOUT] ii32e4.cnf
+[TIMEOUT] ii32e5.cnf
+[OK] SAT 0.00 ii8a1.cnf
+[OK] SAT 0.09 ii8a2.cnf
+[OK] SAT 0.25 ii8a3.cnf
+[TIMEOUT] ii8a4.cnf
+[OK] SAT 0.11 ii8b1.cnf
+[OK] SAT 0.50 ii8b2.cnf
+[OK] SAT 1.18 ii8b3.cnf
+[TIMEOUT] ii8b4.cnf
+[OK] SAT 0.93 ii8c1.cnf
+[TIMEOUT] ii8c2.cnf
+[OK] SAT 0.94 ii8d1.cnf
+[TIMEOUT] ii8d2.cnf
+[OK] SAT 0.69 ii8e1.cnf
+[TIMEOUT] ii8e2.cnf
+[TIMEOUT] par16-1-c.cnf
+[TIMEOUT] par16-1.cnf
+[TIMEOUT] par16-2-c.cnf
+[TIMEOUT] par16-2.cnf
+[TIMEOUT] par16-3-c.cnf
+[TIMEOUT] par16-3.cnf
+[TIMEOUT] par16-4-c.cnf
+[TIMEOUT] par16-4.cnf
+[TIMEOUT] par16-5-c.cnf
+[TIMEOUT] par16-5.cnf
+[OK] SAT 0.00 par8-1-c.cnf
+[OK] SAT 0.01 par8-1.cnf
+[OK] SAT 0.00 par8-2-c.cnf
+[OK] SAT 0.02 par8-2.cnf
+[OK] SAT 0.00 par8-3-c.cnf
+[OK] SAT 0.00 par8-3.cnf
+[OK] SAT 0.00 par8-4-c.cnf
+[OK] SAT 0.02 par8-4.cnf
+[OK] SAT 0.00 par8-5-c.cnf
+[OK] SAT 0.01 par8-5.cnf
+[OK] SAT 0.93 ssa7552-038.cnf
+[OK] SAT 0.54 ssa7552-158.cnf
+[OK] SAT 0.33 ssa7552-159.cnf
+[OK] SAT 0.40 ssa7552-160.cnf
+[OK] SAT 0.00 uf50-01.cnf
+[OK] SAT 0.00 uf50-010.cnf
+[OK] SAT 0.00 uf50-011.cnf
+[OK] SAT 0.00 uf50-012.cnf
+[OK] SAT 0.00 uf50-013.cnf
+[OK] SAT 0.00 uf50-014.cnf
+[OK] SAT 0.00 uf50-015.cnf
+[OK] SAT 0.00 uf50-016.cnf
+[OK] SAT 0.00 uf50-017.cnf
+[OK] SAT 0.00 uf50-018.cnf
+[OK] SAT 0.00 uf50-019.cnf
+[OK] SAT 0.00 uf50-02.cnf
+[OK] SAT 0.00 uf50-03.cnf
+[OK] SAT 0.00 uf50-04.cnf
+[OK] SAT 0.00 uf50-05.cnf
+[OK] SAT 0.00 uf50-06.cnf
+[OK] SAT 0.00 uf50-07.cnf
+[OK] SAT 0.00 uf50-08.cnf
+[OK] SAT 0.00 uf50-09.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-4.cnf
+[OK] UNSAT 0.03 aim-200-1_6-no-1.cnf
+[OK] UNSAT 0.05 aim-200-1_6-no-2.cnf
+[OK] UNSAT 0.07 aim-200-1_6-no-3.cnf
+[OK] UNSAT 0.03 aim-200-1_6-no-4.cnf
+[OK] UNSAT 0.06 aim-200-2_0-no-1.cnf
+[OK] UNSAT 0.03 aim-200-2_0-no-2.cnf
+[OK] UNSAT 0.03 aim-200-2_0-no-3.cnf
+[OK] UNSAT 0.03 aim-200-2_0-no-4.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-4.cnf
+[OK] UNSAT 0.13 hole6.cnf
+[OK] UNSAT 2.49 hole7.cnf
+[TIMEOUT] hole8.cnf
+[TIMEOUT] hole9.cnf
+[TIMEOUT] pret150_25.cnf
+[TIMEOUT] pret150_40.cnf
+[TIMEOUT] pret150_60.cnf
+[TIMEOUT] pret150_75.cnf
+[OK] UNSAT 0.06 pret60_25.cnf
+[OK] UNSAT 0.12 pret60_40.cnf
+[OK] UNSAT 0.70 pret60_60.cnf
+[OK] UNSAT 0.14 pret60_75.cnf
+[OK] UNSAT 0.09 ssa0432-003.cnf
+[OK] UNSAT 2.23 ssa2670-130.cnf
+[OK] UNSAT 4.99 ssa2670-141.cnf
+[OK] UNSAT 0.04 ssa6288-047.cnf
+
+HEURISTIC: Jeroslow-Wang heuristic
+SOLVED: 92(SAT) + 38(UNSAT) = 130
+[OK] SAT 0.00 aim-100-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-1.cnf
+[OK] SAT 0.01 aim-100-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-4.cnf
+[OK] SAT 0.00 aim-200-1_6-yes1-1.cnf
+[OK] SAT 0.01 aim-200-1_6-yes1-2.cnf
+[OK] SAT 0.01 aim-200-1_6-yes1-3.cnf
+[OK] SAT 0.01 aim-200-1_6-yes1-4.cnf
+[OK] SAT 0.05 aim-200-2_0-yes1-1.cnf
+[OK] SAT 0.04 aim-200-2_0-yes1-2.cnf
+[OK] SAT 0.02 aim-200-2_0-yes1-3.cnf
+[OK] SAT 0.06 aim-200-2_0-yes1-4.cnf
+[OK] SAT 0.16 aim-200-3_4-yes1-1.cnf
+[OK] SAT 0.11 aim-200-3_4-yes1-2.cnf
+[OK] SAT 0.07 aim-200-3_4-yes1-3.cnf
+[OK] SAT 0.04 aim-200-3_4-yes1-4.cnf
+[OK] SAT 0.01 aim-200-6_0-yes1-1.cnf
+[OK] SAT 0.03 aim-200-6_0-yes1-2.cnf
+[OK] SAT 0.04 aim-200-6_0-yes1-3.cnf
+[OK] SAT 0.01 aim-200-6_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-4.cnf
+[TIMEOUT] ii16a1.cnf
+[TIMEOUT] ii16a2.cnf
+[TIMEOUT] ii16b1.cnf
+[TIMEOUT] ii16b2.cnf
+[TIMEOUT] ii16c1.cnf
+[TIMEOUT] ii16c2.cnf
+[TIMEOUT] ii16d1.cnf
+[TIMEOUT] ii16d2.cnf
+[TIMEOUT] ii16e1.cnf
+[TIMEOUT] ii16e2.cnf
+[TIMEOUT] ii32a1.cnf
+[OK] SAT 0.88 ii32b1.cnf
+[TIMEOUT] ii32b2.cnf
+[TIMEOUT] ii32b3.cnf
+[TIMEOUT] ii32b4.cnf
+[OK] SAT 0.10 ii32c1.cnf
+[TIMEOUT] ii32c2.cnf
+[TIMEOUT] ii32c3.cnf
+[TIMEOUT] ii32c4.cnf
+[TIMEOUT] ii32d1.cnf
+[TIMEOUT] ii32d2.cnf
+[TIMEOUT] ii32d3.cnf
+[OK] SAT 0.19 ii32e1.cnf
+[TIMEOUT] ii32e2.cnf
+[TIMEOUT] ii32e3.cnf
+[TIMEOUT] ii32e4.cnf
+[TIMEOUT] ii32e5.cnf
+[OK] SAT 0.00 ii8a1.cnf
+[OK] SAT 0.07 ii8a2.cnf
+[OK] SAT 0.24 ii8a3.cnf
+[OK] SAT 0.37 ii8a4.cnf
+[OK] SAT 0.14 ii8b1.cnf
+[OK] SAT 0.63 ii8b2.cnf
+[TIMEOUT] ii8b3.cnf
+[TIMEOUT] ii8b4.cnf
+[OK] SAT 0.47 ii8c1.cnf
+[TIMEOUT] ii8c2.cnf
+[OK] SAT 0.57 ii8d1.cnf
+[TIMEOUT] ii8d2.cnf
+[OK] SAT 0.56 ii8e1.cnf
+[TIMEOUT] ii8e2.cnf
+[TIMEOUT] par16-1-c.cnf
+[TIMEOUT] par16-1.cnf
+[TIMEOUT] par16-2-c.cnf
+[TIMEOUT] par16-2.cnf
+[TIMEOUT] par16-3-c.cnf
+[TIMEOUT] par16-3.cnf
+[TIMEOUT] par16-4-c.cnf
+[TIMEOUT] par16-4.cnf
+[TIMEOUT] par16-5-c.cnf
+[TIMEOUT] par16-5.cnf
+[OK] SAT 0.00 par8-1-c.cnf
+[OK] SAT 0.00 par8-1.cnf
+[OK] SAT 0.00 par8-2-c.cnf
+[OK] SAT 0.01 par8-2.cnf
+[OK] SAT 0.00 par8-3-c.cnf
+[OK] SAT 0.01 par8-3.cnf
+[OK] SAT 0.00 par8-4-c.cnf
+[OK] SAT 0.03 par8-4.cnf
+[OK] SAT 0.00 par8-5-c.cnf
+[OK] SAT 0.01 par8-5.cnf
+[OK] SAT 0.79 ssa7552-038.cnf
+[OK] SAT 0.39 ssa7552-158.cnf
+[OK] SAT 0.42 ssa7552-159.cnf
+[TIMEOUT] ssa7552-160.cnf
+[OK] SAT 0.00 uf50-01.cnf
+[OK] SAT 0.00 uf50-010.cnf
+[OK] SAT 0.00 uf50-011.cnf
+[OK] SAT 0.00 uf50-012.cnf
+[OK] SAT 0.00 uf50-013.cnf
+[OK] SAT 0.00 uf50-014.cnf
+[OK] SAT 0.00 uf50-015.cnf
+[OK] SAT 0.00 uf50-016.cnf
+[OK] SAT 0.00 uf50-017.cnf
+[OK] SAT 0.00 uf50-018.cnf
+[OK] SAT 0.00 uf50-019.cnf
+[OK] SAT 0.01 uf50-02.cnf
+[OK] SAT 0.00 uf50-03.cnf
+[OK] SAT 0.01 uf50-04.cnf
+[OK] SAT 0.00 uf50-05.cnf
+[OK] SAT 0.00 uf50-06.cnf
+[OK] SAT 0.00 uf50-07.cnf
+[OK] SAT 0.00 uf50-08.cnf
+[OK] SAT 0.01 uf50-09.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-4.cnf
+[OK] UNSAT 0.01 aim-200-1_6-no-1.cnf
+[OK] UNSAT 0.02 aim-200-1_6-no-2.cnf
+[OK] UNSAT 0.03 aim-200-1_6-no-3.cnf
+[OK] UNSAT 0.01 aim-200-1_6-no-4.cnf
+[OK] UNSAT 0.01 aim-200-2_0-no-1.cnf
+[OK] UNSAT 0.01 aim-200-2_0-no-2.cnf
+[OK] UNSAT 0.01 aim-200-2_0-no-3.cnf
+[OK] UNSAT 0.01 aim-200-2_0-no-4.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-4.cnf
+[OK] UNSAT 0.07 hole6.cnf
+[OK] UNSAT 1.83 hole7.cnf
+[TIMEOUT] hole8.cnf
+[TIMEOUT] hole9.cnf
+[OK] UNSAT 1.16 pret150_25.cnf
+[OK] UNSAT 1.11 pret150_40.cnf
+[OK] UNSAT 1.34 pret150_60.cnf
+[OK] UNSAT 1.06 pret150_75.cnf
+[OK] UNSAT 0.06 pret60_25.cnf
+[OK] UNSAT 0.04 pret60_40.cnf
+[OK] UNSAT 0.04 pret60_60.cnf
+[OK] UNSAT 0.04 pret60_75.cnf
+[OK] UNSAT 0.43 ssa0432-003.cnf
+[OK] UNSAT 3.23 ssa2670-130.cnf
+[OK] UNSAT 3.89 ssa2670-141.cnf
+[OK] UNSAT 0.04 ssa6288-047.cnf
+
+HEURISTIC: randomized Jeroslow-Wang heuristic
+SOLVED: 95(SAT) + 31(UNSAT) = 126
+[OK] SAT 0.00 aim-100-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-1.cnf
+[OK] SAT 0.01 aim-100-2_0-yes1-2.cnf
+[OK] SAT 0.02 aim-100-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-4.cnf
+[OK] SAT 0.01 aim-100-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-2.cnf
+[OK] SAT 0.01 aim-100-3_4-yes1-3.cnf
+[OK] SAT 0.01 aim-100-3_4-yes1-4.cnf
+[OK] SAT 0.01 aim-100-6_0-yes1-1.cnf
+[OK] SAT 0.02 aim-100-6_0-yes1-2.cnf
+[OK] SAT 0.01 aim-100-6_0-yes1-3.cnf
+[OK] SAT 0.01 aim-100-6_0-yes1-4.cnf
+[OK] SAT 0.03 aim-200-1_6-yes1-1.cnf
+[OK] SAT 0.01 aim-200-1_6-yes1-2.cnf
+[OK] SAT 0.06 aim-200-1_6-yes1-3.cnf
+[OK] SAT 0.07 aim-200-1_6-yes1-4.cnf
+[OK] SAT 0.13 aim-200-2_0-yes1-1.cnf
+[OK] SAT 0.14 aim-200-2_0-yes1-2.cnf
+[OK] SAT 0.08 aim-200-2_0-yes1-3.cnf
+[OK] SAT 0.13 aim-200-2_0-yes1-4.cnf
+[OK] SAT 0.13 aim-200-3_4-yes1-1.cnf
+[OK] SAT 0.15 aim-200-3_4-yes1-2.cnf
+[OK] SAT 0.19 aim-200-3_4-yes1-3.cnf
+[OK] SAT 0.13 aim-200-3_4-yes1-4.cnf
+[OK] SAT 0.28 aim-200-6_0-yes1-1.cnf
+[OK] SAT 0.08 aim-200-6_0-yes1-2.cnf
+[OK] SAT 0.15 aim-200-6_0-yes1-3.cnf
+[OK] SAT 0.11 aim-200-6_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-4.cnf
+[TIMEOUT] ii16a1.cnf
+[TIMEOUT] ii16a2.cnf
+[TIMEOUT] ii16b1.cnf
+[TIMEOUT] ii16b2.cnf
+[TIMEOUT] ii16c1.cnf
+[TIMEOUT] ii16c2.cnf
+[TIMEOUT] ii16d1.cnf
+[TIMEOUT] ii16d2.cnf
+[TIMEOUT] ii16e1.cnf
+[TIMEOUT] ii16e2.cnf
+[TIMEOUT] ii32a1.cnf
+[OK] SAT 0.04 ii32b1.cnf
+[TIMEOUT] ii32b2.cnf
+[TIMEOUT] ii32b3.cnf
+[TIMEOUT] ii32b4.cnf
+[OK] SAT 0.03 ii32c1.cnf
+[OK] SAT 0.07 ii32c2.cnf
+[TIMEOUT] ii32c3.cnf
+[TIMEOUT] ii32c4.cnf
+[TIMEOUT] ii32d1.cnf
+[TIMEOUT] ii32d2.cnf
+[TIMEOUT] ii32d3.cnf
+[OK] SAT 0.03 ii32e1.cnf
+[OK] SAT 0.54 ii32e2.cnf
+[OK] SAT 0.31 ii32e3.cnf
+[TIMEOUT] ii32e4.cnf
+[TIMEOUT] ii32e5.cnf
+[OK] SAT 0.00 ii8a1.cnf
+[OK] SAT 0.01 ii8a2.cnf
+[OK] SAT 0.04 ii8a3.cnf
+[OK] SAT 0.15 ii8a4.cnf
+[OK] SAT 0.11 ii8b1.cnf
+[OK] SAT 0.61 ii8b2.cnf
+[TIMEOUT] ii8b3.cnf
+[TIMEOUT] ii8b4.cnf
+[OK] SAT 0.40 ii8c1.cnf
+[TIMEOUT] ii8c2.cnf
+[TIMEOUT] ii8d1.cnf
+[TIMEOUT] ii8d2.cnf
+[OK] SAT 0.47 ii8e1.cnf
+[TIMEOUT] ii8e2.cnf
+[TIMEOUT] par16-1-c.cnf
+[TIMEOUT] par16-1.cnf
+[TIMEOUT] par16-2-c.cnf
+[TIMEOUT] par16-2.cnf
+[TIMEOUT] par16-3-c.cnf
+[TIMEOUT] par16-3.cnf
+[TIMEOUT] par16-4-c.cnf
+[TIMEOUT] par16-4.cnf
+[TIMEOUT] par16-5-c.cnf
+[TIMEOUT] par16-5.cnf
+[OK] SAT 0.00 par8-1-c.cnf
+[OK] SAT 0.01 par8-1.cnf
+[OK] SAT 0.00 par8-2-c.cnf
+[OK] SAT 0.00 par8-2.cnf
+[OK] SAT 0.00 par8-3-c.cnf
+[OK] SAT 0.02 par8-3.cnf
+[OK] SAT 0.00 par8-4-c.cnf
+[OK] SAT 0.01 par8-4.cnf
+[OK] SAT 0.00 par8-5-c.cnf
+[OK] SAT 0.01 par8-5.cnf
+[OK] SAT 0.92 ssa7552-038.cnf
+[OK] SAT 1.19 ssa7552-158.cnf
+[OK] SAT 0.42 ssa7552-159.cnf
+[OK] SAT 0.60 ssa7552-160.cnf
+[OK] SAT 0.00 uf50-01.cnf
+[OK] SAT 0.00 uf50-010.cnf
+[OK] SAT 0.00 uf50-011.cnf
+[OK] SAT 0.00 uf50-012.cnf
+[OK] SAT 0.00 uf50-013.cnf
+[OK] SAT 0.00 uf50-014.cnf
+[OK] SAT 0.00 uf50-015.cnf
+[OK] SAT 0.00 uf50-016.cnf
+[OK] SAT 0.01 uf50-017.cnf
+[OK] SAT 0.00 uf50-018.cnf
+[OK] SAT 0.01 uf50-019.cnf
+[OK] SAT 0.00 uf50-02.cnf
+[OK] SAT 0.00 uf50-03.cnf
+[OK] SAT 0.00 uf50-04.cnf
+[OK] SAT 0.00 uf50-05.cnf
+[OK] SAT 0.00 uf50-06.cnf
+[OK] SAT 0.00 uf50-07.cnf
+[OK] SAT 0.00 uf50-08.cnf
+[OK] SAT 0.00 uf50-09.cnf
+[OK] UNSAT 0.01 aim-100-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-2.cnf
+[OK] UNSAT 0.01 aim-100-1_6-no-3.cnf
+[OK] UNSAT 0.01 aim-100-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-1.cnf
+[OK] UNSAT 0.01 aim-100-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-4.cnf
+[OK] UNSAT 0.05 aim-200-1_6-no-1.cnf
+[OK] UNSAT 0.10 aim-200-1_6-no-2.cnf
+[OK] UNSAT 0.10 aim-200-1_6-no-3.cnf
+[OK] UNSAT 0.03 aim-200-1_6-no-4.cnf
+[OK] UNSAT 0.05 aim-200-2_0-no-1.cnf
+[OK] UNSAT 0.06 aim-200-2_0-no-2.cnf
+[OK] UNSAT 0.05 aim-200-2_0-no-3.cnf
+[OK] UNSAT 0.04 aim-200-2_0-no-4.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-4.cnf
+[OK] UNSAT 0.36 hole6.cnf
+[TIMEOUT] hole7.cnf
+[TIMEOUT] hole8.cnf
+[TIMEOUT] hole9.cnf
+[TIMEOUT] pret150_25.cnf
+[TIMEOUT] pret150_40.cnf
+[TIMEOUT] pret150_60.cnf
+[TIMEOUT] pret150_75.cnf
+[OK] UNSAT 0.74 pret60_25.cnf
+[OK] UNSAT 0.80 pret60_40.cnf
+[OK] UNSAT 0.51 pret60_60.cnf
+[OK] UNSAT 0.18 pret60_75.cnf
+[OK] UNSAT 0.23 ssa0432-003.cnf
+[TIMEOUT] ssa2670-130.cnf
+[TIMEOUT] ssa2670-141.cnf
+[OK] UNSAT 0.04 ssa6288-047.cnf
+
+HEURISTIC: Maximum [number of] Occurrences in Minimum [length] Clauses
+SOLVED: 103(SAT) + 37(UNSAT) = 140
+[OK] SAT 0.00 aim-100-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-4.cnf
+[OK] SAT 0.00 aim-200-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-200-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-200-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-200-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-200-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-200-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-200-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-200-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-200-3_4-yes1-1.cnf
+[OK] SAT 0.01 aim-200-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-200-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-200-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-200-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-200-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-200-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-200-6_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-4.cnf
+[TIMEOUT] ii16a1.cnf
+[TIMEOUT] ii16a2.cnf
+[TIMEOUT] ii16b1.cnf
+[TIMEOUT] ii16b2.cnf
+[TIMEOUT] ii16c1.cnf
+[TIMEOUT] ii16c2.cnf
+[TIMEOUT] ii16d1.cnf
+[TIMEOUT] ii16d2.cnf
+[TIMEOUT] ii16e1.cnf
+[TIMEOUT] ii16e2.cnf
+[TIMEOUT] ii32a1.cnf
+[OK] SAT 0.13 ii32b1.cnf
+[OK] SAT 0.61 ii32b2.cnf
+[OK] SAT 0.74 ii32b3.cnf
+[TIMEOUT] ii32b4.cnf
+[OK] SAT 0.00 ii32c1.cnf
+[OK] SAT 0.01 ii32c2.cnf
+[OK] SAT 0.27 ii32c3.cnf
+[TIMEOUT] ii32c4.cnf
+[TIMEOUT] ii32d1.cnf
+[TIMEOUT] ii32d2.cnf
+[TIMEOUT] ii32d3.cnf
+[OK] SAT 0.00 ii32e1.cnf
+[TIMEOUT] ii32e2.cnf
+[OK] SAT 0.70 ii32e3.cnf
+[TIMEOUT] ii32e4.cnf
+[OK] SAT 0.72 ii32e5.cnf
+[OK] SAT 0.00 ii8a1.cnf
+[OK] SAT 0.02 ii8a2.cnf
+[OK] SAT 0.04 ii8a3.cnf
+[OK] SAT 0.05 ii8a4.cnf
+[OK] SAT 0.03 ii8b1.cnf
+[OK] SAT 0.16 ii8b2.cnf
+[OK] SAT 0.50 ii8b3.cnf
+[TIMEOUT] ii8b4.cnf
+[OK] SAT 0.11 ii8c1.cnf
+[OK] SAT 0.83 ii8c2.cnf
+[OK] SAT 0.08 ii8d1.cnf
+[OK] SAT 0.89 ii8d2.cnf
+[OK] SAT 0.13 ii8e1.cnf
+[OK] SAT 0.77 ii8e2.cnf
+[TIMEOUT] par16-1-c.cnf
+[TIMEOUT] par16-1.cnf
+[TIMEOUT] par16-2-c.cnf
+[TIMEOUT] par16-2.cnf
+[TIMEOUT] par16-3-c.cnf
+[TIMEOUT] par16-3.cnf
+[TIMEOUT] par16-4-c.cnf
+[TIMEOUT] par16-4.cnf
+[TIMEOUT] par16-5-c.cnf
+[TIMEOUT] par16-5.cnf
+[OK] SAT 0.00 par8-1-c.cnf
+[OK] SAT 0.00 par8-1.cnf
+[OK] SAT 0.00 par8-2-c.cnf
+[OK] SAT 0.00 par8-2.cnf
+[OK] SAT 0.00 par8-3-c.cnf
+[OK] SAT 0.00 par8-3.cnf
+[OK] SAT 0.00 par8-4-c.cnf
+[OK] SAT 0.00 par8-4.cnf
+[OK] SAT 0.00 par8-5-c.cnf
+[OK] SAT 0.00 par8-5.cnf
+[OK] SAT 0.34 ssa7552-038.cnf
+[OK] SAT 0.31 ssa7552-158.cnf
+[OK] SAT 0.42 ssa7552-159.cnf
+[OK] SAT 0.41 ssa7552-160.cnf
+[OK] SAT 0.00 uf50-01.cnf
+[OK] SAT 0.00 uf50-010.cnf
+[OK] SAT 0.00 uf50-011.cnf
+[OK] SAT 0.00 uf50-012.cnf
+[OK] SAT 0.00 uf50-013.cnf
+[OK] SAT 0.00 uf50-014.cnf
+[OK] SAT 0.00 uf50-015.cnf
+[OK] SAT 0.00 uf50-016.cnf
+[OK] SAT 0.00 uf50-017.cnf
+[OK] SAT 0.00 uf50-018.cnf
+[OK] SAT 0.00 uf50-019.cnf
+[OK] SAT 0.00 uf50-02.cnf
+[OK] SAT 0.00 uf50-03.cnf
+[OK] SAT 0.00 uf50-04.cnf
+[OK] SAT 0.00 uf50-05.cnf
+[OK] SAT 0.00 uf50-06.cnf
+[OK] SAT 0.00 uf50-07.cnf
+[OK] SAT 0.00 uf50-08.cnf
+[OK] SAT 0.00 uf50-09.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-4.cnf
+[OK] UNSAT 0.00 aim-200-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-200-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-200-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-200-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-200-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-200-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-200-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-200-2_0-no-4.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-4.cnf
+[OK] UNSAT 0.04 hole6.cnf
+[TIMEOUT] hole7.cnf
+[TIMEOUT] hole8.cnf
+[TIMEOUT] hole9.cnf
+[OK] UNSAT 0.09 pret150_25.cnf
+[OK] UNSAT 0.08 pret150_40.cnf
+[OK] UNSAT 0.08 pret150_60.cnf
+[OK] UNSAT 0.04 pret150_75.cnf
+[OK] UNSAT 0.01 pret60_25.cnf
+[OK] UNSAT 0.00 pret60_40.cnf
+[OK] UNSAT 0.00 pret60_60.cnf
+[OK] UNSAT 0.00 pret60_75.cnf
+[OK] UNSAT 0.03 ssa0432-003.cnf
+[OK] UNSAT 0.45 ssa2670-130.cnf
+[OK] UNSAT 0.71 ssa2670-141.cnf
+[OK] UNSAT 0.04 ssa6288-047.cnf
+
+HEURISTIC: randomized Maximum [number of] Occurrences in Minimum [length] Clauses
+SOLVED: 103(SAT) + 37(UNSAT) = 140
+[OK] SAT 0.00 aim-100-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-100-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-100-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-100-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-100-6_0-yes1-4.cnf
+[OK] SAT 0.00 aim-200-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-200-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-200-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-200-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-200-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-200-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-200-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-200-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-200-3_4-yes1-1.cnf
+[OK] SAT 0.02 aim-200-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-200-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-200-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-200-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-200-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-200-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-200-6_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-1.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-2.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-3.cnf
+[OK] SAT 0.00 aim-50-1_6-yes1-4.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-2_0-yes1-4.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-1.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-2.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-3.cnf
+[OK] SAT 0.00 aim-50-3_4-yes1-4.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-1.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-2.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-3.cnf
+[OK] SAT 0.00 aim-50-6_0-yes1-4.cnf
+[TIMEOUT] ii16a1.cnf
+[TIMEOUT] ii16a2.cnf
+[TIMEOUT] ii16b1.cnf
+[TIMEOUT] ii16b2.cnf
+[TIMEOUT] ii16c1.cnf
+[TIMEOUT] ii16c2.cnf
+[TIMEOUT] ii16d1.cnf
+[TIMEOUT] ii16d2.cnf
+[TIMEOUT] ii16e1.cnf
+[TIMEOUT] ii16e2.cnf
+[TIMEOUT] ii32a1.cnf
+[OK] SAT 0.01 ii32b1.cnf
+[OK] SAT 0.14 ii32b2.cnf
+[TIMEOUT] ii32b3.cnf
+[OK] SAT 0.30 ii32b4.cnf
+[OK] SAT 0.01 ii32c1.cnf
+[OK] SAT 0.04 ii32c2.cnf
+[OK] SAT 0.04 ii32c3.cnf
+[TIMEOUT] ii32c4.cnf
+[TIMEOUT] ii32d1.cnf
+[TIMEOUT] ii32d2.cnf
+[TIMEOUT] ii32d3.cnf
+[OK] SAT 0.00 ii32e1.cnf
+[OK] SAT 0.03 ii32e2.cnf
+[OK] SAT 0.80 ii32e3.cnf
+[OK] SAT 0.10 ii32e4.cnf
+[OK] SAT 0.56 ii32e5.cnf
+[OK] SAT 0.00 ii8a1.cnf
+[OK] SAT 0.02 ii8a2.cnf
+[OK] SAT 0.04 ii8a3.cnf
+[OK] SAT 0.05 ii8a4.cnf
+[OK] SAT 0.03 ii8b1.cnf
+[OK] SAT 0.16 ii8b2.cnf
+[OK] SAT 0.50 ii8b3.cnf
+[TIMEOUT] ii8b4.cnf
+[OK] SAT 0.11 ii8c1.cnf
+[TIMEOUT] ii8c2.cnf
+[OK] SAT 0.08 ii8d1.cnf
+[TIMEOUT] ii8d2.cnf
+[OK] SAT 0.13 ii8e1.cnf
+[OK] SAT 0.76 ii8e2.cnf
+[TIMEOUT] par16-1-c.cnf
+[TIMEOUT] par16-1.cnf
+[TIMEOUT] par16-2-c.cnf
+[TIMEOUT] par16-2.cnf
+[TIMEOUT] par16-3-c.cnf
+[TIMEOUT] par16-3.cnf
+[TIMEOUT] par16-4-c.cnf
+[TIMEOUT] par16-4.cnf
+[TIMEOUT] par16-5-c.cnf
+[TIMEOUT] par16-5.cnf
+[OK] SAT 0.00 par8-1-c.cnf
+[OK] SAT 0.00 par8-1.cnf
+[OK] SAT 0.00 par8-2-c.cnf
+[OK] SAT 0.00 par8-2.cnf
+[OK] SAT 0.00 par8-3-c.cnf
+[OK] SAT 0.00 par8-3.cnf
+[OK] SAT 0.00 par8-4-c.cnf
+[OK] SAT 0.00 par8-4.cnf
+[OK] SAT 0.00 par8-5-c.cnf
+[OK] SAT 0.00 par8-5.cnf
+[OK] SAT 0.33 ssa7552-038.cnf
+[OK] SAT 0.31 ssa7552-158.cnf
+[OK] SAT 0.42 ssa7552-159.cnf
+[OK] SAT 0.41 ssa7552-160.cnf
+[OK] SAT 0.00 uf50-01.cnf
+[OK] SAT 0.00 uf50-010.cnf
+[OK] SAT 0.00 uf50-011.cnf
+[OK] SAT 0.00 uf50-012.cnf
+[OK] SAT 0.00 uf50-013.cnf
+[OK] SAT 0.00 uf50-014.cnf
+[OK] SAT 0.00 uf50-015.cnf
+[OK] SAT 0.00 uf50-016.cnf
+[OK] SAT 0.00 uf50-017.cnf
+[OK] SAT 0.00 uf50-018.cnf
+[OK] SAT 0.00 uf50-019.cnf
+[OK] SAT 0.00 uf50-02.cnf
+[OK] SAT 0.00 uf50-03.cnf
+[OK] SAT 0.00 uf50-04.cnf
+[OK] SAT 0.00 uf50-05.cnf
+[OK] SAT 0.00 uf50-06.cnf
+[OK] SAT 0.00 uf50-07.cnf
+[OK] SAT 0.00 uf50-08.cnf
+[OK] SAT 0.00 uf50-09.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-100-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-100-2_0-no-4.cnf
+[OK] UNSAT 0.00 aim-200-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-200-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-200-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-200-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-200-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-200-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-200-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-200-2_0-no-4.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-1.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-2.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-3.cnf
+[OK] UNSAT 0.00 aim-50-1_6-no-4.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-1.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-2.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-3.cnf
+[OK] UNSAT 0.00 aim-50-2_0-no-4.cnf
+[OK] UNSAT 0.10 hole6.cnf
+[TIMEOUT] hole7.cnf
+[TIMEOUT] hole8.cnf
+[TIMEOUT] hole9.cnf
+[OK] UNSAT 0.20 pret150_25.cnf
+[OK] UNSAT 0.34 pret150_40.cnf
+[OK] UNSAT 0.20 pret150_60.cnf
+[OK] UNSAT 0.04 pret150_75.cnf
+[OK] UNSAT 0.03 pret60_25.cnf
+[OK] UNSAT 0.03 pret60_40.cnf
+[OK] UNSAT 0.01 pret60_60.cnf
+[OK] UNSAT 0.00 pret60_75.cnf
+[OK] UNSAT 0.03 ssa0432-003.cnf
+[OK] UNSAT 0.45 ssa2670-130.cnf
+[OK] UNSAT 0.71 ssa2670-141.cnf
+[OK] UNSAT 0.04 ssa6288-047.cnf

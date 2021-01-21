@@ -5,6 +5,7 @@ import sys
 class bcolors:
     OKGREEN = '\033[92m'
     FAIL = '\033[91m'
+    TIMEOUT = '\033[93m'
     BOLD = '\033[1m'
     ENDC = '\033[0m'
 
@@ -17,20 +18,22 @@ def runForAll(exe, dir, res):
         for filename in files:
             if filename.endswith(".cnf"):
                 fOut    = []
-                result = subprocess.run(["time", "./" + exe, dir + "/" + filename, str(heuristic)], capture_output=True, text=True)
-                execTime = result.stderr.strip().split()[2]
-                output   = result.stdout.strip().split()[0]
-                if output != res:
-                    fOut.append("[" + bcolors.FAIL + "FAIL" + bcolors.ENDC + "]")
-                else:
-                    fOut.append("[" + bcolors.OKGREEN + "OK" + bcolors.ENDC + "]")
-                fOut.append(execTime)
-                fOut.append(filename + ":")
-                fOut.append(output)
-                out.append(fOut)
-        width = max(len(word) for row in out for word in row) + 2
-        for row in out:
-            print ("".join(word.ljust(width) for word in row))
+                try:
+                    result = subprocess.run(["time", "./" + exe, dir + "/" + filename, str(heuristic)], capture_output=True, text=True, timeout = 600)
+                    execTime = result.stderr.strip().split()[2]
+                    output   = result.stdout.strip().split()[0]
+                    if output != res:
+                        fOut.append("[" + bcolors.FAIL + "FAIL" + bcolors.ENDC + "]")
+                    else:
+                        fOut.append("[" + bcolors.OKGREEN + "OK" + bcolors.ENDC + "]")
+                    fOut.append(output)
+                    fOut.append(execTime)
+                    fOut.append(filename)
+
+                except subprocess.TimeoutExpired:
+                    fOut.append("[" + bcolors.TIMEOUT + "TIMEOUT" + bcolors.ENDC + "]")
+                    fOut.append(filename)
+                print(" ".join(fOut))
 
 def main(argv):
     if len(argv) < 4:
