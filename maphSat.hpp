@@ -69,6 +69,9 @@ private:
     int selectJW(bool) const;
     int selectMOMS(bool) const;
 
+    // Elimiate pure literals.
+    void pureLiteral();
+
     // Assert a literal as a decision literal or as a non-decision literal.
     void assertLiteral(int, bool);
 
@@ -142,6 +145,8 @@ private:
 
     // Notify clauses that a literal has been asserted.
     void notifyWatches(int);
+
+    //bool pureLiteral();
 
 public:
 

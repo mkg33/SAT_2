@@ -1,3 +1,4 @@
+// The solver is largely based on the following paper: http://poincare.matf.bg.ac.rs/~filip//phd/sat-tutorial.pdf
 #include <algorithm>
 #include <cmath>
 #include <limits>
@@ -289,6 +290,44 @@ int MaphSAT::selectMOMS(bool random) const {
     return maxLit;
 }
 
+// Elimiate pure literals.
+void MaphSAT::pureLiteral() {
+    std::vector<int> trackLiterals; // keep track of literals occurring with unique polarity
+    std::vector<int> erasedLiterals; // keep track of the erased literals
+    for (const auto & clause : formula) {
+        for (int literal : clause) {
+
+            if (std::find_if(trail.begin(), trail.end(), [&](const auto & lit) {
+                return lit.first == literal || lit.first == -literal;
+            }) == trail.end()) {
+
+                auto it = std::find_if(trackLiterals.begin(), trackLiterals.end(), [&](const auto & lit) {
+                    return lit == -literal;
+                });
+                auto duplicate = std::find_if(trackLiterals.begin(), trackLiterals.end(), [&](const auto & lit) {
+                    return lit == literal;
+                });
+                auto erased = std::find_if(erasedLiterals.begin(), erasedLiterals.end(), [&](const auto & lit) {
+                    return lit == literal || lit == -literal;
+                });
+                if (it == trackLiterals.end() && duplicate == trackLiterals.end() && erased == erasedLiterals.end()) {
+                    trackLiterals.push_back(literal);
+                }
+                else if (it != trackLiterals.end()) {
+                    erasedLiterals.push_back(literal);
+                    trackLiterals.erase(it);
+                }
+            }
+        }
+    }
+    if (!trackLiterals.empty()) {
+        for (const auto & lit : trackLiterals) {
+            assertLiteral(lit, true);
+        }
+        trackLiterals.clear();
+    }
+}
+
 // Assert a literal as a decision literal or as a non-decision literal.
 void MaphSAT::assertLiteral(int literal, bool decision) {
     trail.emplace_back(literal, decision);
@@ -350,7 +389,7 @@ void MaphSAT::applyUnitPropagate() {
 }
 
 // Returns the number of decision literals in the trail that precede the first
-// occurance of 'literal', including 'literal' itself if it is a decision literal.
+// occurrence of 'literal', including 'literal' itself if it is a decision literal.
 std::size_t MaphSAT::level(int literal) const {
     std::size_t decisions = 0;
     for (const auto & lit : trail) {
@@ -358,7 +397,7 @@ std::size_t MaphSAT::level(int literal) const {
             ++decisions;
         if (lit.first == literal)
             break;
-    } 
+    }
     return decisions;
 }
 
@@ -413,6 +452,9 @@ void MaphSAT::applyExplainUIP() {
 // Add a learned clause to the formula to prevent the same conflict from happening again.
 void MaphSAT::applyLearn() {
     formula.push_back(backjumpClause);
+    // Add the clause to the watch list.
+    watchList[backjumpClause[0]].push_back(formula.size() - 1);
+    watchList[backjumpClause[1]].push_back(formula.size() - 1);
 }
 
 // Return an iterator to the first literal in the trail that has a decision level greater than 'level'.
@@ -575,12 +617,13 @@ MaphSAT::MaphSAT(std::istream & stream, MaphSAT::Heuristic heuristic) :
 
 // Solve the CNF formula.
 bool MaphSAT::solve() {
+
     // Are there any conflicts with the unit literals?
     for (std::size_t i = 0; i < unitQueue.size(); ++i) {
         const int unitLiteral = unitQueue[i];
         if (std::any_of(unitQueue.begin() + i, unitQueue.end(), [unitLiteral](int literal) { return literal == -unitLiteral; })) {
             state = MaphSAT::State::UNSAT;
-            return false;
+        return false;
         }
     }
 
@@ -588,6 +631,8 @@ bool MaphSAT::solve() {
     while (state == MaphSAT::State::UNDEF) {
         // Assert any unit literals.
         applyUnitPropagate();
+        // Eliminate pure literals. It slowed out solver down so we uncommented it.
+        // pureLiteral();
         // Do the current assignments lead to a conflict?
         if (conflict) {
             // Can we backtrack to resolve the conflict?
@@ -600,7 +645,7 @@ bool MaphSAT::solve() {
             }
         } else {
             // Does every variable have an assignment? If that is the case, we are done.
-            // Otherwise assign a value to a variable that has no assignment yet. 
+            // Otherwise assign a value to a variable that has no assignment yet.
             if (trail.size() == numberVariables)
                 state = MaphSAT::State::SAT;
             else
@@ -629,19 +674,21 @@ std::ostream & operator<<(std::ostream & out, const MaphSAT & maph) {
         out << "UNDEF\n";
         break;
     case MaphSAT::State::SAT:
-        out << "SAT\n";
+        out << "s SATISFIABLE\n";
+        // to use the runTests.py script, change the output to "SAT"
         break;
     case MaphSAT::State::UNSAT:
-        out << "UNSAT\n";
+        out << "s UNSATISFIABLE\n";
+        // to use the runTests.py script, change the output to "UNSAT"
         break;
     }
 
-    #ifdef DEBUG
+    // to use the runTests.py script, uncomment the following output
     if (maph.state == MaphSAT::State::SAT) {
+        out << "v ";
         for (const auto & literal : maph.trail)
             out << literal.first << ' ';
     }
-    #endif
 
     return out;
 }
